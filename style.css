@@ -109,7 +109,7 @@ td.n .tag.np{font-size:11.5px;font-weight:500}
 .news .eyebrow{margin-bottom:18px}
 .news h2{font-size:clamp(38px,4.6vw,60px);margin:0 0 16px;font-style:italic;line-height:1}.news h2::before{display:none}
 .news p{color:var(--mute-d);margin:0 0 10px;max-width:460px}.news a{color:var(--cream)}
-.news .embed{border-radius:var(--r);padding:10px 10px 18px;background:#fff;color:var(--mute);text-align:center;box-shadow:0 0 0 1px var(--line-d),0 30px 80px -30px rgba(243,239,230,.18)}.news .embed a{color:var(--ink)}.news .embed p{max-width:none}
+.news .embed{border-radius:var(--r);padding:10px 10px 18px;background:#f3efe6;color:var(--mute);text-align:center;box-shadow:none;border:1px solid var(--line-d)}.news .embed a{color:var(--ink)}.news .embed p{max-width:none}
 .news .embed iframe{max-width:100%!important;border-radius:var(--r)}
 .news .perks{display:flex;flex-wrap:wrap;gap:6px 0;margin-top:18px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--mute-d2)}.news .perks span:not(:last-child):after{content:"·";margin:0 12px}
 /* footer */
