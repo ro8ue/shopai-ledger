@@ -13,44 +13,45 @@ for a in SA:
 SLAND = SC["slug"] + ".html"
 def money(o): return "Not public" if o["total"] is None else m(o["total"])
 def link(a): return a["pricing_url"]
+def colmax(apps, k): return max([x["est"][k]["total"] for x in apps if x["est"][k]["total"]] or [1])
+def cell(o, mx, txt):
+    if o["total"] is None: return f"<span class='tag np'>{txt}</span>"
+    return f"{txt}<span class=bar style='--w:{max(0, min(100, round(o['total'] / mx * 100)))}%'></span>"
 
-CSS = """*{box-sizing:border-box}body{margin:0;font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:#17202a;background:#f7f8fa}
-a{color:#0b5fd1}header,main,footer{max-width:1120px;margin:0 auto;padding:14px 16px}header{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center;justify-content:space-between}
-.logo{font-weight:800;font-size:21px;text-decoration:none;color:#17202a;letter-spacing:-.01em}.logo span{color:#5b3fd6}nav{display:flex;flex-wrap:wrap;gap:4px 16px}nav a{text-decoration:none;font-size:15px}
-h1{font-size:clamp(27px,4.6vw,42px);line-height:1.15;margin:.35em 0 .25em;letter-spacing:-.02em}h2{margin-top:1.6em;line-height:1.25}.lead{font-size:18px;color:#3d4a57;margin:0 0 16px;max-width:780px}
-.tw{overflow-x:auto;background:#fff;border-radius:12px;box-shadow:0 1px 3px #0002;margin:12px 0 24px}table{border-collapse:collapse;width:100%;font-size:14.5px}
-th,td{padding:10px 12px;text-align:left;border-bottom:1px solid #e7eaee;vertical-align:top}thead th{background:#1d1640;color:#fff;font-weight:600;white-space:nowrap}tbody th{background:#f1eefc;width:190px}
-td.n .muted{white-space:normal;display:block;font-size:12.5px;min-width:110px}.cmp td:first-child{min-width:190px}.cmp td:last-child{white-space:nowrap}.plans td:last-child{min-width:230px}.cmp td:nth-child(2){min-width:210px}td.n{white-space:nowrap;font-variant-numeric:tabular-nums;font-weight:600}.box{background:#fff;border-radius:12px;padding:18px 20px;box-shadow:0 1px 3px #0002;margin:20px 0}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}.card{background:#fff;border-radius:12px;padding:14px 16px;box-shadow:0 1px 3px #0002}
-.tag{display:inline-block;font-size:12px;font-weight:700;padding:2px 8px;border-radius:99px;background:#e6f6ee;color:#0a7a4c;margin:2px 4px 2px 0}.tag.warn{background:#fff3dc;color:#8a5a00}.tag.free{background:#e8f0ff;color:#1f4fbf}
-.math{font-size:14px;color:#33404d;margin:6px 0 0;padding-left:18px}.muted{color:#5d6b78;font-size:14px}.btn{display:inline-block;background:#5b3fd6;color:#fff;font-weight:700;text-decoration:none;padding:11px 18px;border-radius:8px;margin:6px 6px 6px 0}
-.btn.alt{background:#fff;color:#5b3fd6;border:2px solid #5b3fd6}.callout{background:#fff8e8;border:1px solid #e6b54a;border-radius:12px;padding:12px 16px;margin:16px 0;font-size:15px}
-.news{background:linear-gradient(135deg,#1d1640,#3a2a8f);color:#fff;border-radius:14px;padding:20px 22px;margin:28px 0}.news h2{margin:0 0 6px}.news p{margin:4px 0;color:#ddd8ff}
-.sizes{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 4px}.sizes span{background:#fff;border:1px solid #dcd6f7;border-radius:8px;padding:6px 10px;font-size:14px}
-footer{color:#5d6b78;font-size:14px;border-top:1px solid #dde2e8;margin-top:36px}footer a{margin-right:12px}
-@media(max-width:640px){th,td{padding:8px}tbody th{width:auto}.lead{font-size:16.5px}}"""
+CSS = (R / "design.css").read_text()  # edit design.css, not style.css (style.css is generated)
+import re
+HERO_END = "<!--/hero-->"
 
 NAV = [("index.html#support", "Support apps"), (SLAND, "Search & recommendations"), ("gorgias-alternatives.html", "Gorgias alternatives"), ("changelog.html", "Change log"), ("methodology.html", "How we calculate"), ("advertise.html", "Advertise")]
 def ld(o): return '<script type="application/ld+json">' + json.dumps(o) + "</script>"
 PAGES = []
+LOGO = """<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="0.5" y="0.5" width="23" height="23" rx="4" fill="none" stroke="currentColor" stroke-opacity=".35"/><rect x="5" y="6" width="14" height="2" rx="1" fill="currentColor"/><rect x="5" y="11" width="9" height="2" rx="1" fill="currentColor"/><rect x="5" y="16" width="11.5" height="2" rx="1" fill="currentColor" fill-opacity=".55"/></svg>"""
+FONTS = '<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap">'
 def page(fn, title, desc, body, head=""):
     PAGES.append(fn)
     url = S["base_url"] + "/" + ("" if fn == "index.html" else fn)
-    nav = "".join(f'<a href="{h}">{t}</a>' for h, t in NAV)
+    nav = "".join(f'<a href="{h}"' + (' aria-current="page"' if h == fn else "") + f'>{t}</a>' for h, t in NAV)
+    news = NEWS in body; body = body.replace(NEWS, "")
+    hero, sep, rest = body.partition(HERO_END)
+    if not sep: hero, rest = "", body
+    if fn != "index.html":
+        hero = re.sub(r"<h1>(.*?): (.*?)</h1>", r"<h1>\1: <em>\2</em></h1>", hero, count=1)
+        hero = f'<section class="hero"><div class="wrap">{hero}</div></section>' if hero else ""
     (R / fn).write_text(f"""<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="google-site-verification" content="JHZv0niTmEJr6Eywzr3X6kB2OFSl9WHrn6igGEJn2Qw" />
 <title>{e(title)}</title><meta name="description" content="{e(desc)}"><link rel="canonical" href="{url}">
 <meta property="og:type" content="website"><meta property="og:site_name" content="ShopAI Ledger"><meta property="og:title" content="{e(title)}"><meta property="og:description" content="{e(desc)}"><meta property="og:url" content="{url}"><meta name="twitter:card" content="summary">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%235b3fd6'/%3E%3Ctext x='16' y='22' font-size='17' text-anchor='middle' fill='white' font-family='Arial' font-weight='bold'%3E$%3C/text%3E%3C/svg%3E">
-<link rel="stylesheet" href="style.css">{head}</head><body>
-<header><a class="logo" href="index.html">ShopAI <span>Ledger</span></a><nav>{nav}</nav></header>
-<main>{body}</main>
-<footer><p>ShopAI Ledger is independent and not affiliated with Shopify or any app listed. Prices are in USD, checked by hand on the date shown, and can change at any time. Always confirm on the vendor's site.</p>
-<p><a href="methodology.html">How we calculate</a><a href="disclosure.html">Affiliate disclosure</a><a href="changelog.html">Change log</a><a href="advertise.html">Advertise / get listed</a><a href="mailto:{S['contact']}?subject=ShopAI%20Ledger%20correction">Report a wrong price</a></p></footer></body></html>""")
+<meta name="theme-color" content="#0c0c0c"><link rel="icon" href="favicon.svg" type="image/svg+xml">
+{FONTS}<link rel="stylesheet" href="style.css">{head}</head><body>
+<header class="top"><div class="wrap"><a class="logo" href="index.html" aria-label="ShopAI Ledger home">{LOGO}<span>ShopAI <em>Ledger</em></span></a><nav class="main" aria-label="Main">{nav}</nav><a class="btn light sm" href="#newsletter">Weekly email</a></div></header>
+{hero}<main class="wrap">{rest}</main>{NEWS if news else ""}
+<footer class="site"><div class="wrap"><div><a class="logo" href="index.html">{LOGO}<span>ShopAI <em>Ledger</em></span></a><p>ShopAI Ledger is independent and not affiliated with Shopify or any app listed. Prices are in USD, checked by hand on the date shown, and can change at any time. Always confirm on the vendor's site.</p></div>
+<div class="links"><a href="methodology.html">How we calculate</a><a href="disclosure.html">Affiliate disclosure</a><a href="changelog.html">Change log</a><a href="advertise.html">Advertise / get listed</a><a href="mailto:{S['contact']}?subject=ShopAI%20Ledger%20correction">Report a wrong price</a></div>
+<div class="base"><span>Prices checked {S['updated']}</span><a href="#">Back to top ↑</a></div></div></footer></body></html>""")
 
 # Newsletter placeholder: swap the inner #newsletter-embed contents for the Beehiiv embed when ready.
-NEWS = """<section class="news" id="newsletter"><h2>Get the weekly AI app price changes</h2>
-<p>One short email a week: which Shopify AI apps changed their prices or plans, and what that means for your bill.</p>
-<div id="newsletter-embed"><script async src="https://subscribe-forms.beehiiv.com/v3/loader.js" data-beehiiv-form="15c91c67-f932-4b17-b631-62f1e5d4e75b"></script><p style="font-size:.85em">Free, one email a week. Or read it at <a href="https://shopai-ledger.beehiiv.com/" style="color:#fff">shopai-ledger.beehiiv.com</a>.</p></div></section>"""
+NEWS = """<section class="news" id="newsletter"><div class="wrap"><div><p class="eyebrow">( The weekly ledger )</p><h2>Get the weekly AI app price changes</h2>
+<p>One short email a week: which Shopify AI apps changed their prices or plans, and what that means for your bill.</p><div class="perks"><span>Free</span><span>Weekly</span><span>Unsubscribe anytime</span></div></div>
+<div class="embed" id="newsletter-embed"><script async src="https://subscribe-forms.beehiiv.com/v3/loader.js" data-beehiiv-form="15c91c67-f932-4b17-b631-62f1e5d4e75b"></script><p style="font-size:.85em;margin:14px 0 0">Free, one email a week. Or read it at <a href="https://shopai-ledger.beehiiv.com/">shopai-ledger.beehiiv.com</a>.</p></div></div></section>"""
 
 sizes_html = '<div class="sizes">' + "".join(f"<span><b>{s['label']}</b>: {s['conv']:,} support conversations/mo, {s['seats']} agent seat{'s' if s['seats']>1 else ''}</span>" for s in SIZES) + f"<span>AI resolves {int(RATE*100)}% of conversations</span></div>"
 def flag(a): return f'<span class="tag free">Free option overlaps</span>' if a.get("free_alt") and a["model"] != "free" else ('<span class="tag free">Free</span>' if a["model"] == "free" else "")
@@ -58,8 +59,8 @@ def conf(a): return '<span class="tag">Prices confirmed</span>' if not a["unconf
 
 def table(apps):
     rows = "".join(f"<tr><td><a href='{x['slug']}-pricing.html'><b>{e(x['name'])}</b></a><br><span class=muted>{e(x['type'])}</span><br>{flag(x)}</td><td>{e(x['ai_short'])}</td>"
-                   + "".join(f"<td class=n>{money(o)}<br><span class=muted style='font-weight:400'>{e(o['plan'])}</span></td>" for o in x["est"]) + f"<td class=muted>{x['checked']}</td></tr>" for x in apps)
-    return ("<div class=tw><table class=cmp><thead><tr><th>App</th><th>How AI is billed</th>" + "".join(f"<th>{s['label']}<br><span style='font-weight:400'>{s['conv']:,} conv/mo</span></th>" for s in SIZES)
+                   + "".join(f"<td class=n data-l='{SIZES[k]['label'].split()[0]}'>{cell(o, colmax(apps, k), money(o))}<span class=muted style='font-weight:400'>{e(o['plan'])}</span></td>" for k, o in enumerate(x["est"])) + f"<td class='muted ck'>{x['checked']}</td></tr>" for x in apps)
+    return ("<p class=scroll-hint>Swipe sideways to see every store size →</p><div class=tw><table class=cmp><thead><tr><th>App</th><th>How AI is billed</th>" + "".join(f"<th>{s['label']}<br><span style='font-weight:400'>{s['conv']:,} conv/mo</span></th>" for s in SIZES)
             + f"<th>Checked</th></tr></thead><tbody>{rows}</tbody></table></div>")
 
 def sortkey(a):
@@ -81,21 +82,29 @@ def ssort(a):
 sordered = sorted(SA, key=ssort)
 def stable(apps):
     rows = "".join(f"<tr><td><a href='{x['slug']}-pricing.html'><b>{e(x['name'])}</b></a><br><span class=muted>{e(x['type'])}</span><br>{sflag(x)}</td><td>{e(x['ai_short'])}<br><span class=muted>Billed on: {e(x['unit'])}</span></td>"
-                   + "".join(f"<td class=n>{smoney(o).replace(' / ', ' /<br>')}<br><span class=muted style='font-weight:400'>{e(o['plan'])}</span></td>" for o in x["est"]) + f"<td class=muted>{x['checked']}</td></tr>" for x in apps)
-    return ("<div class=tw><table class=cmp><thead><tr><th>App</th><th>How it's billed</th>" + "".join(f"<th>{s['label']}<br><span style='font-weight:400'>{s['products']:,} products · {s['orders']:,} orders</span></th>" for s in SSIZES)
+                   + "".join(f"<td class=n data-l='{SSIZES[k]['label'].split()[0]}'>{cell(o, colmax(apps, k), smoney(o))}<span class=muted style='font-weight:400'>{e(o['plan'])}</span></td>" for k, o in enumerate(x["est"])) + f"<td class='muted ck'>{x['checked']}</td></tr>" for x in apps)
+    return ("<p class=scroll-hint>Swipe sideways to see every store size →</p><div class=tw><table class=cmp><thead><tr><th>App</th><th>How it's billed</th>" + "".join(f"<th>{s['label']}<br><span style='font-weight:400'>{s['products']:,} products · {s['orders']:,} orders</span></th>" for s in SSIZES)
             + f"<th>Checked</th></tr></thead><tbody>{rows}</tbody></table></div>")
 SCOMPS = [("searchanise", "boost-ai-search"), ("rebuy", "limespot"), ("doofinder", "algolia")]
 SALTS = ["klevu", "boost-ai-search"]
 def sshort(a): return {"shopify-search-discovery": "Shopify Search & Discovery", "searchanise": "Searchanise", "boost-ai-search": "Boost", "fast-simon": "Fast Simon", "wiser": "Wiser", "limespot": "LimeSpot", "rebuy": "Rebuy", "klevu": "Klevu", "nosto": "Nosto"}.get(a["slug"], a["name"])
 scomp_links = "".join(f"<li><a href='{cslug(x,y)}'>{e(sshort(SBY[x]))} vs {e(sshort(SBY[y]))} pricing</a></li>" for x, y in SCOMPS) + "".join(f"<li><a href='{x}-alternatives.html'>{e(sshort(SBY[x]))} alternatives by real cost</a></li>" for x in SALTS)
-cats_html = (f"<div class=grid><a class=card href='#support' style='text-decoration:none;color:inherit'><b style='color:#5b3fd6'>AI customer support apps →</b><p class=muted>{len(A)} helpdesks and AI agents (Gorgias, Tidio, Intercom Fin, Zendesk…) priced by conversations and AI resolutions.</p></a>"
-             f"<a class=card href='{SLAND}' style='text-decoration:none;color:inherit'><b style='color:#5b3fd6'>AI search & recommendation apps →</b><p class=muted>{len(SA)} search, filter and recommendation apps (Searchanise, Boost, Doofinder, Rebuy, LimeSpot…) priced by products, orders, revenue or searches.</p></a></div>")
+cats_html = (f"<div class='grid cats'><a class=card href='#support'><span class=idx>01 — Category</span><span class=go>→</span><b>AI customer support apps</b><p class=muted>{len(A)} helpdesks and AI agents (Gorgias, Tidio, Intercom Fin, Zendesk…) priced by conversations and AI resolutions.</p></a>"
+             f"<a class=card href='{SLAND}'><span class=idx>02 — Category</span><span class=go>→</span><b>AI search & recommendation apps</b><p class=muted>{len(SA)} search, filter and recommendation apps (Searchanise, Boost, Doofinder, Rebuy, LimeSpot…) priced by products, orders, revenue or searches.</p></a></div>")
 
 # ---- home
+HL = [BY[k] for k in ["shopify-inbox", "chatty", "zipchat", "hubspot-service-hub", "intercom-fin", "gorgias", "zendesk"] if k in BY and BY[k]["est"][1]["total"] is not None]
+_hmx = max(x["est"][1]["total"] for x in HL) or 1
+hero_ledger = (f"<aside class=ledger aria-label='Sample: medium store monthly cost'><header><span>{SIZES[1]['label']} · {SIZES[1]['conv']:,} conversations/mo</span><span>Est. / mo</span></header><ol>"
+  + "".join(f"<li><span>{i+1:02d}</span>{e(short(x))}<b>{money(x['est'][1])}</b><i style='--w:{max(2, round(x['est'][1]['total'] / _hmx * 100))}%'></i></li>" for i, x in enumerate(HL))
+  + f"</ol><footer>AI resolves {int(RATE*100)}% of conversations. <a href='#support'>See all {len(A)} support apps →</a></footer></aside>")
 comp_links = "".join(f"<li><a href='{cslug(x,y)}'>{e(short(BY[x]))} vs {e(short(BY[y]))} pricing</a></li>" for x, y in COMPS)
 page("index.html", "ShopAI Ledger: What Shopify AI Apps Really Cost (Support, Search & Recommendations, 2026)",
  f"Real monthly cost of {len(A)} AI support apps (Gorgias, Tidio Lyro, Intercom Fin, Zendesk…) and {len(SA)} AI search & recommendation apps (Searchanise, Boost, Doofinder, Rebuy, LimeSpot…) for Shopify at three store sizes, with the math and dated sources.",
- f"<h1>What Shopify AI apps really cost</h1><p class=lead>AI apps bill per resolution, per conversation, per search, per order or by your revenue, so the sticker price rarely matches the invoice. We read every official pricing page by hand and show the estimated monthly bill at three store sizes, with the math.</p>{cats_html}"
+ f"<section class='hero home'><div class=wrap><div><p class=eyebrow>( Shopify AI app pricing · checked {S['updated']} )</p><h1>What Shopify AI apps <em>really cost</em></h1><p class=lead>AI apps bill per resolution, per conversation, per search, per order or by your revenue, so the sticker price rarely matches the invoice. We read every official pricing page by hand and show the estimated monthly bill at three store sizes, with the math.</p>"
+ f"<p style='margin:0'><a class='btn light' href='#support'>Compare support apps <span class=arr>→</span></a><a class='btn ghost' href='{SLAND}'>Search & recommendation apps</a></p></div>{hero_ledger}</div>"
+ f"<div class=wrap><div class=stats><div><b>{len(A)+len(SA)}</b><span>Apps tracked</span></div><div><b>2</b><span>Categories</span></div><div><b>3</b><span>Store sizes</span></div><div><b>{S['updated']}</b><span>Last checked</span></div></div></div>"
+ f"<div class=ticker><div class=wrap><span>Official pricing pages only</span><span>Read by hand</span><span>Every price dated</span><span>Math shown</span><span>Not public = we don't guess</span></div></div></section>{HERO_END}{cats_html}"
  f"<h2 id=support>AI customer support apps</h2>{sizes_html}<p class=muted>Prices checked {S['updated']}. Monthly-billing prices unless noted. Sorted by medium-store cost. Click an app to see the full plan list and math.</p>{table(ordered)}"
  f"<div class=callout><b>The free option first.</b> <a href='shopify-inbox-pricing.html'>Shopify Inbox</a> is free and now includes an AI agent trained on your catalog and policies. If you only need storefront chat, start there. Paid apps make sense when you need email/social ticketing, order actions, or higher automation.</div>"
  f"<h2>Support pricing comparisons</h2><ul>{comp_links}<li><a href='gorgias-alternatives.html'>Gorgias alternatives by real cost</a></li></ul>"
@@ -106,13 +115,13 @@ page("index.html", "ShopAI Ledger: What Shopify AI Apps Really Cost (Support, Se
 
 # ---- app pages
 def plans_table(a):
-    rows = "".join(f"<tr><td><b>{e(p['name'])}</b></td><td class=n>{m(p['monthly']) if p['monthly'] is not None else '—'}</td><td class=n>{m(p['annual']) if p['annual'] is not None else '—'}</td><td>{e(p['includes'])}</td></tr>" for p in a["plans"])
+    rows = "".join(f"<tr><td><b>{e(p['name'])}</b></td><td class=n data-l='Monthly'>{m(p['monthly']) if p['monthly'] is not None else '—'}</td><td class=n data-l='Annual /mo'>{m(p['annual']) if p['annual'] is not None else '—'}</td><td>{e(p['includes'])}</td></tr>" for p in a["plans"])
     return f"<div class=tw><table class=plans><thead><tr><th>Plan</th><th>Monthly billing</th><th>Annual (per mo)</th><th>What's included</th></tr></thead><tbody>{rows}</tbody></table></div>"
 def est_block(a):
     out = ""
     for s, o in zip(SIZES, a["est"]):
-        out += f"<div class=card><b>{s['label']}</b> <span class=muted>({s['conv']:,} conversations, {s['seats']} seat{'s' if s['seats']>1 else ''}, {int(s['conv']*RATE):,} AI-resolved)</span><div style='font-size:24px;font-weight:800;margin:4px 0'>{money(o)}<span class=muted style='font-size:14px;font-weight:400'>{'/mo' if o['total'] is not None else ''}</span></div><span class=muted>{e(o['plan'])}</span><ul class=math>" + "".join(f"<li>{e(l)}</li>" for l in o["math"]) + "</ul></div>"
-    return f"<div class=grid>{out}</div>"
+        out += f"<div class=card><b>{s['label']}</b> <span class=muted>({s['conv']:,} conversations, {s['seats']} seat{'s' if s['seats']>1 else ''}, {int(s['conv']*RATE):,} AI-resolved)</span><div class='num{"" if o["total"] is not None else " np"}'>{money(o)}<span class=muted>{'/mo' if o['total'] is not None else ''}</span></div><span class=plan>{e(o['plan'])}</span><ul class=math>" + "".join(f"<li>{e(l)}</li>" for l in o["math"]) + "</ul></div>"
+    return f"<div class='grid est'>{out}</div>"
 for a in A:
     nm = short(a); rel = [c for c in COMPS if a["slug"] in c]
     rel_html = " · ".join(f"<a href='{cslug(x,y)}'>{e(short(BY[x]))} vs {e(short(BY[y]))}</a>" for x, y in rel)
@@ -124,7 +133,7 @@ for a in A:
            (f"How does {nm} charge for AI?", a["ai_billing"])]
     page(f"{a['slug']}-pricing.html", f"{nm} Pricing 2026: Plans & Real Monthly Cost for Shopify Stores | ShopAI Ledger",
      f"{nm} pricing explained: plans, how AI usage is billed, and the estimated monthly cost for small, medium and large Shopify stores, with the math. Checked {a['checked']}.",
-     f"<h1>{e(nm)} pricing: what it really costs a Shopify store</h1><p class=lead>{e(a['summary'])}</p><p>{conf(a)}{flag(a)}<span class=muted>Price checked on {a['checked']} from the official source.</span></p>"
+     f"<h1>{e(nm)} pricing: what it really costs a Shopify store</h1><p class=lead>{e(a['summary'])}</p><p class=metaline>{conf(a)}{flag(a)}<span class=muted>Price checked on {a['checked']} from the official source.</span></p>{HERO_END}"
      f"<h2>Plans</h2>{plans_table(a)}<h2>How AI usage is billed</h2><p>{e(a['ai_billing'])}</p>"
      f"<h2>Estimated monthly cost by store size</h2>{est_block(a)}<p class=muted>Assumptions: AI resolves {int(RATE*100)}% of conversations; monthly billing unless noted; taxes, add-ons, SMS/voice and phone fees excluded. <a href='methodology.html'>How we calculate</a>.</p>"
      f"{unc}{fa}" + (f"<p class=muted>Note: {e(a['notes'])}</p>" if a["notes"] else "")
@@ -149,21 +158,21 @@ for x, y in COMPS:
         ("Details", f"<a href='{x}-pricing.html'>{e(na)} pricing & math</a>", f"<a href='{y}-pricing.html'>{e(nb)} pricing & math</a>")])
     page(cslug(x, y), f"{na} vs {nb} Pricing (2026): Real Monthly Cost Compared | ShopAI Ledger",
      f"{na} vs {nb}: how each bills for AI, and the estimated monthly cost for small, medium and large Shopify stores side by side. Prices checked {S['updated']}.",
-     f"<h1>{e(na)} vs {e(nb)} pricing</h1><p class=lead>Two different ways of billing AI support. Here's what each would cost the same Shopify store, using official prices checked {S['updated']}.</p>{sizes_html}"
-     f"<div class=tw><table><thead><tr><th></th><th>{e(na)}</th><th>{e(nb)}</th></tr></thead><tbody>{rows}</tbody></table></div><h2>Bottom line on cost</h2><ul>{''.join(lines)}</ul>"
+     f"<h1>{e(na)} vs {e(nb)} pricing</h1><p class=lead>Two different ways of billing AI support. Here's what each would cost the same Shopify store, using official prices checked {S['updated']}.</p>{HERO_END}{sizes_html}"
+     f"<div class=tw><table class=vs><thead><tr><th></th><th>{e(na)}</th><th>{e(nb)}</th></tr></thead><tbody>{rows}</tbody></table></div><h2>Bottom line on cost</h2><ul>{''.join(lines)}</ul>"
      "<p class=muted>Cost is only one factor. Features, channels, integrations and AI quality differ, and your real volume and resolution rate will move these numbers. See the full math on each app's page.</p>" + NEWS)
 
 # ---- Gorgias alternatives
 alts = [o for o in ordered if o["slug"] != "gorgias"]
 page("gorgias-alternatives.html", "Gorgias Alternatives 2026: Real Monthly Cost of 12 AI Support Apps for Shopify | ShopAI Ledger",
  "Gorgias alternatives for Shopify compared on real monthly cost at three store sizes: Tidio, Intercom Fin, Zendesk, HubSpot, Richpanel, Re:amaze, Freshdesk, Zipchat, Chatty and Shopify Inbox.",
- f"<h1>Gorgias alternatives, compared on real cost</h1><p class=lead>For reference, Gorgias comes out at about <b>{money(BY['gorgias']['est'][0])}</b> (small), <b>{money(BY['gorgias']['est'][1])}</b> (medium) and <b>{money(BY['gorgias']['est'][2])}</b> (large) a month on our assumptions (<a href='gorgias-pricing.html'>see the math</a>). Here's how the alternatives price out for the same store.</p>"
+ f"<h1>Gorgias alternatives, compared on real cost</h1><p class=lead>For reference, Gorgias comes out at about <b>{money(BY['gorgias']['est'][0])}</b> (small), <b>{money(BY['gorgias']['est'][1])}</b> (medium) and <b>{money(BY['gorgias']['est'][2])}</b> (large) a month on our assumptions (<a href='gorgias-pricing.html'>see the math</a>). Here's how the alternatives price out for the same store.</p>{HERO_END}"
  f"{sizes_html}{table(alts)}<p class=muted>Some of these are full helpdesks, and others (Zipchat, Chatty, Shopify Inbox) are chat/AI layers only. Compare like with like. <a href='methodology.html'>How we calculate</a>.</p>{NEWS}")
 
 # ---- search & recommendations: category landing
 page(SLAND, "Shopify AI Search & Product Recommendation Apps: Real Monthly Cost Compared (2026) | ShopAI Ledger",
  f"Real monthly cost of {len(SA)} Shopify AI search, filter and recommendation apps (Searchanise, Boost, Fast Simon, Doofinder, Algolia, Wiser, LimeSpot, Rebuy, Klevu, Nosto) at three store sizes, with the math. Checked {S['updated']}.",
- f"<h1>What Shopify AI search & recommendation apps really cost</h1><p class=lead>Search and recommendation apps bill on completely different things: product count, store visits, keystrokes, orders or revenue. We converted each official price list into one monthly bill for the same three stores.</p>"
+ f"<h1>What Shopify AI search & recommendation apps really cost</h1><p class=lead>Search and recommendation apps bill on completely different things: product count, store visits, keystrokes, orders or revenue. We converted each official price list into one monthly bill for the same three stores.</p>{HERO_END}"
  f"{ssizes_html}<p class=muted>Prices checked {S['updated']} from official pricing pages and Shopify App Store listings. Monthly billing unless noted. Sorted by medium-store cost. \"Not public / check site\" means the vendor doesn't publish a price for that size, so we don't guess.</p>{stable(sordered)}"
  f"<div class=callout><b>The free option first.</b> <a href='shopify-search-discovery-pricing.html'>Shopify Search & Discovery</a> is free. It adds filters, synonyms, product boosts and related-product recommendations, and Shopify says semantic (AI) understanding is built into its online store search. Paid apps earn their keep with big catalogs, merchandising rules, personalization and upsell widgets.</div>"
  f"<h2>Comparisons</h2><ul>{scomp_links}</ul>"
@@ -174,13 +183,13 @@ page(SLAND, "Shopify AI Search & Product Recommendation Apps: Real Monthly Cost 
 
 # ---- search app pages
 def splans_table(a):
-    rows = "".join(f"<tr><td><b>{e(p['name'])}</b></td><td class=n>{m(p['monthly']) if p['monthly'] is not None else '—'}</td><td class=n>{m(p['annual']) if p['annual'] is not None else '—'}</td><td>{e(p['includes'])}</td></tr>" for p in a["plans"])
+    rows = "".join(f"<tr><td><b>{e(p['name'])}</b></td><td class=n data-l='Monthly'>{m(p['monthly']) if p['monthly'] is not None else '—'}</td><td class=n data-l='Annual /mo'>{m(p['annual']) if p['annual'] is not None else '—'}</td><td>{e(p['includes'])}</td></tr>" for p in a["plans"])
     return f"<div class=tw><table class=plans><thead><tr><th>Plan</th><th>Monthly billing</th><th>Annual (per mo)</th><th>What's included</th></tr></thead><tbody>{rows}</tbody></table></div>"
 def sest_block(a):
     out = ""
     for s, o in zip(SSIZES, a["est"]):
-        out += f"<div class=card><b>{s['label']}</b> <span class=muted>({s['products']:,} products, {s['orders']:,} orders, {m(s['revenue'])} revenue, {s['sessions']:,} sessions, {s['requests']:,} search requests a month)</span><div style='font-size:24px;font-weight:800;margin:4px 0'>{smoney(o)}<span class=muted style='font-size:14px;font-weight:400'>{'/mo' if o['total'] is not None else ''}</span></div><span class=muted>{e(o['plan'])}</span><ul class=math>" + "".join(f"<li>{e(l)}</li>" for l in o["math"]) + "</ul></div>"
-    return f"<div class=grid>{out}</div>"
+        out += f"<div class=card><b>{s['label']}</b> <span class=muted>({s['products']:,} products, {s['orders']:,} orders, {m(s['revenue'])} revenue, {s['sessions']:,} sessions, {s['requests']:,} search requests a month)</span><div class='num{"" if o["total"] is not None else " np"}'>{smoney(o)}<span class=muted>{'/mo' if o['total'] is not None else ''}</span></div><span class=plan>{e(o['plan'])}</span><ul class=math>" + "".join(f"<li>{e(l)}</li>" for l in o["math"]) + "</ul></div>"
+    return f"<div class='grid est'>{out}</div>"
 for a in SA:
     nm = sshort(a); rel = [c for c in SCOMPS if a["slug"] in c]
     rel_html = " · ".join(f"<a href='{cslug(x,y)}'>{e(sshort(SBY[x]))} vs {e(sshort(SBY[y]))}</a>" for x, y in rel) + "".join(f" · <a href='{x}-alternatives.html'>{e(sshort(SBY[x]))} alternatives</a>" for x in SALTS if x == a["slug"])
@@ -192,7 +201,7 @@ for a in SA:
            (f"How does {nm} charge?", a["ai_billing"])]
     page(f"{a['slug']}-pricing.html", f"{nm} Pricing 2026: Plans & Real Monthly Cost for Shopify Stores | ShopAI Ledger",
      f"{nm} pricing explained: plans, what it bills on ({a['unit'].lower()}), and the estimated monthly cost for small, medium and large Shopify stores, with the math. Checked {a['checked']}.",
-     f"<p class=muted><a href='{SLAND}'>Search & recommendations</a> › {e(nm)}</p><h1>{e(nm)} pricing: what it really costs a Shopify store</h1><p class=lead>{e(a['summary'])}</p><p>{sconf(a)}{sflag(a)}<span class=muted>Price checked on {a['checked']} from the official source.</span></p>"
+     f"<p class=crumb><a href='{SLAND}'>Search & recommendations</a> › {e(nm)}</p><h1>{e(nm)} pricing: what it really costs a Shopify store</h1><p class=lead>{e(a['summary'])}</p><p class=metaline>{sconf(a)}{sflag(a)}<span class=muted>Price checked on {a['checked']} from the official source.</span></p>{HERO_END}"
      f"<h2>Plans</h2>{splans_table(a)}<h2>How it's billed</h2><p>{e(a['ai_billing'])}</p>"
      f"<h2>Estimated monthly cost by store size</h2>{sest_block(a)}<p class=muted>Monthly billing unless noted; taxes, add-ons, setup/developer work and negotiated discounts excluded. <a href='methodology.html#search'>How we calculate</a>.</p>"
      f"{unc}{fa}" + (f"<p class=muted>Note: {e(a['notes'])}</p>" if a["notes"] else "")
@@ -217,8 +226,8 @@ for x, y in SCOMPS:
         ("Details", f"<a href='{x}-pricing.html'>{e(na)} pricing & math</a>", f"<a href='{y}-pricing.html'>{e(nb)} pricing & math</a>")])
     page(cslug(x, y), f"{na} vs {nb} Pricing (2026): Real Monthly Cost for Shopify Stores | ShopAI Ledger",
      f"{na} vs {nb}: what each bills on, and the estimated monthly cost for small, medium and large Shopify stores side by side. Prices checked {S['updated']}.",
-     f"<p class=muted><a href='{SLAND}'>Search & recommendations</a> › Comparison</p><h1>{e(na)} vs {e(nb)} pricing</h1><p class=lead>{e(na)} bills on {e(a['unit'].lower())}; {e(nb)} bills on {e(b['unit'].lower())}. Here's what each would cost the same Shopify store, using official prices checked {S['updated']}.</p>{ssizes_html}"
-     f"<div class=tw><table><thead><tr><th></th><th>{e(na)}</th><th>{e(nb)}</th></tr></thead><tbody>{rows}</tbody></table></div><h2>Bottom line on cost</h2><ul>{''.join(lines)}</ul>"
+     f"<p class=crumb><a href='{SLAND}'>Search & recommendations</a> › Comparison</p><h1>{e(na)} vs {e(nb)} pricing</h1><p class=lead>{e(na)} bills on {e(a['unit'].lower())}; {e(nb)} bills on {e(b['unit'].lower())}. Here's what each would cost the same Shopify store, using official prices checked {S['updated']}.</p>{HERO_END}{ssizes_html}"
+     f"<div class=tw><table class=vs><thead><tr><th></th><th>{e(na)}</th><th>{e(nb)}</th></tr></thead><tbody>{rows}</tbody></table></div><h2>Bottom line on cost</h2><ul>{''.join(lines)}</ul>"
      "<p class=muted>Cost is only one factor. Features, merchandising controls, AI quality and integrations differ, and your real catalog, traffic and orders will move these numbers. See the full math on each app's page.</p>" + NEWS)
 
 # ---- search alternatives pages
@@ -227,18 +236,18 @@ for x in SALTS:
     ref = " / ".join(f"<b>{smoney(o)}</b> ({s['label'].split()[0].lower()})" for s, o in zip(SSIZES, a["est"]))
     page(f"{x}-alternatives.html", f"{na} Alternatives 2026: Real Monthly Cost of {len(alts)} Shopify AI Search & Recommendation Apps | ShopAI Ledger",
      f"{na} alternatives for Shopify compared on real monthly cost at three store sizes: Searchanise, Fast Simon, Doofinder, Algolia, Wiser, LimeSpot, Rebuy, Nosto and the free Shopify Search & Discovery.",
-     f"<p class=muted><a href='{SLAND}'>Search & recommendations</a> › Alternatives</p><h1>{e(na)} alternatives, compared on real cost</h1><p class=lead>For reference, {e(na)} comes out at {ref} on our assumptions (<a href='{x}-pricing.html'>see the math</a>). Here's how the alternatives price out for the same store.</p>"
+     f"<p class=crumb><a href='{SLAND}'>Search & recommendations</a> › Alternatives</p><h1>{e(na)} alternatives, compared on real cost</h1><p class=lead>For reference, {e(na)} comes out at {ref} on our assumptions (<a href='{x}-pricing.html'>see the math</a>). Here's how the alternatives price out for the same store.</p>{HERO_END}"
      f"{ssizes_html}{stable(alts)}<p class=muted>Some of these are search & filter apps, and others (Wiser, LimeSpot, Rebuy) focus on recommendations and upsells. Compare like with like. <a href='methodology.html#search'>How we calculate</a>.</p>{NEWS}")
 
 # ---- change log
 CL = D.get("changelog") or []
 page("changelog.html", "Shopify AI App Price Change Log | ShopAI Ledger", "A dated log of pricing and plan changes for Shopify AI apps (customer support, search and product recommendations), updated weekly.",
- "<h1>Price change log</h1><p class=lead>Every pricing or plan change we spot, dated. We re-check every app's official pricing page weekly.</p>"
+ "<h1>Price change log</h1><p class=lead>Every pricing or plan change we spot, dated. We re-check every app's official pricing page weekly.</p><!--/hero-->"
  + "".join(f"<div class=box><b>{e(c['date'])}</b>: {e(c['title'])}<ul>" + "".join(f"<li>{e(i)}</li>" for i in c["items"]) + "</ul></div>" for c in CL) + NEWS)
 
 # ---- methodology
 page("methodology.html", "How We Calculate Shopify AI App Costs | ShopAI Ledger", "The store sizes, assumptions and formulas ShopAI Ledger uses to estimate the real monthly cost of Shopify AI support, search and recommendation apps.",
- f"""<h1>How we calculate</h1><div class=box><h2 style="margin-top:0">Sources</h2><ul><li>Every price comes from the vendor's official pricing page or its official Shopify App Store listing, read by hand. No scraping, no third-party price lists.</li>
+ f"""<h1>How we calculate</h1><!--/hero--><div class=box><h2 style="margin-top:0">Sources</h2><ul><li>Every price comes from the vendor's official pricing page or its official Shopify App Store listing, read by hand. No scraping, no third-party price lists.</li>
 <li>Each app shows the date we checked it and links the source. If a number isn't published, we say <b>"Not public / check site"</b> instead of guessing.</li><li>We re-check weekly and log changes on the <a href="changelog.html">change log</a>.</li></ul></div>
 <div class=box><h2 style="margin-top:0">Support apps: store sizes</h2>{sizes_html}<p>For support apps we size stores by <b>support conversations per month</b>, not orders, because conversations are what these apps bill. Seats are the number of human agents paying for a seat.</p></div>
 <div class=box><h2 style="margin-top:0">Assumptions</h2><ul><li><b>AI resolves {int(RATE*100)}% of conversations.</b> Vendors advertise 50–75%+; your rate may be higher or lower, and the cost scales with it.</li>
@@ -254,20 +263,21 @@ page("methodology.html", "How We Calculate Shopify AI App Costs | ShopAI Ledger"
 
 # ---- disclosure
 page("disclosure.html", "Affiliate Disclosure | ShopAI Ledger", "How ShopAI Ledger makes money and how that is kept separate from prices and rankings.",
- """<h1>Affiliate disclosure</h1><div class=box><p><b>ShopAI Ledger earns a commission from some apps.</b> If you sign up through a link labelled "affiliate link", the app maker may pay us, at no extra cost to you. Every "official pricing" link still goes straight to the vendor with no tracking.</p>
+ """<h1>Affiliate disclosure</h1><!--/hero--><div class=box><p><b>ShopAI Ledger earns a commission from some apps.</b> If you sign up through a link labelled "affiliate link", the app maker may pay us, at no extra cost to you. Every "official pricing" link still goes straight to the vendor with no tracking.</p>
 <p>Apps we're currently an affiliate of: Gorgias (since 18 Oct 2026). This list is updated whenever that changes. Affiliate status never changes the prices we show, the math, or the sort order (always by estimated cost).</p>
 <p>We may also offer clearly-labelled sponsored placements. Sponsored content is always marked "Sponsored" and never changes an app's price data. See <a href="advertise.html">Advertise</a>.</p></div>""")
 
 # ---- advertise
 page("advertise.html", "Advertise or Get Your App Listed | ShopAI Ledger", "App makers: get your Shopify AI app listed, correct your pricing, or sponsor the weekly price-change email.",
- f"""<h1>Advertise / get your app listed</h1><p class=lead>ShopAI Ledger is read by Shopify merchants comparing what AI apps really cost.</p>
+ f"""<h1>Advertise / get your app listed</h1><p class=lead>ShopAI Ledger is read by Shopify merchants comparing what AI apps really cost.</p><!--/hero-->
 <div class=grid><div class=card><b>Free listing</b><p class=muted>Have a Shopify AI support, search or recommendation app with public pricing? Send us the link, and we list apps for free if the pricing is public.</p></div>
 <div class=card><b>Pricing corrections</b><p class=muted>Changed your plans? Tell us and we'll re-check against your public pricing page within a week.</p></div>
 <div class=card><b>Sponsorship</b><p class=muted>Featured placements and sponsor slots in the weekly price-change email (launching soon). Always labelled as sponsored. Placements never change price data.</p></div></div>
 <p><a class=btn href="mailto:{S['contact']}?subject=ShopAI%20Ledger%20listing%20%2F%20sponsorship">Contact us</a></p>""")
 
 (R / "style.css").write_text(CSS)
-(R / "404.html").write_text('<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Not found | ShopAI Ledger</title><link rel="stylesheet" href="/shopai-ledger/style.css"><main><h1>Page not found</h1><p><a href="/shopai-ledger/">Go to the ShopAI Ledger comparison</a></p></main>')
+(R / "favicon.svg").write_text('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" rx="7" fill="#0c0c0c"/><rect x="7" y="9" width="18" height="2.6" rx="1.3" fill="#f3efe6"/><rect x="7" y="14.7" width="11.5" height="2.6" rx="1.3" fill="#f3efe6"/><rect x="7" y="20.4" width="14.5" height="2.6" rx="1.3" fill="#f3efe6" fill-opacity=".55"/></svg>')
+(R / "404.html").write_text(f'<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Not found | ShopAI Ledger</title><meta name="robots" content="noindex"><link rel="icon" href="/shopai-ledger/favicon.svg" type="image/svg+xml">{FONTS}<link rel="stylesheet" href="/shopai-ledger/style.css"></head><body><section class="hero"><div class="wrap"><p class="eyebrow">( 404 )</p><h1>Page not <em>found</em></h1><p style="margin:0"><a class="btn light" href="/shopai-ledger/">Go to the ShopAI Ledger comparison</a></p></div></section></body></html>')
 (R / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "".join(f"  <url><loc>{S['base_url']}/{'' if p=='index.html' else p}</loc><lastmod>{S['updated']}</lastmod></url>\n" for p in PAGES) + "</urlset>\n")
 (R / "robots.txt").write_text(f"User-agent: *\nAllow: /\nSitemap: {S['base_url']}/sitemap.xml\n")
 (R / ".nojekyll").write_text("")
