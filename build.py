@@ -6,7 +6,7 @@ SIZES = S["sizes"]; RATE = S["ai_rate"]; BY = {a["slug"]: a for a in A}
 for a in A:
     a["est"] = [MODELS[a["model"]](a["params"], s["conv"], s["seats"], int(s["conv"] * RATE)) for s in SIZES]
 def money(o): return "Not public" if o["total"] is None else m(o["total"])
-def link(a): return a.get("affiliate_url") or a["pricing_url"]
+def link(a): return a["pricing_url"]
 
 CSS = """*{box-sizing:border-box}body{margin:0;font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:#17202a;background:#f7f8fa}
 a{color:#0b5fd1}header,main,footer{max-width:1120px;margin:0 auto;padding:14px 16px}header{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center;justify-content:space-between}
@@ -99,7 +99,7 @@ for a in A:
      f"<h2>Plans</h2>{plans_table(a)}<h2>How AI usage is billed</h2><p>{e(a['ai_billing'])}</p>"
      f"<h2>Estimated monthly cost by store size</h2>{est_block(a)}<p class=muted>Assumptions: AI resolves {int(RATE*100)}% of conversations; monthly billing unless noted; taxes, add-ons, SMS/voice and phone fees excluded. <a href='methodology.html'>How we calculate</a>.</p>"
      f"{unc}{fa}" + (f"<p class=muted>Note: {e(a['notes'])}</p>" if a["notes"] else "")
-     + f"<p><a class=btn href='{e(link(a))}' rel='nofollow noopener' target='_blank'>See {e(nm)}'s official pricing</a>" + (f"<a class='btn alt' href='{e(a['shopify_url'])}' rel='nofollow noopener' target='_blank'>Shopify App Store listing</a>" if a.get("shopify_url") and a["shopify_url"] != link(a) else "") + "</p>"
+     + f"<p><a class=btn href='{e(link(a))}' rel='nofollow noopener' target='_blank'>See {e(nm)}'s official pricing</a>" + (f"<a class='btn alt' href='{e(a['affiliate_url'])}' rel='sponsored noopener' target='_blank'>Try {e(nm)} (affiliate link)</a>" if a.get("affiliate_url") else "") + (f"<a class='btn alt' href='{e(a['shopify_url'])}' rel='nofollow noopener' target='_blank'>Shopify App Store listing</a>" if a.get("shopify_url") and a["shopify_url"] != link(a) else "") + "</p>"
      f"<h2>Sources</h2><ul class=muted>{srcs}</ul>" + (f"<p>Compare: {rel_html}</p>" if rel else "") + f"<p class=muted>Other apps: {others}</p>{NEWS}",
      head=ld({"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": t}} for q, t in faq]}))
 
@@ -150,8 +150,8 @@ page("methodology.html", "How We Calculate Shopify AI App Costs | ShopAI Ledger"
 
 # ---- disclosure
 page("disclosure.html", "Affiliate Disclosure | ShopAI Ledger", "How ShopAI Ledger makes money and how that is kept separate from prices and rankings.",
- """<h1>Affiliate disclosure</h1><div class=box><p><b>Right now, ShopAI Ledger has no affiliate links.</b> Every "official pricing" link goes straight to the vendor.</p>
-<p>In future we may join affiliate programs run by some app makers. If we do, those links will be labelled, and this page will list which apps pay us. Affiliate status never changes the prices we show, the math, or the sort order (always by estimated cost).</p>
+ """<h1>Affiliate disclosure</h1><div class=box><p><b>ShopAI Ledger earns a commission from some apps.</b> If you sign up through a link labelled "affiliate link", the app maker may pay us, at no extra cost to you. Every "official pricing" link still goes straight to the vendor with no tracking.</p>
+<p>Apps we're currently an affiliate of: Gorgias (since 18 Oct 2026). This list is updated whenever that changes. Affiliate status never changes the prices we show, the math, or the sort order (always by estimated cost).</p>
 <p>We may also offer clearly-labelled sponsored placements. Sponsored content is always marked "Sponsored" and never changes an app's price data. See <a href="advertise.html">Advertise</a>.</p></div>""")
 
 # ---- advertise

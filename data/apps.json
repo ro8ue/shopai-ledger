@@ -1,838 +1,838 @@
 {
- "site": {
-  "name": "ShopAI Ledger",
-  "base_url": "https://ro8ue.github.io/shopai-ledger",
-  "updated": "2026-10-18",
-  "contact": "alinkewu@gmail.com",
-  "sizes": [
-   {
-    "key": "small",
-    "label": "Small store",
-    "conv": 200,
-    "seats": 1
-   },
-   {
-    "key": "medium",
-    "label": "Medium store",
-    "conv": 1000,
-    "seats": 2
-   },
-   {
-    "key": "large",
-    "label": "Large store",
-    "conv": 4000,
-    "seats": 5
-   }
+  "site": {
+    "name": "ShopAI Ledger",
+    "base_url": "https://ro8ue.github.io/shopai-ledger",
+    "updated": "2026-10-18",
+    "contact": "alinkewu@gmail.com",
+    "sizes": [
+      {
+        "key": "small",
+        "label": "Small store",
+        "conv": 200,
+        "seats": 1
+      },
+      {
+        "key": "medium",
+        "label": "Medium store",
+        "conv": 1000,
+        "seats": 2
+      },
+      {
+        "key": "large",
+        "label": "Large store",
+        "conv": 4000,
+        "seats": 5
+      }
+    ],
+    "ai_rate": 0.5
+  },
+  "apps": [
+    {
+      "slug": "gorgias",
+      "name": "Gorgias",
+      "type": "Helpdesk + AI agent",
+      "model": "gorgias",
+      "summary": "Ecommerce helpdesk priced by ticket volume (not seats), with a usage-priced AI Agent on every plan.",
+      "ai_billing": "Per automated interaction: $1.00 on monthly contracts, $0.90 on annual. Each AI interaction also counts as a helpdesk ticket. Gorgias's page also lists $1.50 per interaction for overage above a plan's included allowance.",
+      "plans": [
+        {
+          "name": "Starter",
+          "monthly": 10,
+          "annual": null,
+          "includes": "50 tickets/mo, 30 AI interactions; $0.40/extra ticket; monthly billing only"
+        },
+        {
+          "name": "Basic",
+          "monthly": 60,
+          "annual": 50,
+          "includes": "300 tickets/mo, 30 AI interactions; $0.40/extra ticket"
+        },
+        {
+          "name": "Pro",
+          "monthly": 360,
+          "annual": 300,
+          "includes": "2,000 tickets/mo, 190 AI interactions; $0.36/extra ticket"
+        },
+        {
+          "name": "Advanced",
+          "monthly": 900,
+          "annual": 750,
+          "includes": "5,000 tickets/mo, 530 AI interactions; $0.36/extra ticket (sold via demo)"
+        },
+        {
+          "name": "Enterprise",
+          "monthly": null,
+          "annual": null,
+          "includes": "Custom quote"
+        }
+      ],
+      "params": {
+        "plans": [
+          [
+            "Starter",
+            10,
+            50,
+            0.4,
+            30
+          ],
+          [
+            "Basic",
+            60,
+            300,
+            0.4,
+            30
+          ],
+          [
+            "Pro",
+            360,
+            2000,
+            0.36,
+            190
+          ],
+          [
+            "Advanced",
+            900,
+            5000,
+            0.36,
+            530
+          ]
+        ],
+        "ai_unit": 1.0,
+        "ai_overage_note": 1.5
+      },
+      "free_alt": "Shopify Inbox covers storefront chat and a basic AI agent for free, but not email ticketing.",
+      "pricing_url": "https://www.gorgias.com/pricing",
+      "site_url": "https://www.gorgias.com/",
+      "shopify_url": "https://apps.shopify.com/helpdesk",
+      "unconfirmed": [],
+      "notes": "Gorgias's pricing page markup also contains a second, higher price set (Basic $77, Pro $471, Advanced $1,227). We used the detailed plan data (tickets, overage, AI allowance) on the same page. Check your quote on gorgias.com.",
+      "sources": [
+        [
+          "Gorgias pricing page",
+          "https://www.gorgias.com/pricing"
+        ]
+      ],
+      "checked": "2026-10-18",
+      "affiliate_url": "https://partner.gorgias.com/7bk6ikez45x3",
+      "ai_short": "$1.00 per automated interaction (monthly), plus ticket fees"
+    },
+    {
+      "slug": "tidio",
+      "name": "Tidio (Lyro AI Agent)",
+      "type": "Live chat + AI agent",
+      "model": "tidio",
+      "summary": "Live chat and helpdesk with Lyro, an AI agent sold as its own plan. Human and AI conversations are billed separately.",
+      "ai_billing": "Per Lyro conversation: any conversation with at least one Lyro reply counts once, whether or not it's resolved. Lyro plan: $39/mo for up to 200 Lyro conversations. Every account gets 50 Lyro conversations once.",
+      "plans": [
+        {
+          "name": "Free",
+          "monthly": 0,
+          "annual": null,
+          "includes": "Live chat with 50 users, Flows for up to 100 visitors/mo"
+        },
+        {
+          "name": "Customer Service (Starter)",
+          "monthly": 29,
+          "annual": 24.17,
+          "includes": "100 billable (human-replied) conversations"
+        },
+        {
+          "name": "Customer Service (Growth)",
+          "monthly": 59,
+          "annual": 49.17,
+          "includes": "From 250 billable conversations (higher tiers priced on Tidio's site)"
+        },
+        {
+          "name": "Lyro AI Agent",
+          "monthly": 39,
+          "annual": 32.5,
+          "includes": "Up to 200 Lyro conversations; larger tiers: check site"
+        },
+        {
+          "name": "Flows",
+          "monthly": 29,
+          "annual": 24.17,
+          "includes": "Automation flows for up to 40k visitors"
+        },
+        {
+          "name": "Plus",
+          "monthly": null,
+          "annual": null,
+          "includes": "Custom pricing"
+        }
+      ],
+      "params": {
+        "cs_starter": [
+          29,
+          100
+        ],
+        "lyro": [
+          39,
+          200
+        ]
+      },
+      "free_alt": "Shopify Inbox's free AI agent overlaps with Lyro for pre-sales and FAQ chat.",
+      "pricing_url": "https://www.tidio.com/pricing/",
+      "site_url": "https://www.tidio.com/",
+      "shopify_url": "https://apps.shopify.com/tidio-chat",
+      "unconfirmed": [
+        "Lyro tiers above 200 conversations/mo",
+        "Customer Service tiers above 250 conversations/mo"
+      ],
+      "notes": "The annual prices ($24.17, $49.17, $32.50) are monthly equivalents of yearly billing. The monthly prices are from Tidio's Shopify App Store listing.",
+      "sources": [
+        [
+          "Tidio pricing page",
+          "https://www.tidio.com/pricing/"
+        ],
+        [
+          "Tidio on Shopify App Store",
+          "https://apps.shopify.com/tidio-chat"
+        ]
+      ],
+      "checked": "2026-10-18",
+      "affiliate_url": null,
+      "ai_short": "Per Lyro conversation ($39 for 200), human chats billed separately"
+    },
+    {
+      "slug": "intercom-fin",
+      "name": "Intercom (Fin AI Agent)",
+      "type": "Helpdesk + AI agent",
+      "model": "intercom",
+      "summary": "Seat-based helpdesk with Fin, an AI agent billed per outcome. Fin can also run on top of another helpdesk.",
+      "ai_billing": "$0.99 per Fin outcome. An outcome counts when the customer confirms it's resolved, doesn't ask for more help, or Fin completes a workflow, including handoffs. Charged once per conversation.",
+      "plans": [
+        {
+          "name": "Essential",
+          "monthly": 39,
+          "annual": 29,
+          "includes": "Per seat. Fin, Messenger, shared inbox, help center"
+        },
+        {
+          "name": "Advanced",
+          "monthly": 99,
+          "annual": 85,
+          "includes": "Per seat. Workflows, multiple inboxes, 20 free Lite seats"
+        },
+        {
+          "name": "Expert",
+          "monthly": 139,
+          "annual": 132,
+          "includes": "Per seat. SSO, SLAs, multibrand, 50 free Lite seats"
+        },
+        {
+          "name": "Fin standalone",
+          "monthly": null,
+          "annual": null,
+          "includes": "$0.99/outcome on your current helpdesk, no seats. A monthly minimum applies (e.g. 50 outcomes)"
+        }
+      ],
+      "params": {
+        "seat": 39,
+        "fin": 0.99
+      },
+      "free_alt": null,
+      "pricing_url": "https://www.intercom.com/pricing",
+      "site_url": "https://www.intercom.com/",
+      "shopify_url": "https://apps.shopify.com/intercom",
+      "unconfirmed": [],
+      "notes": "The monthly seat prices ($39/$99/$139) are from Intercom's Shopify App Store listing. The annual prices are from intercom.com. Optional add-ons: Copilot $29/agent/mo (annual), Pro $100/mo.",
+      "sources": [
+        [
+          "Intercom pricing page",
+          "https://www.intercom.com/pricing"
+        ],
+        [
+          "Intercom on Shopify App Store",
+          "https://apps.shopify.com/intercom"
+        ]
+      ],
+      "checked": "2026-10-18",
+      "affiliate_url": null,
+      "ai_short": "$0.99 per Fin outcome, plus per-seat fee"
+    },
+    {
+      "slug": "zendesk",
+      "name": "Zendesk (AI agents)",
+      "type": "Helpdesk + AI agent",
+      "model": "zendesk",
+      "summary": "Seat-based helpdesk. Every plan includes AI agents with a small allowance of automated resolutions, and usage beyond it is billed per resolution.",
+      "ai_billing": "Per automated resolution. Each plan includes 5 (Team plans) or 10 (Suite Professional) per agent per month. Beyond that, $1.50 each committed or $2.00 pay-as-you-go.",
+      "plans": [
+        {
+          "name": "Support Team",
+          "monthly": 25,
+          "annual": 19,
+          "includes": "Per agent. Email ticketing, 5 automated resolutions/agent/mo"
+        },
+        {
+          "name": "Suite Team",
+          "monthly": 69,
+          "annual": 55,
+          "includes": "Per agent. Messaging and live chat, AI agents, 5 automated resolutions/agent/mo"
+        },
+        {
+          "name": "Suite Professional",
+          "monthly": 149,
+          "annual": 115,
+          "includes": "Per agent. 10 automated resolutions/agent/mo"
+        },
+        {
+          "name": "Suite Enterprise",
+          "monthly": null,
+          "annual": null,
+          "includes": "Talk to sales"
+        }
+      ],
+      "params": {
+        "seat": 69,
+        "incl_per_seat": 5,
+        "payg": 2.0,
+        "committed": 1.5
+      },
+      "free_alt": null,
+      "pricing_url": "https://www.zendesk.com/pricing/",
+      "site_url": "https://www.zendesk.com/",
+      "shopify_url": "https://apps.shopify.com/zendesk",
+      "unconfirmed": [],
+      "notes": "Zendesk's Shopify App Store listing still shows a Suite Growth plan ($89) and Suite Enterprise at $150. Those weren't on zendesk.com's pricing page on the check date.",
+      "sources": [
+        [
+          "Zendesk pricing page",
+          "https://www.zendesk.com/pricing/"
+        ]
+      ],
+      "checked": "2026-10-18",
+      "affiliate_url": null,
+      "ai_short": "$2.00 per automated resolution PAYG ($1.50 committed), plus seats"
+    },
+    {
+      "slug": "hubspot-service-hub",
+      "name": "HubSpot Service Hub (Customer Agent)",
+      "type": "Helpdesk/CRM + AI agent",
+      "model": "hubspot",
+      "summary": "CRM-connected helpdesk. Its AI Customer Agent needs the Professional plan or higher and runs on HubSpot Credits.",
+      "ai_billing": "$0.50 per resolved conversation (50 HubSpot Credits). A resolution means the conversation wasn't handed to a human for 72 hours. Professional includes 3,000 credits/mo (about 60 resolutions if nothing else uses them).",
+      "plans": [
+        {
+          "name": "Free",
+          "monthly": 0,
+          "annual": null,
+          "includes": "Up to 2 users, shared inbox, basic live chat and bots. No Customer Agent"
+        },
+        {
+          "name": "Starter",
+          "monthly": 15,
+          "annual": 7,
+          "includes": "Per seat. 500 credits. No Customer Agent"
+        },
+        {
+          "name": "Professional",
+          "monthly": 100,
+          "annual": 90,
+          "includes": "Per seat. 3,000 credits, Customer Agent. $1,500 one-time onboarding"
+        },
+        {
+          "name": "Enterprise",
+          "monthly": null,
+          "annual": 150,
+          "includes": "Per seat. 5,000 credits. $3,500 one-time onboarding"
+        }
+      ],
+      "params": {
+        "seat": 100,
+        "incl_res": 60,
+        "unit": 0.5,
+        "onboarding": 1500
+      },
+      "free_alt": null,
+      "pricing_url": "https://www.hubspot.com/pricing/service",
+      "site_url": "https://www.hubspot.com/products/service",
+      "shopify_url": null,
+      "unconfirmed": [],
+      "notes": "HubSpot's own pricing page didn't load its price data for us on the check date. Prices come from HubSpot's official Customer Agent page and its Service Hub pricing guide (updated 28 Aug 2026).",
+      "sources": [
+        [
+          "HubSpot Customer Agent pricing",
+          "https://www.hubspot.com/products/artificial-intelligence/ai-customer-service-agent"
+        ],
+        [
+          "HubSpot Service Hub pricing guide",
+          "https://blog.hubspot.com/service/hubspot-service-hub-pricing"
+        ]
+      ],
+      "checked": "2026-10-18",
+      "affiliate_url": null,
+      "ai_short": "$0.50 per resolution via credits; Professional seats required"
+    },
+    {
+      "slug": "shopify-inbox",
+      "name": "Shopify Inbox",
+      "type": "Free chat + AI agent (by Shopify)",
+      "model": "free",
+      "summary": "Shopify's own free chat app with an AI sales associate trained on your catalog, policies and store content.",
+      "ai_billing": "Free. No usage fee is listed on the App Store.",
+      "plans": [
+        {
+          "name": "Free",
+          "monthly": 0,
+          "annual": null,
+          "includes": "AI agent, live chat, email chat, order updates, analytics"
+        }
+      ],
+      "params": {},
+      "free_alt": "This is the free Shopify option.",
+      "pricing_url": "https://apps.shopify.com/inbox",
+      "site_url": "https://apps.shopify.com/inbox",
+      "shopify_url": "https://apps.shopify.com/inbox",
+      "unconfirmed": [],
+      "notes": "Covers storefront chat. It isn't a full email helpdesk (no shared ticket inbox for email, social and returns).",
+      "sources": [
+        [
+          "Shopify Inbox on Shopify App Store",
+          "https://apps.shopify.com/inbox"
+        ]
+      ],
+      "checked": "2026-10-18",
+      "affiliate_url": null,
+      "ai_short": "Free"
+    },
+    {
+      "slug": "richpanel",
+      "name": "Richpanel",
+      "type": "Helpdesk + AI agent",
+      "model": "richpanel",
+      "summary": "Ecommerce helpdesk sold per seat, with AI billed on a token meter rather than per resolution.",
+      "ai_billing": "Token-based credits: $0.60/credit monthly or $0.50 annual. Richpanel says about $0.20 covers a whole AI-handled conversation at the annual rate. AI minimum is $200/mo.",
+      "plans": [
+        {
+          "name": "Helpdesk seat",
+          "monthly": 119,
+          "annual": 99,
+          "includes": "Per seat. No per-ticket fees"
+        },
+        {
+          "name": "AI usage",
+          "monthly": null,
+          "annual": null,
+          "includes": "$200/mo minimum, top-ups in $100 blocks"
+        },
+        {
+          "name": "Returns & Exchanges add-on",
+          "monthly": null,
+          "annual": null,
+          "includes": "From $99/mo"
+        }
+      ],
+      "params": {
+        "seat": 119,
+        "ai_min": 200,
+        "per_conv": 0.24
+      },
+      "free_alt": null,
+      "pricing_url": "https://www.richpanel.com/pricing",
+      "site_url": "https://www.richpanel.com/",
+      "shopify_url": null,
+      "unconfirmed": [
+        "Exact AI cost per conversation (varies with model and token use; ~$0.20 is Richpanel's own estimate)"
+      ],
+      "notes": "Our ~$0.24 per conversation at monthly rates scales Richpanel's ~$0.20 estimate by $0.60/$0.50. It's an approximation.",
+      "sources": [
+        [
+          "Richpanel pricing page",
+          "https://www.richpanel.com/pricing"
+        ]
+      ],
+      "checked": "2026-10-18",
+      "affiliate_url": null,
+      "ai_short": "Token meter, ~$0.20–0.24 per AI conversation, $200/mo minimum, plus seats"
+    },
+    {
+      "slug": "reamaze",
+      "name": "Re:amaze",
+      "type": "Helpdesk + AI agent",
+      "model": "reamaze",
+      "summary": "Helpdesk billed per team member, with a small AI-resolution allowance per user.",
+      "ai_billing": "Re:amaze AI Agent: 5 (Basic), 10 (Pro) or 20 (Plus) resolutions per user per month included, then $0.85 per resolution.",
+      "plans": [
+        {
+          "name": "Basic",
+          "monthly": 29,
+          "annual": 26.1,
+          "includes": "Per team member. 5 AI resolutions/user/mo"
+        },
+        {
+          "name": "Pro",
+          "monthly": 49,
+          "annual": 44.1,
+          "includes": "Per team member. 10 AI resolutions/user/mo"
+        },
+        {
+          "name": "Plus",
+          "monthly": 69,
+          "annual": 62.1,
+          "includes": "Per team member. 20 AI resolutions/user/mo"
+        },
+        {
+          "name": "Starter",
+          "monthly": 59,
+          "annual": null,
+          "includes": "Flat rate, unlimited team members, 500 responded conversations/mo"
+        }
+      ],
+      "params": {
+        "seat": 29,
+        "incl_per_seat": 5,
+        "unit": 0.85
+      },
+      "free_alt": "Shopify Inbox is free for chat-only needs.",
+      "pricing_url": "https://www.reamaze.com/pricing",
+      "site_url": "https://www.reamaze.com/",
+      "shopify_url": "https://apps.shopify.com/reamaze",
+      "unconfirmed": [
+        "Whether the flat-rate Starter plan includes AI resolutions"
+      ],
+      "notes": "",
+      "sources": [
+        [
+          "Re:amaze pricing page",
+          "https://www.reamaze.com/pricing"
+        ],
+        [
+          "Re:amaze on Shopify App Store",
+          "https://apps.shopify.com/reamaze"
+        ]
+      ],
+      "checked": "2026-10-18",
+      "affiliate_url": null,
+      "ai_short": "$0.85 per resolution after small per-user allowance, plus seats"
+    },
+    {
+      "slug": "freshdesk",
+      "name": "Freshdesk (Freddy AI Agent)",
+      "type": "Helpdesk + AI agent",
+      "model": "freshdesk",
+      "summary": "Seat-based helpdesk. The Freddy AI Agent is billed in session packs after a one-time free allowance.",
+      "ai_billing": "$49 per 100 AI Agent sessions. A session is one interaction with the AI agent (for email, a 72-hour window). The first 500 sessions are free, once per account.",
+      "plans": [
+        {
+          "name": "Growth",
+          "monthly": null,
+          "annual": 19,
+          "includes": "Per agent. Freddy AI Agent"
+        },
+        {
+          "name": "Pro",
+          "monthly": null,
+          "annual": 55,
+          "includes": "Per agent. Freddy Copilot available at $29/agent/mo"
+        },
+        {
+          "name": "Enterprise",
+          "monthly": null,
+          "annual": 89,
+          "includes": "Per agent"
+        }
+      ],
+      "params": {
+        "seat": 19,
+        "pack": 49,
+        "pack_size": 100
+      },
+      "free_alt": null,
+      "pricing_url": "https://www.freshworks.com/freshdesk/pricing/",
+      "site_url": "https://www.freshworks.com/freshdesk/",
+      "shopify_url": null,
+      "unconfirmed": [
+        "Monthly-billing seat prices (we captured annual-billing prices only)"
+      ],
+      "notes": "Our estimates use the annual-billing seat price, so monthly billing will cost more. The one-time 500 free sessions are left out.",
+      "sources": [
+        [
+          "Freshdesk pricing page",
+          "https://www.freshworks.com/freshdesk/pricing/"
+        ]
+      ],
+      "checked": "2026-10-18",
+      "affiliate_url": null,
+      "ai_short": "$49 per 100 AI sessions, plus seats"
+    },
+    {
+      "slug": "zipchat",
+      "name": "Zipchat",
+      "type": "AI chatbot (sales + support)",
+      "model": "zipchat",
+      "summary": "AI agent for ecommerce chat, email and WhatsApp, priced by AI replies per month. It's an AI layer, not a full helpdesk.",
+      "ai_billing": "Per AI reply: every outbound AI message counts. Plans include a reply allowance, and extra packs cost $49 for 250 replies ($49 for 500 on Scale Plus).",
+      "plans": [
+        {
+          "name": "Free",
+          "monthly": 0,
+          "annual": null,
+          "includes": "120 AI replies (~50 conversations)/mo"
+        },
+        {
+          "name": "Starter",
+          "monthly": 80,
+          "annual": 64,
+          "includes": "750 replies (~300 conversations)/mo"
+        },
+        {
+          "name": "Pro",
+          "monthly": 300,
+          "annual": 240,
+          "includes": "3,000 replies (~1,250 conversations)/mo"
+        },
+        {
+          "name": "Scale",
+          "monthly": 600,
+          "annual": 480,
+          "includes": "6,000 replies (~2,500 conversations)/mo"
+        },
+        {
+          "name": "Scale Plus",
+          "monthly": null,
+          "annual": 960,
+          "includes": "14,000 replies (~6,000 conversations)/mo"
+        }
+      ],
+      "params": {
+        "plans": [
+          [
+            "Starter",
+            80,
+            300
+          ],
+          [
+            "Pro",
+            300,
+            1250
+          ],
+          [
+            "Scale",
+            600,
+            2500
+          ]
+        ],
+        "scale_plus_annual": 960
+      },
+      "free_alt": "Shopify Inbox's free AI agent overlaps for basic product Q&A.",
+      "pricing_url": "https://www.zipchat.ai/pricing",
+      "site_url": "https://www.zipchat.ai/",
+      "shopify_url": "https://apps.shopify.com/zipchat",
+      "unconfirmed": [
+        "Scale Plus monthly-billing price"
+      ],
+      "notes": "The conversation counts are Zipchat's own approximations from reply allowances.",
+      "sources": [
+        [
+          "Zipchat pricing page",
+          "https://www.zipchat.ai/pricing"
+        ],
+        [
+          "Zipchat on Shopify App Store",
+          "https://apps.shopify.com/zipchat"
+        ]
+      ],
+      "checked": "2026-10-18",
+      "affiliate_url": null,
+      "ai_short": "Per AI reply (plan allowances; $49 per 250 extra)"
+    },
+    {
+      "slug": "siena-ai",
+      "name": "Siena AI",
+      "type": "AI agent platform",
+      "model": "siena",
+      "summary": "AI agent platform for ecommerce brands, with a monthly platform fee plus a per-automated-ticket price.",
+      "ai_billing": "$0.90 per automated ticket, on top of a $750/mo platform fee. Support and implementation are priced separately (not public).",
+      "plans": [
+        {
+          "name": "Platform fee",
+          "monthly": 750,
+          "annual": null,
+          "includes": "Core AI engine, unlimited sandbox"
+        },
+        {
+          "name": "Automation Pack",
+          "monthly": null,
+          "annual": null,
+          "includes": "$0.90 per automated ticket"
+        }
+      ],
+      "params": {
+        "platform": 750,
+        "unit": 0.9
+      },
+      "free_alt": null,
+      "pricing_url": "https://www.siena.cx/pricing",
+      "site_url": "https://www.siena.cx/",
+      "shopify_url": null,
+      "unconfirmed": [
+        "Support & implementation fees",
+        "Whether a helpdesk is also required for your setup"
+      ],
+      "notes": "Siena sends a final quote on request.",
+      "sources": [
+        [
+          "Siena pricing page",
+          "https://www.siena.cx/pricing"
+        ]
+      ],
+      "checked": "2026-10-18",
+      "affiliate_url": null,
+      "ai_short": "$0.90 per automated ticket + $750/mo platform fee"
+    },
+    {
+      "slug": "chatty",
+      "name": "Chatty AI Chatbot & Live Chat",
+      "type": "AI chatbot + live chat",
+      "model": "chatty",
+      "summary": "Shopify-native AI chatbot and live chat priced by AI conversations, with unlimited human conversations.",
+      "ai_billing": "Per AI conversation: plans include an allowance, and extra conversations cost $0.40 each.",
+      "plans": [
+        {
+          "name": "Free",
+          "monthly": 0,
+          "annual": null,
+          "includes": "50 AI conversations/mo, unlimited human conversations"
+        },
+        {
+          "name": "Basic",
+          "monthly": 19.99,
+          "annual": 16.99,
+          "includes": "100 AI conversations/mo"
+        },
+        {
+          "name": "Pro",
+          "monthly": 68.99,
+          "annual": 58.99,
+          "includes": "500 AI conversations/mo"
+        },
+        {
+          "name": "Plus",
+          "monthly": 199,
+          "annual": 169.99,
+          "includes": "1,000 AI conversations/mo"
+        }
+      ],
+      "params": {
+        "plans": [
+          [
+            "Basic",
+            19.99,
+            100
+          ],
+          [
+            "Pro",
+            68.99,
+            500
+          ],
+          [
+            "Plus",
+            199,
+            1000
+          ]
+        ],
+        "unit": 0.4
+      },
+      "free_alt": "Shopify Inbox's free AI agent overlaps for basic product Q&A.",
+      "pricing_url": "https://apps.shopify.com/chatty",
+      "site_url": "https://apps.shopify.com/chatty",
+      "shopify_url": "https://apps.shopify.com/chatty",
+      "unconfirmed": [],
+      "notes": "The annual prices are the yearly price divided by 12 ($203.88, $707.88 and $2,039.88 per year).",
+      "sources": [
+        [
+          "Chatty on Shopify App Store",
+          "https://apps.shopify.com/chatty"
+        ]
+      ],
+      "checked": "2026-10-18",
+      "affiliate_url": null,
+      "ai_short": "Per AI conversation (plan allowances; $0.40 extra)"
+    },
+    {
+      "slug": "helpcenter",
+      "name": "SB Helpdesk, Live Chat & FAQs (Helpcenter)",
+      "type": "Budget helpdesk + AI FAQs",
+      "model": "helpcenter",
+      "summary": "Low-cost Shopify helpdesk priced by tickets, with OpenAI-integrated FAQs. It isn't an autonomous AI agent.",
+      "ai_billing": "There's no separate AI fee. AI is used for FAQs (OpenAI-integrated) and the plans are priced by ticket.",
+      "plans": [
+        {
+          "name": "Free",
+          "monthly": 0,
+          "annual": null,
+          "includes": "10 tickets/mo, then $0.25/ticket"
+        },
+        {
+          "name": "Basic",
+          "monthly": 5.99,
+          "annual": 5.0,
+          "includes": "50 tickets/mo, then $0.16/ticket. AI FAQs"
+        },
+        {
+          "name": "Standard",
+          "monthly": 19.99,
+          "annual": 16.67,
+          "includes": "300 tickets/mo, then $0.15/ticket"
+        },
+        {
+          "name": "Advanced",
+          "monthly": 49.99,
+          "annual": 41.58,
+          "includes": "1,000 tickets/mo, then $0.10/ticket"
+        }
+      ],
+      "params": {
+        "plans": [
+          [
+            "Basic",
+            5.99,
+            50,
+            0.16
+          ],
+          [
+            "Standard",
+            19.99,
+            300,
+            0.15
+          ],
+          [
+            "Advanced",
+            49.99,
+            1000,
+            0.1
+          ]
+        ]
+      },
+      "free_alt": "Shopify Inbox is free for chat. Helpcenter adds ticketing and FAQs cheaply.",
+      "pricing_url": "https://apps.shopify.com/helpcenter",
+      "site_url": "https://apps.shopify.com/helpcenter",
+      "shopify_url": "https://apps.shopify.com/helpcenter",
+      "unconfirmed": [],
+      "notes": "The annual prices are the yearly price divided by 12 ($59.99, $199.99 and $498.96 per year). Our estimates count every conversation as a ticket.",
+      "sources": [
+        [
+          "Helpcenter on Shopify App Store",
+          "https://apps.shopify.com/helpcenter"
+        ]
+      ],
+      "checked": "2026-10-18",
+      "affiliate_url": null,
+      "ai_short": "No AI agent fee; priced per ticket (AI FAQs)"
+    }
   ],
-  "ai_rate": 0.5
- },
- "apps": [
-  {
-   "slug": "gorgias",
-   "name": "Gorgias",
-   "type": "Helpdesk + AI agent",
-   "model": "gorgias",
-   "summary": "Ecommerce helpdesk priced by ticket volume (not seats), with a usage-priced AI Agent on every plan.",
-   "ai_billing": "Per automated interaction: $1.00 on monthly contracts, $0.90 on annual. Each AI interaction also counts as a helpdesk ticket. Gorgias's page also lists $1.50 per interaction for overage above a plan's included allowance.",
-   "plans": [
+  "changelog": [
     {
-     "name": "Starter",
-     "monthly": 10,
-     "annual": null,
-     "includes": "50 tickets/mo, 30 AI interactions; $0.40/extra ticket; monthly billing only"
-    },
-    {
-     "name": "Basic",
-     "monthly": 60,
-     "annual": 50,
-     "includes": "300 tickets/mo, 30 AI interactions; $0.40/extra ticket"
-    },
-    {
-     "name": "Pro",
-     "monthly": 360,
-     "annual": 300,
-     "includes": "2,000 tickets/mo, 190 AI interactions; $0.36/extra ticket"
-    },
-    {
-     "name": "Advanced",
-     "monthly": 900,
-     "annual": 750,
-     "includes": "5,000 tickets/mo, 530 AI interactions; $0.36/extra ticket (sold via demo)"
-    },
-    {
-     "name": "Enterprise",
-     "monthly": null,
-     "annual": null,
-     "includes": "Custom quote"
+      "date": "2026-10-18",
+      "title": "Tracker launched: baseline prices recorded for 13 AI support apps",
+      "items": [
+        "Recorded official prices for Gorgias, Tidio (Lyro), Intercom Fin, Zendesk, HubSpot Service Hub, Shopify Inbox, Richpanel, Re:amaze, Freshdesk, Zipchat, Siena AI, Chatty and Helpcenter.",
+        "Noted: Zendesk's Shopify App Store listing still shows Suite Growth ($89/agent) and Suite Enterprise ($150/agent), which weren't on zendesk.com/pricing on this date.",
+        "Noted: Gorgias's pricing page markup contains two price sets. We use the detailed plan data (Basic $60, Pro $360, Advanced $900 monthly).",
+        "Noted: Intercom's Shopify listing shows monthly seat prices ($39/$99/$139) and intercom.com shows annual ($29/$85/$132)."
+      ]
     }
-   ],
-   "params": {
-    "plans": [
-     [
-      "Starter",
-      10,
-      50,
-      0.4,
-      30
-     ],
-     [
-      "Basic",
-      60,
-      300,
-      0.4,
-      30
-     ],
-     [
-      "Pro",
-      360,
-      2000,
-      0.36,
-      190
-     ],
-     [
-      "Advanced",
-      900,
-      5000,
-      0.36,
-      530
-     ]
-    ],
-    "ai_unit": 1.0,
-    "ai_overage_note": 1.5
-   },
-   "free_alt": "Shopify Inbox covers storefront chat and a basic AI agent for free, but not email ticketing.",
-   "pricing_url": "https://www.gorgias.com/pricing",
-   "site_url": "https://www.gorgias.com/",
-   "shopify_url": "https://apps.shopify.com/helpdesk",
-   "unconfirmed": [],
-   "notes": "Gorgias's pricing page markup also contains a second, higher price set (Basic $77, Pro $471, Advanced $1,227). We used the detailed plan data (tickets, overage, AI allowance) on the same page. Check your quote on gorgias.com.",
-   "sources": [
-    [
-     "Gorgias pricing page",
-     "https://www.gorgias.com/pricing"
-    ]
-   ],
-   "checked": "2026-10-18",
-   "affiliate_url": null,
-   "ai_short": "$1.00 per automated interaction (monthly), plus ticket fees"
-  },
-  {
-   "slug": "tidio",
-   "name": "Tidio (Lyro AI Agent)",
-   "type": "Live chat + AI agent",
-   "model": "tidio",
-   "summary": "Live chat and helpdesk with Lyro, an AI agent sold as its own plan. Human and AI conversations are billed separately.",
-   "ai_billing": "Per Lyro conversation: any conversation with at least one Lyro reply counts once, whether or not it's resolved. Lyro plan: $39/mo for up to 200 Lyro conversations. Every account gets 50 Lyro conversations once.",
-   "plans": [
-    {
-     "name": "Free",
-     "monthly": 0,
-     "annual": null,
-     "includes": "Live chat with 50 users, Flows for up to 100 visitors/mo"
-    },
-    {
-     "name": "Customer Service (Starter)",
-     "monthly": 29,
-     "annual": 24.17,
-     "includes": "100 billable (human-replied) conversations"
-    },
-    {
-     "name": "Customer Service (Growth)",
-     "monthly": 59,
-     "annual": 49.17,
-     "includes": "From 250 billable conversations (higher tiers priced on Tidio's site)"
-    },
-    {
-     "name": "Lyro AI Agent",
-     "monthly": 39,
-     "annual": 32.5,
-     "includes": "Up to 200 Lyro conversations; larger tiers: check site"
-    },
-    {
-     "name": "Flows",
-     "monthly": 29,
-     "annual": 24.17,
-     "includes": "Automation flows for up to 40k visitors"
-    },
-    {
-     "name": "Plus",
-     "monthly": null,
-     "annual": null,
-     "includes": "Custom pricing"
-    }
-   ],
-   "params": {
-    "cs_starter": [
-     29,
-     100
-    ],
-    "lyro": [
-     39,
-     200
-    ]
-   },
-   "free_alt": "Shopify Inbox's free AI agent overlaps with Lyro for pre-sales and FAQ chat.",
-   "pricing_url": "https://www.tidio.com/pricing/",
-   "site_url": "https://www.tidio.com/",
-   "shopify_url": "https://apps.shopify.com/tidio-chat",
-   "unconfirmed": [
-    "Lyro tiers above 200 conversations/mo",
-    "Customer Service tiers above 250 conversations/mo"
-   ],
-   "notes": "The annual prices ($24.17, $49.17, $32.50) are monthly equivalents of yearly billing. The monthly prices are from Tidio's Shopify App Store listing.",
-   "sources": [
-    [
-     "Tidio pricing page",
-     "https://www.tidio.com/pricing/"
-    ],
-    [
-     "Tidio on Shopify App Store",
-     "https://apps.shopify.com/tidio-chat"
-    ]
-   ],
-   "checked": "2026-10-18",
-   "affiliate_url": null,
-   "ai_short": "Per Lyro conversation ($39 for 200), human chats billed separately"
-  },
-  {
-   "slug": "intercom-fin",
-   "name": "Intercom (Fin AI Agent)",
-   "type": "Helpdesk + AI agent",
-   "model": "intercom",
-   "summary": "Seat-based helpdesk with Fin, an AI agent billed per outcome. Fin can also run on top of another helpdesk.",
-   "ai_billing": "$0.99 per Fin outcome. An outcome counts when the customer confirms it's resolved, doesn't ask for more help, or Fin completes a workflow, including handoffs. Charged once per conversation.",
-   "plans": [
-    {
-     "name": "Essential",
-     "monthly": 39,
-     "annual": 29,
-     "includes": "Per seat. Fin, Messenger, shared inbox, help center"
-    },
-    {
-     "name": "Advanced",
-     "monthly": 99,
-     "annual": 85,
-     "includes": "Per seat. Workflows, multiple inboxes, 20 free Lite seats"
-    },
-    {
-     "name": "Expert",
-     "monthly": 139,
-     "annual": 132,
-     "includes": "Per seat. SSO, SLAs, multibrand, 50 free Lite seats"
-    },
-    {
-     "name": "Fin standalone",
-     "monthly": null,
-     "annual": null,
-     "includes": "$0.99/outcome on your current helpdesk, no seats. A monthly minimum applies (e.g. 50 outcomes)"
-    }
-   ],
-   "params": {
-    "seat": 39,
-    "fin": 0.99
-   },
-   "free_alt": null,
-   "pricing_url": "https://www.intercom.com/pricing",
-   "site_url": "https://www.intercom.com/",
-   "shopify_url": "https://apps.shopify.com/intercom",
-   "unconfirmed": [],
-   "notes": "The monthly seat prices ($39/$99/$139) are from Intercom's Shopify App Store listing. The annual prices are from intercom.com. Optional add-ons: Copilot $29/agent/mo (annual), Pro $100/mo.",
-   "sources": [
-    [
-     "Intercom pricing page",
-     "https://www.intercom.com/pricing"
-    ],
-    [
-     "Intercom on Shopify App Store",
-     "https://apps.shopify.com/intercom"
-    ]
-   ],
-   "checked": "2026-10-18",
-   "affiliate_url": null,
-   "ai_short": "$0.99 per Fin outcome, plus per-seat fee"
-  },
-  {
-   "slug": "zendesk",
-   "name": "Zendesk (AI agents)",
-   "type": "Helpdesk + AI agent",
-   "model": "zendesk",
-   "summary": "Seat-based helpdesk. Every plan includes AI agents with a small allowance of automated resolutions, and usage beyond it is billed per resolution.",
-   "ai_billing": "Per automated resolution. Each plan includes 5 (Team plans) or 10 (Suite Professional) per agent per month. Beyond that, $1.50 each committed or $2.00 pay-as-you-go.",
-   "plans": [
-    {
-     "name": "Support Team",
-     "monthly": 25,
-     "annual": 19,
-     "includes": "Per agent. Email ticketing, 5 automated resolutions/agent/mo"
-    },
-    {
-     "name": "Suite Team",
-     "monthly": 69,
-     "annual": 55,
-     "includes": "Per agent. Messaging and live chat, AI agents, 5 automated resolutions/agent/mo"
-    },
-    {
-     "name": "Suite Professional",
-     "monthly": 149,
-     "annual": 115,
-     "includes": "Per agent. 10 automated resolutions/agent/mo"
-    },
-    {
-     "name": "Suite Enterprise",
-     "monthly": null,
-     "annual": null,
-     "includes": "Talk to sales"
-    }
-   ],
-   "params": {
-    "seat": 69,
-    "incl_per_seat": 5,
-    "payg": 2.0,
-    "committed": 1.5
-   },
-   "free_alt": null,
-   "pricing_url": "https://www.zendesk.com/pricing/",
-   "site_url": "https://www.zendesk.com/",
-   "shopify_url": "https://apps.shopify.com/zendesk",
-   "unconfirmed": [],
-   "notes": "Zendesk's Shopify App Store listing still shows a Suite Growth plan ($89) and Suite Enterprise at $150. Those weren't on zendesk.com's pricing page on the check date.",
-   "sources": [
-    [
-     "Zendesk pricing page",
-     "https://www.zendesk.com/pricing/"
-    ]
-   ],
-   "checked": "2026-10-18",
-   "affiliate_url": null,
-   "ai_short": "$2.00 per automated resolution PAYG ($1.50 committed), plus seats"
-  },
-  {
-   "slug": "hubspot-service-hub",
-   "name": "HubSpot Service Hub (Customer Agent)",
-   "type": "Helpdesk/CRM + AI agent",
-   "model": "hubspot",
-   "summary": "CRM-connected helpdesk. Its AI Customer Agent needs the Professional plan or higher and runs on HubSpot Credits.",
-   "ai_billing": "$0.50 per resolved conversation (50 HubSpot Credits). A resolution means the conversation wasn't handed to a human for 72 hours. Professional includes 3,000 credits/mo (about 60 resolutions if nothing else uses them).",
-   "plans": [
-    {
-     "name": "Free",
-     "monthly": 0,
-     "annual": null,
-     "includes": "Up to 2 users, shared inbox, basic live chat and bots. No Customer Agent"
-    },
-    {
-     "name": "Starter",
-     "monthly": 15,
-     "annual": 7,
-     "includes": "Per seat. 500 credits. No Customer Agent"
-    },
-    {
-     "name": "Professional",
-     "monthly": 100,
-     "annual": 90,
-     "includes": "Per seat. 3,000 credits, Customer Agent. $1,500 one-time onboarding"
-    },
-    {
-     "name": "Enterprise",
-     "monthly": null,
-     "annual": 150,
-     "includes": "Per seat. 5,000 credits. $3,500 one-time onboarding"
-    }
-   ],
-   "params": {
-    "seat": 100,
-    "incl_res": 60,
-    "unit": 0.5,
-    "onboarding": 1500
-   },
-   "free_alt": null,
-   "pricing_url": "https://www.hubspot.com/pricing/service",
-   "site_url": "https://www.hubspot.com/products/service",
-   "shopify_url": null,
-   "unconfirmed": [],
-   "notes": "HubSpot's own pricing page didn't load its price data for us on the check date. Prices come from HubSpot's official Customer Agent page and its Service Hub pricing guide (updated 28 Aug 2026).",
-   "sources": [
-    [
-     "HubSpot Customer Agent pricing",
-     "https://www.hubspot.com/products/artificial-intelligence/ai-customer-service-agent"
-    ],
-    [
-     "HubSpot Service Hub pricing guide",
-     "https://blog.hubspot.com/service/hubspot-service-hub-pricing"
-    ]
-   ],
-   "checked": "2026-10-18",
-   "affiliate_url": null,
-   "ai_short": "$0.50 per resolution via credits; Professional seats required"
-  },
-  {
-   "slug": "shopify-inbox",
-   "name": "Shopify Inbox",
-   "type": "Free chat + AI agent (by Shopify)",
-   "model": "free",
-   "summary": "Shopify's own free chat app with an AI sales associate trained on your catalog, policies and store content.",
-   "ai_billing": "Free. No usage fee is listed on the App Store.",
-   "plans": [
-    {
-     "name": "Free",
-     "monthly": 0,
-     "annual": null,
-     "includes": "AI agent, live chat, email chat, order updates, analytics"
-    }
-   ],
-   "params": {},
-   "free_alt": "This is the free Shopify option.",
-   "pricing_url": "https://apps.shopify.com/inbox",
-   "site_url": "https://apps.shopify.com/inbox",
-   "shopify_url": "https://apps.shopify.com/inbox",
-   "unconfirmed": [],
-   "notes": "Covers storefront chat. It isn't a full email helpdesk (no shared ticket inbox for email, social and returns).",
-   "sources": [
-    [
-     "Shopify Inbox on Shopify App Store",
-     "https://apps.shopify.com/inbox"
-    ]
-   ],
-   "checked": "2026-10-18",
-   "affiliate_url": null,
-   "ai_short": "Free"
-  },
-  {
-   "slug": "richpanel",
-   "name": "Richpanel",
-   "type": "Helpdesk + AI agent",
-   "model": "richpanel",
-   "summary": "Ecommerce helpdesk sold per seat, with AI billed on a token meter rather than per resolution.",
-   "ai_billing": "Token-based credits: $0.60/credit monthly or $0.50 annual. Richpanel says about $0.20 covers a whole AI-handled conversation at the annual rate. AI minimum is $200/mo.",
-   "plans": [
-    {
-     "name": "Helpdesk seat",
-     "monthly": 119,
-     "annual": 99,
-     "includes": "Per seat. No per-ticket fees"
-    },
-    {
-     "name": "AI usage",
-     "monthly": null,
-     "annual": null,
-     "includes": "$200/mo minimum, top-ups in $100 blocks"
-    },
-    {
-     "name": "Returns & Exchanges add-on",
-     "monthly": null,
-     "annual": null,
-     "includes": "From $99/mo"
-    }
-   ],
-   "params": {
-    "seat": 119,
-    "ai_min": 200,
-    "per_conv": 0.24
-   },
-   "free_alt": null,
-   "pricing_url": "https://www.richpanel.com/pricing",
-   "site_url": "https://www.richpanel.com/",
-   "shopify_url": null,
-   "unconfirmed": [
-    "Exact AI cost per conversation (varies with model and token use; ~$0.20 is Richpanel's own estimate)"
-   ],
-   "notes": "Our ~$0.24 per conversation at monthly rates scales Richpanel's ~$0.20 estimate by $0.60/$0.50. It's an approximation.",
-   "sources": [
-    [
-     "Richpanel pricing page",
-     "https://www.richpanel.com/pricing"
-    ]
-   ],
-   "checked": "2026-10-18",
-   "affiliate_url": null,
-   "ai_short": "Token meter, ~$0.20\u20130.24 per AI conversation, $200/mo minimum, plus seats"
-  },
-  {
-   "slug": "reamaze",
-   "name": "Re:amaze",
-   "type": "Helpdesk + AI agent",
-   "model": "reamaze",
-   "summary": "Helpdesk billed per team member, with a small AI-resolution allowance per user.",
-   "ai_billing": "Re:amaze AI Agent: 5 (Basic), 10 (Pro) or 20 (Plus) resolutions per user per month included, then $0.85 per resolution.",
-   "plans": [
-    {
-     "name": "Basic",
-     "monthly": 29,
-     "annual": 26.1,
-     "includes": "Per team member. 5 AI resolutions/user/mo"
-    },
-    {
-     "name": "Pro",
-     "monthly": 49,
-     "annual": 44.1,
-     "includes": "Per team member. 10 AI resolutions/user/mo"
-    },
-    {
-     "name": "Plus",
-     "monthly": 69,
-     "annual": 62.1,
-     "includes": "Per team member. 20 AI resolutions/user/mo"
-    },
-    {
-     "name": "Starter",
-     "monthly": 59,
-     "annual": null,
-     "includes": "Flat rate, unlimited team members, 500 responded conversations/mo"
-    }
-   ],
-   "params": {
-    "seat": 29,
-    "incl_per_seat": 5,
-    "unit": 0.85
-   },
-   "free_alt": "Shopify Inbox is free for chat-only needs.",
-   "pricing_url": "https://www.reamaze.com/pricing",
-   "site_url": "https://www.reamaze.com/",
-   "shopify_url": "https://apps.shopify.com/reamaze",
-   "unconfirmed": [
-    "Whether the flat-rate Starter plan includes AI resolutions"
-   ],
-   "notes": "",
-   "sources": [
-    [
-     "Re:amaze pricing page",
-     "https://www.reamaze.com/pricing"
-    ],
-    [
-     "Re:amaze on Shopify App Store",
-     "https://apps.shopify.com/reamaze"
-    ]
-   ],
-   "checked": "2026-10-18",
-   "affiliate_url": null,
-   "ai_short": "$0.85 per resolution after small per-user allowance, plus seats"
-  },
-  {
-   "slug": "freshdesk",
-   "name": "Freshdesk (Freddy AI Agent)",
-   "type": "Helpdesk + AI agent",
-   "model": "freshdesk",
-   "summary": "Seat-based helpdesk. The Freddy AI Agent is billed in session packs after a one-time free allowance.",
-   "ai_billing": "$49 per 100 AI Agent sessions. A session is one interaction with the AI agent (for email, a 72-hour window). The first 500 sessions are free, once per account.",
-   "plans": [
-    {
-     "name": "Growth",
-     "monthly": null,
-     "annual": 19,
-     "includes": "Per agent. Freddy AI Agent"
-    },
-    {
-     "name": "Pro",
-     "monthly": null,
-     "annual": 55,
-     "includes": "Per agent. Freddy Copilot available at $29/agent/mo"
-    },
-    {
-     "name": "Enterprise",
-     "monthly": null,
-     "annual": 89,
-     "includes": "Per agent"
-    }
-   ],
-   "params": {
-    "seat": 19,
-    "pack": 49,
-    "pack_size": 100
-   },
-   "free_alt": null,
-   "pricing_url": "https://www.freshworks.com/freshdesk/pricing/",
-   "site_url": "https://www.freshworks.com/freshdesk/",
-   "shopify_url": null,
-   "unconfirmed": [
-    "Monthly-billing seat prices (we captured annual-billing prices only)"
-   ],
-   "notes": "Our estimates use the annual-billing seat price, so monthly billing will cost more. The one-time 500 free sessions are left out.",
-   "sources": [
-    [
-     "Freshdesk pricing page",
-     "https://www.freshworks.com/freshdesk/pricing/"
-    ]
-   ],
-   "checked": "2026-10-18",
-   "affiliate_url": null,
-   "ai_short": "$49 per 100 AI sessions, plus seats"
-  },
-  {
-   "slug": "zipchat",
-   "name": "Zipchat",
-   "type": "AI chatbot (sales + support)",
-   "model": "zipchat",
-   "summary": "AI agent for ecommerce chat, email and WhatsApp, priced by AI replies per month. It's an AI layer, not a full helpdesk.",
-   "ai_billing": "Per AI reply: every outbound AI message counts. Plans include a reply allowance, and extra packs cost $49 for 250 replies ($49 for 500 on Scale Plus).",
-   "plans": [
-    {
-     "name": "Free",
-     "monthly": 0,
-     "annual": null,
-     "includes": "120 AI replies (~50 conversations)/mo"
-    },
-    {
-     "name": "Starter",
-     "monthly": 80,
-     "annual": 64,
-     "includes": "750 replies (~300 conversations)/mo"
-    },
-    {
-     "name": "Pro",
-     "monthly": 300,
-     "annual": 240,
-     "includes": "3,000 replies (~1,250 conversations)/mo"
-    },
-    {
-     "name": "Scale",
-     "monthly": 600,
-     "annual": 480,
-     "includes": "6,000 replies (~2,500 conversations)/mo"
-    },
-    {
-     "name": "Scale Plus",
-     "monthly": null,
-     "annual": 960,
-     "includes": "14,000 replies (~6,000 conversations)/mo"
-    }
-   ],
-   "params": {
-    "plans": [
-     [
-      "Starter",
-      80,
-      300
-     ],
-     [
-      "Pro",
-      300,
-      1250
-     ],
-     [
-      "Scale",
-      600,
-      2500
-     ]
-    ],
-    "scale_plus_annual": 960
-   },
-   "free_alt": "Shopify Inbox's free AI agent overlaps for basic product Q&A.",
-   "pricing_url": "https://www.zipchat.ai/pricing",
-   "site_url": "https://www.zipchat.ai/",
-   "shopify_url": "https://apps.shopify.com/zipchat",
-   "unconfirmed": [
-    "Scale Plus monthly-billing price"
-   ],
-   "notes": "The conversation counts are Zipchat's own approximations from reply allowances.",
-   "sources": [
-    [
-     "Zipchat pricing page",
-     "https://www.zipchat.ai/pricing"
-    ],
-    [
-     "Zipchat on Shopify App Store",
-     "https://apps.shopify.com/zipchat"
-    ]
-   ],
-   "checked": "2026-10-18",
-   "affiliate_url": null,
-   "ai_short": "Per AI reply (plan allowances; $49 per 250 extra)"
-  },
-  {
-   "slug": "siena-ai",
-   "name": "Siena AI",
-   "type": "AI agent platform",
-   "model": "siena",
-   "summary": "AI agent platform for ecommerce brands, with a monthly platform fee plus a per-automated-ticket price.",
-   "ai_billing": "$0.90 per automated ticket, on top of a $750/mo platform fee. Support and implementation are priced separately (not public).",
-   "plans": [
-    {
-     "name": "Platform fee",
-     "monthly": 750,
-     "annual": null,
-     "includes": "Core AI engine, unlimited sandbox"
-    },
-    {
-     "name": "Automation Pack",
-     "monthly": null,
-     "annual": null,
-     "includes": "$0.90 per automated ticket"
-    }
-   ],
-   "params": {
-    "platform": 750,
-    "unit": 0.9
-   },
-   "free_alt": null,
-   "pricing_url": "https://www.siena.cx/pricing",
-   "site_url": "https://www.siena.cx/",
-   "shopify_url": null,
-   "unconfirmed": [
-    "Support & implementation fees",
-    "Whether a helpdesk is also required for your setup"
-   ],
-   "notes": "Siena sends a final quote on request.",
-   "sources": [
-    [
-     "Siena pricing page",
-     "https://www.siena.cx/pricing"
-    ]
-   ],
-   "checked": "2026-10-18",
-   "affiliate_url": null,
-   "ai_short": "$0.90 per automated ticket + $750/mo platform fee"
-  },
-  {
-   "slug": "chatty",
-   "name": "Chatty AI Chatbot & Live Chat",
-   "type": "AI chatbot + live chat",
-   "model": "chatty",
-   "summary": "Shopify-native AI chatbot and live chat priced by AI conversations, with unlimited human conversations.",
-   "ai_billing": "Per AI conversation: plans include an allowance, and extra conversations cost $0.40 each.",
-   "plans": [
-    {
-     "name": "Free",
-     "monthly": 0,
-     "annual": null,
-     "includes": "50 AI conversations/mo, unlimited human conversations"
-    },
-    {
-     "name": "Basic",
-     "monthly": 19.99,
-     "annual": 16.99,
-     "includes": "100 AI conversations/mo"
-    },
-    {
-     "name": "Pro",
-     "monthly": 68.99,
-     "annual": 58.99,
-     "includes": "500 AI conversations/mo"
-    },
-    {
-     "name": "Plus",
-     "monthly": 199,
-     "annual": 169.99,
-     "includes": "1,000 AI conversations/mo"
-    }
-   ],
-   "params": {
-    "plans": [
-     [
-      "Basic",
-      19.99,
-      100
-     ],
-     [
-      "Pro",
-      68.99,
-      500
-     ],
-     [
-      "Plus",
-      199,
-      1000
-     ]
-    ],
-    "unit": 0.4
-   },
-   "free_alt": "Shopify Inbox's free AI agent overlaps for basic product Q&A.",
-   "pricing_url": "https://apps.shopify.com/chatty",
-   "site_url": "https://apps.shopify.com/chatty",
-   "shopify_url": "https://apps.shopify.com/chatty",
-   "unconfirmed": [],
-   "notes": "The annual prices are the yearly price divided by 12 ($203.88, $707.88 and $2,039.88 per year).",
-   "sources": [
-    [
-     "Chatty on Shopify App Store",
-     "https://apps.shopify.com/chatty"
-    ]
-   ],
-   "checked": "2026-10-18",
-   "affiliate_url": null,
-   "ai_short": "Per AI conversation (plan allowances; $0.40 extra)"
-  },
-  {
-   "slug": "helpcenter",
-   "name": "SB Helpdesk, Live Chat & FAQs (Helpcenter)",
-   "type": "Budget helpdesk + AI FAQs",
-   "model": "helpcenter",
-   "summary": "Low-cost Shopify helpdesk priced by tickets, with OpenAI-integrated FAQs. It isn't an autonomous AI agent.",
-   "ai_billing": "There's no separate AI fee. AI is used for FAQs (OpenAI-integrated) and the plans are priced by ticket.",
-   "plans": [
-    {
-     "name": "Free",
-     "monthly": 0,
-     "annual": null,
-     "includes": "10 tickets/mo, then $0.25/ticket"
-    },
-    {
-     "name": "Basic",
-     "monthly": 5.99,
-     "annual": 5.0,
-     "includes": "50 tickets/mo, then $0.16/ticket. AI FAQs"
-    },
-    {
-     "name": "Standard",
-     "monthly": 19.99,
-     "annual": 16.67,
-     "includes": "300 tickets/mo, then $0.15/ticket"
-    },
-    {
-     "name": "Advanced",
-     "monthly": 49.99,
-     "annual": 41.58,
-     "includes": "1,000 tickets/mo, then $0.10/ticket"
-    }
-   ],
-   "params": {
-    "plans": [
-     [
-      "Basic",
-      5.99,
-      50,
-      0.16
-     ],
-     [
-      "Standard",
-      19.99,
-      300,
-      0.15
-     ],
-     [
-      "Advanced",
-      49.99,
-      1000,
-      0.1
-     ]
-    ]
-   },
-   "free_alt": "Shopify Inbox is free for chat. Helpcenter adds ticketing and FAQs cheaply.",
-   "pricing_url": "https://apps.shopify.com/helpcenter",
-   "site_url": "https://apps.shopify.com/helpcenter",
-   "shopify_url": "https://apps.shopify.com/helpcenter",
-   "unconfirmed": [],
-   "notes": "The annual prices are the yearly price divided by 12 ($59.99, $199.99 and $498.96 per year). Our estimates count every conversation as a ticket.",
-   "sources": [
-    [
-     "Helpcenter on Shopify App Store",
-     "https://apps.shopify.com/helpcenter"
-    ]
-   ],
-   "checked": "2026-10-18",
-   "affiliate_url": null,
-   "ai_short": "No AI agent fee; priced per ticket (AI FAQs)"
-  }
- ],
- "changelog": [
-  {
-   "date": "2026-10-18",
-   "title": "Tracker launched: baseline prices recorded for 13 AI support apps",
-   "items": [
-    "Recorded official prices for Gorgias, Tidio (Lyro), Intercom Fin, Zendesk, HubSpot Service Hub, Shopify Inbox, Richpanel, Re:amaze, Freshdesk, Zipchat, Siena AI, Chatty and Helpcenter.",
-    "Noted: Zendesk's Shopify App Store listing still shows Suite Growth ($89/agent) and Suite Enterprise ($150/agent), which weren't on zendesk.com/pricing on this date.",
-    "Noted: Gorgias's pricing page markup contains two price sets. We use the detailed plan data (Basic $60, Pro $360, Advanced $900 monthly).",
-    "Noted: Intercom's Shopify listing shows monthly seat prices ($39/$99/$139) and intercom.com shows annual ($29/$85/$132)."
-   ]
-  }
- ]
+  ]
 }
