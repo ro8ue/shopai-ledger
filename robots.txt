@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://ro8ue.github.io/shopai-ledger/sitemap.xml
