@@ -826,6 +826,16 @@
   "changelog": [
     {
       "date": "2026-10-18",
+      "title": "New category: AI search & product recommendation apps (11 apps)",
+      "items": [
+        "Recorded official prices for Shopify Search & Discovery (free), Searchanise, Boost AI Search & Discovery, Fast Simon, Doofinder, Algolia, Wiser, LimeSpot, Rebuy, Klevu/Searchspring (Athos Commerce) and Nosto.",
+        "Noted: Boost moved new installs to GMV-based pricing in October 2025. Its pricing page ($239 Convert / $399 Accelerate) and help centre example ($299 Convert / $699 Accelerate) show different figures, so medium and large estimates are 'Not public / check site'.",
+        "Noted: Doofinder's Shopify App Store prices ($61/$186/$436) are higher than its general web prices ($49/$149/$349).",
+        "Noted: Rebuy, Klevu/Athos and Nosto don't publish volume-based prices; Fast Simon and Wiser publish prices only up to 30,000 sessions and 2,000 orders respectively."
+      ]
+    },
+    {
+      "date": "2026-10-18",
       "title": "Tracker launched: baseline prices recorded for 13 AI support apps",
       "items": [
         "Recorded official prices for Gorgias, Tidio (Lyro), Intercom Fin, Zendesk, HubSpot Service Hub, Shopify Inbox, Richpanel, Re:amaze, Freshdesk, Zipchat, Siena AI, Chatty and Helpcenter.",
