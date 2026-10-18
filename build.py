@@ -31,7 +31,7 @@ def page(fn, title, desc, body, head=""):
     PAGES.append(fn)
     url = S["base_url"] + "/" + ("" if fn == "index.html" else fn)
     nav = "".join(f'<a href="{h}">{t}</a>' for h, t in NAV)
-    (R / fn).write_text(f"""<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+    (R / fn).write_text(f"""<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="google-site-verification" content="JHZv0niTmEJr6Eywzr3X6kB2OFSl9WHrn6igGEJn2Qw" />
 <title>{e(title)}</title><meta name="description" content="{e(desc)}"><link rel="canonical" href="{url}">
 <meta property="og:type" content="website"><meta property="og:site_name" content="ShopAI Ledger"><meta property="og:title" content="{e(title)}"><meta property="og:description" content="{e(desc)}"><meta property="og:url" content="{url}"><meta name="twitter:card" content="summary">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%235b3fd6'/%3E%3Ctext x='16' y='22' font-size='17' text-anchor='middle' fill='white' font-family='Arial' font-weight='bold'%3E$%3C/text%3E%3C/svg%3E">
@@ -42,9 +42,9 @@ def page(fn, title, desc, body, head=""):
 <p><a href="methodology.html">How we calculate</a><a href="disclosure.html">Affiliate disclosure</a><a href="changelog.html">Change log</a><a href="advertise.html">Advertise / get listed</a><a href="mailto:{S['contact']}?subject=ShopAI%20Ledger%20correction">Report a wrong price</a></p></footer></body></html>""")
 
 # Newsletter placeholder: swap the inner #newsletter-embed contents for the Beehiiv embed when ready.
-NEWS = """<section class="news" id="newsletter"><h2>Weekly price-change email (coming soon)</h2>
+NEWS = """<section class="news" id="newsletter"><h2>Get the weekly AI app price changes</h2>
 <p>One short email a week: which Shopify AI apps changed their prices or plans, and what that means for your bill.</p>
-<div id="newsletter-embed"><!-- NEWSLETTER_EMBED: replace this comment and the paragraph below with the Beehiiv form embed --><p><b>Launching soon.</b> Check the <a href="changelog.html" style="color:#fff">change log</a> in the meantime.</p></div></section>"""
+<div id="newsletter-embed"><script async src="https://subscribe-forms.beehiiv.com/v3/loader.js" data-beehiiv-form="15c91c67-f932-4b17-b631-62f1e5d4e75b"></script><p style="font-size:.85em">Free, one email a week. Or read it at <a href="https://shopai-ledger.beehiiv.com/" style="color:#fff">shopai-ledger.beehiiv.com</a>.</p></div></section>"""
 
 sizes_html = '<div class="sizes">' + "".join(f"<span><b>{s['label']}</b>: {s['conv']:,} support conversations/mo, {s['seats']} agent seat{'s' if s['seats']>1 else ''}</span>" for s in SIZES) + f"<span>AI resolves {int(RATE*100)}% of conversations</span></div>"
 def flag(a): return f'<span class="tag free">Free option overlaps</span>' if a.get("free_alt") and a["model"] != "free" else ('<span class="tag free">Free</span>' if a["model"] == "free" else "")
