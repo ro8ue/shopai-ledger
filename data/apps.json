@@ -477,7 +477,7 @@
           "name": "Starter",
           "monthly": 59,
           "annual": null,
-          "includes": "Flat rate, unlimited team members, 500 responded conversations/mo"
+          "includes": "Flat rate, unlimited team members, 500 responded conversations/mo. No AI Agent (no AI resolutions)"
         }
       ],
       "params": {
@@ -489,10 +489,8 @@
       "pricing_url": "https://www.reamaze.com/pricing",
       "site_url": "https://www.reamaze.com/",
       "shopify_url": "https://apps.shopify.com/reamaze",
-      "unconfirmed": [
-        "Whether the flat-rate Starter plan includes AI resolutions"
-      ],
-      "notes": "",
+      "unconfirmed": [],
+      "notes": "Re:amaze support confirmed by email on 2026-10-18 that the Starter plan does not include the AI Agent, and that the $29/user Basic price and $0.85 per extra resolution are correct.",
       "sources": [
         [
           "Re:amaze pricing page",
@@ -501,6 +499,10 @@
         [
           "Re:amaze on Shopify App Store",
           "https://apps.shopify.com/reamaze"
+        ],
+        [
+          "Re:amaze support, email reply (2026-10-18)",
+          "https://www.reamaze.com/pricing"
         ]
       ],
       "checked": "2026-10-18",
@@ -824,6 +826,13 @@
     }
   ],
   "changelog": [
+    {
+      "date": "2026-10-19",
+      "title": "Re:amaze: Starter plan confirmed without AI",
+      "items": [
+        "Re:amaze support confirmed the flat $59 Starter plan doesn't include the AI Agent or any AI resolutions. AI resolutions come only with Basic (5/user), Pro (10/user) and Plus (20/user). Estimates were already based on Basic, so no cost figures changed."
+      ]
+    },
     {
       "date": "2026-10-18",
       "title": "New category: AI search & product recommendation apps (11 apps)",
