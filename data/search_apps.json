@@ -65,7 +65,7 @@
      "https://help.shopify.com/en/manual/online-store/storefront-search/search-and-discovery-modify-search"
     ]
    ],
-   "checked": "2026-10-18",
+   "checked": "2026-10-19",
    "affiliate_url": "",
    "unit": "Free"
   },
@@ -182,7 +182,7 @@
      "https://apps.shopify.com/searchanise"
     ]
    ],
-   "checked": "2026-10-18",
+   "checked": "2026-10-19",
    "affiliate_url": "",
    "unit": "Products"
   },
@@ -255,7 +255,7 @@
      "https://support.boostcommerce.net/en/articles/12545618-gmv-based-pricing-plan-overview"
     ]
    ],
-   "checked": "2026-10-18",
+   "checked": "2026-10-19",
    "affiliate_url": "",
    "unit": "Monthly GMV"
   },
@@ -341,7 +341,7 @@
      "https://www.fastsimon.com/pricing/"
     ]
    ],
-   "checked": "2026-10-18",
+   "checked": "2026-10-19",
    "affiliate_url": "",
    "unit": "Sessions"
   },
@@ -416,7 +416,7 @@
      "https://www.doofinder.com/en/pricing"
     ]
    ],
-   "checked": "2026-10-18",
+   "checked": "2026-10-19",
    "affiliate_url": "",
    "unit": "Requests"
   },
@@ -473,7 +473,7 @@
      "https://www.algolia.com/pricing"
     ]
    ],
-   "checked": "2026-10-18",
+   "checked": "2026-10-19",
    "affiliate_url": "",
    "unit": "Search requests"
   },
@@ -581,7 +581,7 @@
      "https://apps.shopify.com/recommended-products-wiser"
     ]
    ],
-   "checked": "2026-10-18",
+   "checked": "2026-10-19",
    "affiliate_url": "",
    "unit": "Orders"
   },
@@ -703,7 +703,7 @@
    "unconfirmed": [
     "Turbo prices above 250 orders/month are not public, so medium and large stores are priced on Max (Turbo may be cheaper)"
    ],
-   "notes": "Max revenue tiers are read from the slider on LimeSpot's official pricing page.",
+   "notes": "Max revenue tiers are read from the slider on LimeSpot's official pricing page. On 19 Oct 2026 LimeSpot's pricing page also advertised a sign-up offer of 50% off for life. Our estimates use the list prices, so check whether the offer still applies when you sign up.",
    "sources": [
     [
      "LimeSpot pricing page (Max tiers)",
@@ -714,7 +714,7 @@
      "https://apps.shopify.com/limespot"
     ]
    ],
-   "checked": "2026-10-18",
+   "checked": "2026-10-19",
    "affiliate_url": "",
    "unit": "Orders / revenue"
   },
@@ -783,7 +783,7 @@
      "https://www.rebuyengine.com/pricing"
     ]
    ],
-   "checked": "2026-10-18",
+   "checked": "2026-10-19",
    "affiliate_url": "",
    "unit": "Orders"
   },
@@ -849,7 +849,7 @@
      "https://apps.shopify.com/klevu-smart-search"
     ]
    ],
-   "checked": "2026-10-18",
+   "checked": "2026-10-19",
    "affiliate_url": "",
    "unit": "Quote"
   },
@@ -909,7 +909,7 @@
      "https://apps.shopify.com/nosto-personalization-for-shopify"
     ]
    ],
-   "checked": "2026-10-18",
+   "checked": "2026-10-19",
    "affiliate_url": "",
    "unit": "Quote"
   }

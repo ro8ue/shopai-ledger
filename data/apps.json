@@ -2,7 +2,7 @@
   "site": {
     "name": "ShopAI Ledger",
     "base_url": "https://ro8ue.github.io/shopai-ledger",
-    "updated": "2026-10-18",
+    "updated": "2026-10-19",
     "contact": "alinkewu@gmail.com",
     "sizes": [
       {
@@ -112,7 +112,7 @@
           "https://www.gorgias.com/pricing"
         ]
       ],
-      "checked": "2026-10-18",
+      "checked": "2026-10-19",
       "affiliate_url": "https://partner.gorgias.com/7bk6ikez45x3",
       "ai_short": "$1.00 per automated interaction (monthly), plus ticket fees"
     },
@@ -190,7 +190,7 @@
           "https://apps.shopify.com/tidio-chat"
         ]
       ],
-      "checked": "2026-10-18",
+      "checked": "2026-10-19",
       "affiliate_url": null,
       "ai_short": "Per Lyro conversation ($39 for 200), human chats billed separately"
     },
@@ -247,7 +247,7 @@
           "https://apps.shopify.com/intercom"
         ]
       ],
-      "checked": "2026-10-18",
+      "checked": "2026-10-19",
       "affiliate_url": null,
       "ai_short": "$0.99 per Fin outcome, plus per-seat fee"
     },
@@ -302,7 +302,7 @@
           "https://www.zendesk.com/pricing/"
         ]
       ],
-      "checked": "2026-10-18",
+      "checked": "2026-10-19",
       "affiliate_url": null,
       "ai_short": "$2.00 per automated resolution PAYG ($1.50 committed), plus seats"
     },
@@ -361,7 +361,7 @@
           "https://blog.hubspot.com/service/hubspot-service-hub-pricing"
         ]
       ],
-      "checked": "2026-10-18",
+      "checked": "2026-10-19",
       "affiliate_url": null,
       "ai_short": "$0.50 per resolution via credits; Professional seats required"
     },
@@ -393,7 +393,7 @@
           "https://apps.shopify.com/inbox"
         ]
       ],
-      "checked": "2026-10-18",
+      "checked": "2026-10-19",
       "affiliate_url": null,
       "ai_short": "Free"
     },
@@ -443,7 +443,7 @@
           "https://www.richpanel.com/pricing"
         ]
       ],
-      "checked": "2026-10-18",
+      "checked": "2026-10-19",
       "affiliate_url": null,
       "ai_short": "Token meter, ~$0.20–0.24 per AI conversation, $200/mo minimum, plus seats"
     },
@@ -505,7 +505,7 @@
           "https://www.reamaze.com/pricing"
         ]
       ],
-      "checked": "2026-10-18",
+      "checked": "2026-10-19",
       "affiliate_url": null,
       "ai_short": "$0.85 per resolution after small per-user allowance, plus seats"
     },
@@ -555,7 +555,7 @@
           "https://www.freshworks.com/freshdesk/pricing/"
         ]
       ],
-      "checked": "2026-10-18",
+      "checked": "2026-10-19",
       "affiliate_url": null,
       "ai_short": "$49 per 100 AI sessions, plus seats"
     },
@@ -636,7 +636,7 @@
           "https://apps.shopify.com/zipchat"
         ]
       ],
-      "checked": "2026-10-18",
+      "checked": "2026-10-19",
       "affiliate_url": null,
       "ai_short": "Per AI reply (plan allowances; $49 per 250 extra)"
     },
@@ -680,7 +680,7 @@
           "https://www.siena.cx/pricing"
         ]
       ],
-      "checked": "2026-10-18",
+      "checked": "2026-10-19",
       "affiliate_url": null,
       "ai_short": "$0.90 per automated ticket + $750/mo platform fee"
     },
@@ -749,7 +749,7 @@
           "https://apps.shopify.com/chatty"
         ]
       ],
-      "checked": "2026-10-18",
+      "checked": "2026-10-19",
       "affiliate_url": null,
       "ai_short": "Per AI conversation (plan allowances; $0.40 extra)"
     },
@@ -820,12 +820,21 @@
           "https://apps.shopify.com/helpcenter"
         ]
       ],
-      "checked": "2026-10-18",
+      "checked": "2026-10-19",
       "affiliate_url": null,
       "ai_short": "No AI agent fee; priced per ticket (AI FAQs)"
     }
   ],
   "changelog": [
+    {
+      "date": "2026-10-19",
+      "title": "Weekly re-check: no price changes in either category",
+      "items": [
+        "Re-read the official pricing pages (and Shopify App Store listings where we use them) for all 13 support apps and all 11 search & recommendation apps. Every price, plan allowance and usage rate matched what we recorded on 18 Oct, so no cost estimates changed.",
+        "Noted: LimeSpot's pricing page is advertising a 50% lifetime discount for new sign-ups. We still show list prices.",
+        "Still the case: Boost AI Search & Filter and Rebuy show 'not currently available' on the Shopify App Store from our location, and Boost's pricing page ($239 Convert / $399 Accelerate) still differs from its help centre example ($299 / $699)."
+      ]
+    },
     {
       "date": "2026-10-19",
       "title": "Re:amaze: Starter plan confirmed without AI",
