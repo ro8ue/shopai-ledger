@@ -1,917 +1,971 @@
 {
- "category": {
-  "slug": "shopify-ai-search-apps",
-  "name": "Search & recommendations",
-  "sizes": [
-   {
-    "key": "small",
-    "label": "Small store",
-    "products": 500,
-    "sessions": 10000,
-    "orders": 200,
-    "revenue": 15000,
-    "requests": 15000
-   },
-   {
-    "key": "medium",
-    "label": "Medium store",
-    "products": 5000,
-    "sessions": 40000,
-    "orders": 1000,
-    "revenue": 75000,
-    "requests": 60000
-   },
-   {
-    "key": "large",
-    "label": "Large store",
-    "products": 25000,
-    "sessions": 150000,
-    "orders": 4000,
-    "revenue": 300000,
-    "requests": 225000
-   }
+  "category": {
+    "slug": "shopify-ai-search-apps",
+    "name": "Search & recommendations",
+    "sizes": [
+      {
+        "key": "small",
+        "label": "Small store",
+        "products": 500,
+        "sessions": 10000,
+        "orders": 200,
+        "revenue": 15000,
+        "requests": 15000
+      },
+      {
+        "key": "medium",
+        "label": "Medium store",
+        "products": 5000,
+        "sessions": 40000,
+        "orders": 1000,
+        "revenue": 75000,
+        "requests": 60000
+      },
+      {
+        "key": "large",
+        "label": "Large store",
+        "products": 25000,
+        "sessions": 150000,
+        "orders": 4000,
+        "revenue": 300000,
+        "requests": 225000
+      }
+    ]
+  },
+  "apps": [
+    {
+      "slug": "shopify-search-discovery",
+      "name": "Shopify Search & Discovery",
+      "type": "Shopify's own search, filter & recommendations app",
+      "model": "free",
+      "summary": "Shopify's free app for customising storefront search: filters, synonyms, product boosts, related/complementary product recommendations and search analytics. Semantic (AI) understanding is built into Shopify's online store search.",
+      "ai_billing": "No usage fee. The app is free. Shopify says semantic understanding is included in online store search, so there's nothing extra to switch on or pay for in the app. Your Shopify plan itself is a separate cost.",
+      "ai_short": "Free app; semantic search built into Shopify search",
+      "plans": [
+        {
+          "name": "Free",
+          "monthly": 0,
+          "annual": null,
+          "includes": "Filters, synonyms, product boosts, related & complementary recommendations, search analytics"
+        }
+      ],
+      "params": {},
+      "free_alt": "This is the free option.",
+      "pricing_url": "https://apps.shopify.com/search-and-discovery",
+      "shopify_url": "https://apps.shopify.com/search-and-discovery",
+      "unconfirmed": [],
+      "notes": "Rated 2.6/5 (511 reviews) on the Shopify App Store when checked. Merchants with big catalogs or heavy merchandising needs often outgrow it, which is why the paid apps below exist.",
+      "sources": [
+        [
+          "Shopify App Store listing",
+          "https://apps.shopify.com/search-and-discovery"
+        ],
+        [
+          "Shopify Help Center: semantic understanding",
+          "https://help.shopify.com/en/manual/online-store/storefront-search/search-and-discovery-modify-search"
+        ]
+      ],
+      "checked": "2026-10-19",
+      "affiliate_url": "",
+      "unit": "Free"
+    },
+    {
+      "slug": "searchanise",
+      "name": "Searchanise Search & Filter",
+      "type": "AI search & filters",
+      "model": "tiered",
+      "summary": "Search and filter app priced purely by the number of products in your catalog. Every paid plan has the same core features (AI personalization, filters, recommendations); bigger plans add support hours and a dedicated server.",
+      "ai_billing": "No per-search or per-session fees. You pay a flat monthly price set by how many active, searchable products you have (Free up to 25, then 1.5k, 7.5k, 15k, 30k, 50k and 300k product tiers). Personalized AI search is included on every paid plan.",
+      "ai_short": "Flat fee by product count; unlimited searches",
+      "plans": [
+        {
+          "name": "Free",
+          "monthly": 0,
+          "annual": null,
+          "includes": "Up to 25 products (and dev stores)"
+        },
+        {
+          "name": "Basic",
+          "monthly": 19,
+          "annual": 16,
+          "includes": "Up to 1,500 products"
+        },
+        {
+          "name": "Essential",
+          "monthly": 39,
+          "annual": 33,
+          "includes": "Up to 7,500 products; label removed, banners"
+        },
+        {
+          "name": "Advanced",
+          "monthly": 89,
+          "annual": 74,
+          "includes": "Up to 15,000 products"
+        },
+        {
+          "name": "Growth",
+          "monthly": 139,
+          "annual": 116,
+          "includes": "Up to 30,000 products"
+        },
+        {
+          "name": "Pro",
+          "monthly": 209,
+          "annual": 174,
+          "includes": "Up to 50,000 products"
+        },
+        {
+          "name": "Premium",
+          "monthly": 349,
+          "annual": 291,
+          "includes": "Up to 300,000 products; dedicated server, calls"
+        },
+        {
+          "name": "Enterprise",
+          "monthly": null,
+          "annual": null,
+          "includes": "Up to 2,000,000 products; custom quote"
+        }
+      ],
+      "params": {
+        "metric": "products",
+        "plans": [
+          [
+            "Free",
+            0,
+            25
+          ],
+          [
+            "Basic",
+            19,
+            1500
+          ],
+          [
+            "Essential",
+            39,
+            7500
+          ],
+          [
+            "Advanced",
+            89,
+            15000
+          ],
+          [
+            "Growth",
+            139,
+            30000
+          ],
+          [
+            "Pro",
+            209,
+            50000
+          ],
+          [
+            "Premium",
+            349,
+            300000
+          ]
+        ]
+      },
+      "free_alt": "Shopify Search & Discovery (free) covers basic filters, synonyms and boosts.",
+      "pricing_url": "https://searchanise.io/pricing/",
+      "shopify_url": "https://apps.shopify.com/searchanise",
+      "unconfirmed": [],
+      "notes": "Annual billing saves up to 17% (e.g. Essential $396/yr = $33/mo).",
+      "sources": [
+        [
+          "Searchanise Shopify pricing",
+          "https://searchanise.io/pricing/"
+        ],
+        [
+          "Shopify App Store listing",
+          "https://apps.shopify.com/searchanise"
+        ]
+      ],
+      "checked": "2026-10-19",
+      "affiliate_url": "",
+      "unit": "Products"
+    },
+    {
+      "slug": "boost-ai-search",
+      "name": "Boost AI Search & Discovery",
+      "type": "AI search, filters & recommendations",
+      "model": "quote",
+      "summary": "One of the biggest Shopify search & filter apps. Since October 2025 new installs are priced by your store's monthly GMV (gross sales), not product count, across three packages: Launch, Convert and Accelerate.",
+      "ai_billing": "Monthly subscription set by your 'Base GMV' (average gross sales over the last 3 months), plus an overage of $2 per $1,000 of GMV above your plan's limit (capped). AI search, synonyms and semantic search are included; AI personalization is on Accelerate.",
+      "ai_short": "Monthly fee by store GMV (sales), + $2 per $1k GMV over limit",
+      "plans": [
+        {
+          "name": "Launch",
+          "monthly": 29,
+          "annual": null,
+          "includes": "From $29/mo; Boost's site shows $29 for up to $50K monthly GMV"
+        },
+        {
+          "name": "Convert",
+          "monthly": null,
+          "annual": null,
+          "includes": "Boost's site shows $239 for up to $100K GMV; Boost's help centre example shows Convert at $299 for a $100K limit"
+        },
+        {
+          "name": "Accelerate",
+          "monthly": null,
+          "annual": null,
+          "includes": "Boost's site shows $399 for up to $650K GMV; help centre example shows an Accelerate tier at $699"
+        },
+        {
+          "name": "Enterprise",
+          "monthly": null,
+          "annual": null,
+          "includes": "Over $2.5M monthly GMV: custom"
+        }
+      ],
+      "params": {
+        "msgs": [
+          "Launch: Boost's pricing page shows $29/mo for up to $50K monthly GMV, so a $15K-GMV store should land here. Boost assigns the exact sub-tier from your order data, and its Shopify listing describes Launch as 'from $29', so confirm in-app.",
+          "Convert tier for ~$75K GMV: Boost's pricing page shows $239/mo (up to $100K GMV) while its help centre example shows $299/mo for a $100K limit. Conflicting official figures, so not public / check site.",
+          "~$300K GMV: Boost's pricing page shows Accelerate $399/mo up to $650K GMV, while its help centre shows Accelerate tiers from $699. Not public / check site."
+        ],
+        "plans": [
+          "Launch (from $29)",
+          "Convert ($239\u2013$299 per official pages)",
+          "Convert/Accelerate (sub-tier not public)"
+        ],
+        "totals": [
+          29,
+          null,
+          null
+        ]
+      },
+      "free_alt": "Shopify Search & Discovery (free) covers basic filters, synonyms and boosts.",
+      "pricing_url": "https://boostcommerce.net/platform/pricing",
+      "shopify_url": "https://apps.shopify.com/product-filter-search",
+      "unconfirmed": [
+        "Exact GMV sub-tier prices: Boost's pricing page and help centre show different figures for the Convert and Accelerate packages",
+        "When we checked from our location, the Shopify App Store page showed 'not currently available'. It may be regional; check the listing yourself"
+      ],
+      "notes": "Merchants who installed before October 2025 stay on legacy, product-count pricing.",
+      "sources": [
+        [
+          "Boost pricing page",
+          "https://boostcommerce.net/platform/pricing"
+        ],
+        [
+          "Boost help: GMV-based pricing overview",
+          "https://support.boostcommerce.net/en/articles/12545618-gmv-based-pricing-plan-overview"
+        ]
+      ],
+      "checked": "2026-10-19",
+      "affiliate_url": "",
+      "unit": "Monthly GMV"
+    },
+    {
+      "slug": "fast-simon",
+      "name": "Fast Simon AI Search & Filters",
+      "type": "AI search, filters & merchandising",
+      "model": "tiered",
+      "summary": "AI search and collection merchandising app priced by monthly sessions, meaning every store visit, not just visits that use search. Paid plans support up to 40,000 products.",
+      "ai_billing": "Flat monthly plans capped by monthly sessions: 100 (free), 2,000, 10,000 and 30,000. Above 30,000 sessions you need a custom/Enterprise quote. AI multimodal search is on Top Pro.",
+      "ai_short": "Flat fee by monthly sessions (all store visits)",
+      "plans": [
+        {
+          "name": "Free",
+          "monthly": 0,
+          "annual": null,
+          "includes": "100 monthly sessions, up to 250 products"
+        },
+        {
+          "name": "Starter",
+          "monthly": 39.99,
+          "annual": 33.33,
+          "includes": "2,000 monthly sessions"
+        },
+        {
+          "name": "Essential",
+          "monthly": 99.99,
+          "annual": 83.33,
+          "includes": "10,000 monthly sessions, realtime sync"
+        },
+        {
+          "name": "Top Pro",
+          "monthly": 299.99,
+          "annual": 249.99,
+          "includes": "30,000 monthly sessions, merchandising rules, A/B tests, AI multimodal search"
+        },
+        {
+          "name": "Enterprise",
+          "monthly": null,
+          "annual": null,
+          "includes": "Custom quote"
+        }
+      ],
+      "params": {
+        "metric": "sessions",
+        "plans": [
+          [
+            "Free",
+            0,
+            100
+          ],
+          [
+            "Starter",
+            39.99,
+            2000
+          ],
+          [
+            "Essential",
+            99.99,
+            10000
+          ],
+          [
+            "Top Pro",
+            299.99,
+            30000
+          ]
+        ]
+      },
+      "free_alt": "Shopify Search & Discovery (free) covers basic filters, synonyms and boosts.",
+      "pricing_url": "https://apps.shopify.com/instant-search",
+      "shopify_url": "https://apps.shopify.com/instant-search",
+      "unconfirmed": [
+        "Prices above 30,000 monthly sessions (Enterprise) are not public"
+      ],
+      "notes": "A third-party review (motive.co) reports that a Fast Simon session is every store visit, whether or not the shopper searches; Fast Simon's own listing just says 'Monthly Sessions'. Annual prices: $399.96/$999.96/$2,999.88 a year.",
+      "sources": [
+        [
+          "Shopify App Store listing",
+          "https://apps.shopify.com/instant-search"
+        ],
+        [
+          "Fast Simon pricing page",
+          "https://www.fastsimon.com/pricing/"
+        ]
+      ],
+      "checked": "2026-10-19",
+      "affiliate_url": "",
+      "unit": "Sessions"
+    },
+    {
+      "slug": "doofinder",
+      "name": "Doofinder",
+      "type": "AI search, recommendations & quizzes",
+      "model": "tiered",
+      "summary": "Site search with recommendations and a quiz builder in every plan. Shopify prices are higher than Doofinder's general web prices, and plans are capped by monthly requests per product (search, recommendations, quiz).",
+      "ai_billing": "Flat monthly plans capped by requests per month. A request is counted whenever Doofinder's server responds, and search-as-you-type counts from the third keystroke. Doofinder lists caps of 10k (Basic), 150k (Pro) and 400k (Advanced) requests per product.",
+      "ai_short": "Flat fee by monthly search requests (keystroke-level)",
+      "plans": [
+        {
+          "name": "Basic",
+          "monthly": 61,
+          "annual": 55.12,
+          "includes": "AI guided search, custom results, recommendations, quiz maker; up to 10k requests/mo per product"
+        },
+        {
+          "name": "Pro",
+          "monthly": 186,
+          "annual": 167.62,
+          "includes": "AI alerts, multi-index, search suggestions; up to 150k requests/mo"
+        },
+        {
+          "name": "Advanced",
+          "monthly": 436,
+          "annual": 392.62,
+          "includes": "1:1 personalization, visual search; up to 400k requests/mo"
+        },
+        {
+          "name": "Enterprise",
+          "monthly": null,
+          "annual": null,
+          "includes": "Custom"
+        }
+      ],
+      "params": {
+        "metric": "requests",
+        "plans": [
+          [
+            "Basic",
+            61,
+            10000
+          ],
+          [
+            "Pro",
+            186,
+            150000
+          ],
+          [
+            "Advanced",
+            436,
+            400000
+          ]
+        ]
+      },
+      "free_alt": "Shopify Search & Discovery (free) covers basic filters, synonyms and boosts.",
+      "pricing_url": "https://apps.shopify.com/doofinder",
+      "shopify_url": "https://apps.shopify.com/doofinder",
+      "unconfirmed": [
+        "Request caps come from doofinder.com's general pricing page; the Shopify listing doesn't state them, so we assume they apply to the Shopify plans too"
+      ],
+      "notes": "On doofinder.com the general (non-Shopify) prices are $49/$149/$349 a month. The Shopify App Store prices ($61/$186/$436) are used here. Annual: $661.44/$2,011.44/$4,711.44 a year.",
+      "sources": [
+        [
+          "Shopify App Store listing",
+          "https://apps.shopify.com/doofinder"
+        ],
+        [
+          "Doofinder pricing page (request limits)",
+          "https://www.doofinder.com/en/pricing"
+        ]
+      ],
+      "checked": "2026-10-19",
+      "affiliate_url": "",
+      "unit": "Requests"
+    },
+    {
+      "slug": "algolia",
+      "name": "Algolia",
+      "type": "Search API (developer-built)",
+      "model": "algolia",
+      "summary": "Developer-first search API used by large brands. The pay-as-you-go plans are very cheap at low volume, but you or a developer must build and maintain the Shopify integration.",
+      "ai_billing": "Pay as you go. Grow Plus (keyword search plus AI ranking, AI synonyms and personalization) includes 10K search requests/month, then charges $1.75 per extra 1K. Plain keyword Grow is $0.50 per extra 1K. 100K records are included on both, then $0.40 per 1K. Search-as-you-type counts every keystroke as a request.",
+      "ai_short": "$1.75 per 1K search requests over 10K (Grow Plus)",
+      "plans": [
+        {
+          "name": "Free",
+          "monthly": 0,
+          "annual": null,
+          "includes": "10K search requests/mo, 50K records, 5K recommendation requests"
+        },
+        {
+          "name": "Grow",
+          "monthly": 0,
+          "annual": null,
+          "includes": "$0 base; 10K requests incl., then $0.50/1K; 100K records incl., then $0.40/1K"
+        },
+        {
+          "name": "Grow Plus",
+          "monthly": 0,
+          "annual": null,
+          "includes": "$0 base; 10K requests incl., then $1.75/1K; AI ranking, AI synonyms, personalization"
+        },
+        {
+          "name": "Elevate",
+          "monthly": null,
+          "annual": null,
+          "includes": "Annual contract, NeuralSearch; custom pricing"
+        }
+      ],
+      "params": {
+        "incl": 10000,
+        "unit": 1.75,
+        "unit_basic": 0.5,
+        "records_incl": 100000
+      },
+      "free_alt": "Shopify Search & Discovery (free) covers basic filters, synonyms and boosts.",
+      "pricing_url": "https://www.algolia.com/pricing",
+      "shopify_url": "",
+      "unconfirmed": [
+        "Elevate (NeuralSearch, the full AI search) pricing is custom/annual"
+      ],
+      "notes": "The estimate covers search requests only. Recommendations (10K/mo included, then $0.60 per 1K), developer time and any Shopify connector costs aren't included. Records: each product variant or pre-sorted replica can count as a record.",
+      "sources": [
+        [
+          "Algolia pricing page",
+          "https://www.algolia.com/pricing"
+        ]
+      ],
+      "checked": "2026-10-19",
+      "affiliate_url": "",
+      "unit": "Search requests"
+    },
+    {
+      "slug": "wiser",
+      "name": "Wiser AI Upsell & Cross Sell",
+      "type": "AI recommendations & upsells",
+      "model": "tiered",
+      "summary": "AI product recommendations, frequently-bought-together, cart drawer and post-purchase upsells, priced by your total monthly store orders. AI search (IntelliSearch) is only on the Enterprise plan.",
+      "ai_billing": "Flat monthly fee set automatically by your store's total orders that month: free to 50, $9 to 100, $19 to 300, $49 to 500, $99 to 1,000, $199 to 2,000. Above 2,000 orders is an Enterprise quote.",
+      "ai_short": "Flat fee by monthly store orders",
+      "plans": [
+        {
+          "name": "Free",
+          "monthly": 0,
+          "annual": null,
+          "includes": "0\u201350 orders/mo"
+        },
+        {
+          "name": "Basic",
+          "monthly": 9,
+          "annual": null,
+          "includes": "51\u2013100 orders/mo"
+        },
+        {
+          "name": "Growth",
+          "monthly": 19,
+          "annual": null,
+          "includes": "101\u2013300 orders/mo"
+        },
+        {
+          "name": "Premium",
+          "monthly": 49,
+          "annual": null,
+          "includes": "301\u2013500 orders/mo"
+        },
+        {
+          "name": "501\u20131,000 orders",
+          "monthly": 99,
+          "annual": null,
+          "includes": "Per Wiser's pricing page"
+        },
+        {
+          "name": "1,001\u20132,000 orders",
+          "monthly": 199,
+          "annual": null,
+          "includes": "Per Wiser's pricing page"
+        },
+        {
+          "name": "Enterprise",
+          "monthly": null,
+          "annual": null,
+          "includes": "2,000+ orders; adds IntelliSearch AI search"
+        }
+      ],
+      "params": {
+        "metric": "orders",
+        "plans": [
+          [
+            "Free",
+            0,
+            50
+          ],
+          [
+            "Basic",
+            9,
+            100
+          ],
+          [
+            "Growth",
+            19,
+            300
+          ],
+          [
+            "Premium",
+            49,
+            500
+          ],
+          [
+            "501\u20131,000 orders",
+            99,
+            1000
+          ],
+          [
+            "1,001\u20132,000 orders",
+            199,
+            2000
+          ]
+        ]
+      },
+      "free_alt": "Shopify Search & Discovery (free) adds related and complementary product recommendations.",
+      "pricing_url": "https://www.getwiser.ai/pricing",
+      "shopify_url": "https://apps.shopify.com/recommended-products-wiser",
+      "unconfirmed": [
+        "Enterprise pricing (over 2,000 orders/month) is not public"
+      ],
+      "notes": "All orders in your store admin count toward the plan, not just orders Wiser influenced.",
+      "sources": [
+        [
+          "Wiser pricing page",
+          "https://www.getwiser.ai/pricing"
+        ],
+        [
+          "Shopify App Store listing",
+          "https://apps.shopify.com/recommended-products-wiser"
+        ]
+      ],
+      "checked": "2026-10-19",
+      "affiliate_url": "",
+      "unit": "Orders"
+    },
+    {
+      "slug": "limespot",
+      "name": "LimeSpot AI Bundles & Upsells",
+      "type": "AI personalization, recommendations & bundles",
+      "model": "limespot",
+      "summary": "AI recommendations, bundles and upsells. Turbo is priced by orders and isn't available on Shopify Plus. Max (segmentation, A/B tests, email/SMS personalization) is priced by Online Store revenue.",
+      "ai_billing": "Turbo is priced by Online Store orders/30 days (not for Shopify Plus): free to 10, $9.99 to 100, $19.99 to 250, $34.99 to 350, $49.99 to 500, $124.99 to 750, $149.99 to 1,000, $249.99 to 1,500, $299.99 to 2,000, $499.99 to 3,000, $649.99 to 4,000, $799.99 to 5,000, $1,249.99 to 7,500, $1,749.99 to 10,000, $2,499.99 above 10,000. Max is priced by Online Store revenue/30 days: $50 up to $15K, $75 to $25K, $150 to $50K, $225 to $75K, $300 to $100K, $375 to $200K, $525 to $400K, and so on up to $3,200 for $5M.",
+      "ai_short": "Turbo by orders ($0\u2013$2,499.99); Max by revenue ($50\u2013$3,200)",
+      "plans": [
+        {
+          "name": "Turbo Free",
+          "monthly": 0,
+          "annual": null,
+          "includes": "Up to 10 orders/mo; not for Shopify Plus"
+        },
+        {
+          "name": "Turbo",
+          "monthly": 9.99,
+          "annual": null,
+          "includes": "Order tiers from $9.99 (to 100) up to $2,499.99 (10,001+); full table on LimeSpot's Shopify page"
+        },
+        {
+          "name": "Max",
+          "monthly": 50,
+          "annual": null,
+          "includes": "From $50 (up to $15K revenue/30 days); $150 at $50K; $225 at $75K; $525 at $400K; $1,500 at $2M"
+        },
+        {
+          "name": "Max $5M+",
+          "monthly": null,
+          "annual": null,
+          "includes": "Contact us"
+        }
+      ],
+      "params": {
+        "turbo": [
+          [
+            10,
+            0
+          ],
+          [
+            100,
+            9.99
+          ],
+          [
+            250,
+            19.99
+          ],
+          [
+            350,
+            34.99
+          ],
+          [
+            500,
+            49.99
+          ],
+          [
+            750,
+            124.99
+          ],
+          [
+            1000,
+            149.99
+          ],
+          [
+            1500,
+            249.99
+          ],
+          [
+            2000,
+            299.99
+          ],
+          [
+            3000,
+            499.99
+          ],
+          [
+            4000,
+            649.99
+          ],
+          [
+            5000,
+            799.99
+          ],
+          [
+            7500,
+            1249.99
+          ],
+          [
+            10000,
+            1749.99
+          ],
+          [
+            10001,
+            2499.99
+          ]
+        ],
+        "max": [
+          [
+            15000,
+            50
+          ],
+          [
+            25000,
+            75
+          ],
+          [
+            50000,
+            150
+          ],
+          [
+            75000,
+            225
+          ],
+          [
+            100000,
+            300
+          ],
+          [
+            200000,
+            375
+          ],
+          [
+            400000,
+            525
+          ],
+          [
+            500000,
+            600
+          ],
+          [
+            600000,
+            650
+          ],
+          [
+            700000,
+            700
+          ],
+          [
+            800000,
+            750
+          ],
+          [
+            900000,
+            800
+          ],
+          [
+            1000000,
+            850
+          ],
+          [
+            2000000,
+            1500
+          ],
+          [
+            3500000,
+            2400
+          ],
+          [
+            5000000,
+            3200
+          ]
+        ]
+      },
+      "free_alt": "Shopify Search & Discovery (free) adds related and complementary product recommendations.",
+      "pricing_url": "https://limespot.com/shopify",
+      "shopify_url": "https://apps.shopify.com/limespot",
+      "unconfirmed": [],
+      "notes": "Turbo and Max tiers read from the sliders on LimeSpot's Shopify pricing page (https://limespot.com/shopify), which LimeSpot support (Shihab) pointed us to by email on 19 Oct 2026. We pick the cheaper of Turbo (by orders) and Max (by revenue) for each store size. Turbo is not available on Shopify Plus. On 19 Oct 2026 the page also advertised 50% off for life for new sign-ups; our estimates use list prices.",
+      "sources": [
+        [
+          "LimeSpot Shopify pricing page (Turbo + Max sliders)",
+          "https://limespot.com/shopify"
+        ],
+        [
+          "LimeSpot pricing page (Max tiers also listed)",
+          "https://www.limespot.com/pricing"
+        ],
+        [
+          "Shopify App Store listing",
+          "https://apps.shopify.com/limespot"
+        ]
+      ],
+      "checked": "2026-10-19",
+      "affiliate_url": "",
+      "unit": "Orders / revenue"
+    },
+    {
+      "slug": "rebuy",
+      "name": "Rebuy Personalization Engine",
+      "type": "AI personalization, smart cart, search & upsells",
+      "model": "quote",
+      "summary": "Popular personalization suite (smart cart, upsells, bundles, Smart Search) sold as \u00e0-la-carte packages, each priced by your monthly Shopify orders, or as the all-in-one Platform One.",
+      "ai_billing": "Each package (Cart & Merchandising, Checkout & Post Purchase, Search & Collections, Flows & A/B Testing) is priced by orders per month, from $25/mo for one package. Bundling saves 10% on two, 20% on three and 30% on four. Premium support is $499/mo. Rebuy bills on a 30-day cycle based on the previous 30 days' orders.",
+      "ai_short": "Per package, priced by monthly orders (from $25)",
+      "plans": [
+        {
+          "name": "Rebuy Monetize",
+          "monthly": 0,
+          "annual": null,
+          "includes": "Free; pays you for post-purchase partner offers"
+        },
+        {
+          "name": "Build your own (per package)",
+          "monthly": 25,
+          "annual": null,
+          "includes": "From $25/mo per package; per-order tiers not public"
+        },
+        {
+          "name": "Platform One",
+          "monthly": 534,
+          "annual": null,
+          "includes": "All packages; Rebuy's page shows $534/mo billed monthly (order volume for that figure not stated)"
+        },
+        {
+          "name": "Premium Support",
+          "monthly": 499,
+          "annual": null,
+          "includes": "Add-on"
+        }
+      ],
+      "params": {
+        "msgs": [
+          "Rebuy prices each package by orders per month but doesn't publish the order tiers. Lowest published price: $25/mo for one package.",
+          "Order-based tiers not public. Talk to Rebuy's sales team or check the in-app estimate.",
+          "Order-based tiers not public. Platform One is shown at $534/mo, but the order volume behind that figure isn't stated."
+        ],
+        "plans": [
+          "From $25/mo per package",
+          "Not public",
+          "Not public"
+        ],
+        "totals": [
+          null,
+          null,
+          null
+        ]
+      },
+      "free_alt": "Shopify Search & Discovery (free) adds basic related-product recommendations.",
+      "pricing_url": "https://www.rebuyengine.com/pricing",
+      "shopify_url": "https://apps.shopify.com/rebuy",
+      "unconfirmed": [
+        "Order-based package tiers are not public (the page shows placeholders until you pick a volume)",
+        "When we checked from our location, the Shopify App Store page showed 'not currently available'. It may be regional; check the listing yourself"
+      ],
+      "notes": "Existing customers aren't automatically moved to package pricing.",
+      "sources": [
+        [
+          "Rebuy pricing page",
+          "https://www.rebuyengine.com/pricing"
+        ]
+      ],
+      "checked": "2026-10-19",
+      "affiliate_url": "",
+      "unit": "Orders"
+    },
+    {
+      "slug": "klevu",
+      "name": "Klevu / Searchspring (Athos Commerce)",
+      "type": "Enterprise AI search & merchandising",
+      "model": "quote",
+      "summary": "Klevu and Searchspring are now part of Athos Commerce. The Shopify app is free to install, but the AI search, merchandising and recommendations are sold as annual Athos plans on a custom quote.",
+      "ai_billing": "Custom quote. Athos sells Onsite Discovery (AI search, merchandising, recommendations, bundling) as annual plans and bills separately from your Shopify invoice.",
+      "ai_short": "Custom annual quote",
+      "plans": [
+        {
+          "name": "Shopify app",
+          "monthly": 0,
+          "annual": null,
+          "includes": "Free to install; an Athos plan is required"
+        },
+        {
+          "name": "Onsite Discovery",
+          "monthly": null,
+          "annual": null,
+          "includes": "Annual plan, custom quote"
+        },
+        {
+          "name": "Intelligent Discovery Platform",
+          "monthly": null,
+          "annual": null,
+          "includes": "Onsite + Offsite, custom quote"
+        }
+      ],
+      "params": {
+        "msgs": [
+          "Not public. Athos Commerce quotes every plan.",
+          "Not public. Athos Commerce quotes every plan.",
+          "Not public. Athos Commerce quotes every plan."
+        ],
+        "plans": [
+          "Custom quote",
+          "Custom quote",
+          "Custom quote"
+        ],
+        "totals": [
+          null,
+          null,
+          null
+        ]
+      },
+      "free_alt": "Shopify Search & Discovery (free) covers basic filters, synonyms and boosts.",
+      "pricing_url": "https://www.athoscommerce.com/pricing",
+      "shopify_url": "https://apps.shopify.com/klevu-smart-search",
+      "unconfirmed": [
+        "All plan prices are quote-only"
+      ],
+      "notes": "Searchspring is also part of Athos Commerce, so its pricing is quote-only too.",
+      "sources": [
+        [
+          "Athos Commerce pricing page",
+          "https://www.athoscommerce.com/pricing"
+        ],
+        [
+          "Klevu Shopify App Store listing",
+          "https://apps.shopify.com/klevu-smart-search"
+        ]
+      ],
+      "checked": "2026-10-19",
+      "affiliate_url": "",
+      "unit": "Quote"
+    },
+    {
+      "slug": "nosto",
+      "name": "Nosto AI Search & Discovery",
+      "type": "Enterprise personalization, search & merchandising",
+      "model": "quote",
+      "summary": "Modular commerce experience platform (personalized search, category merchandising, recommendations, bundles, pop-ups, UGC). The Shopify app is free to install, but a paid Nosto account is required.",
+      "ai_billing": "Custom quote: a base platform fee plus a fixed fee based on your GMV turnover and traffic, and the modules you choose. AI is included in every module. There's no self-serve free trial, only a proof of concept for qualified merchants.",
+      "ai_short": "Custom quote by GMV, traffic & modules",
+      "plans": [
+        {
+          "name": "Shopify app",
+          "monthly": 0,
+          "annual": null,
+          "includes": "Free to install; a Nosto account is required and isn't free"
+        },
+        {
+          "name": "Modular plan",
+          "monthly": null,
+          "annual": null,
+          "includes": "Base platform fee + volume-based fee; custom quote"
+        }
+      ],
+      "params": {
+        "msgs": [
+          "Not public. Nosto quotes by GMV, traffic and modules.",
+          "Not public. Nosto quotes by GMV, traffic and modules.",
+          "Not public. Nosto quotes by GMV, traffic and modules."
+        ],
+        "plans": [
+          "Custom quote",
+          "Custom quote",
+          "Custom quote"
+        ],
+        "totals": [
+          null,
+          null,
+          null
+        ]
+      },
+      "free_alt": "Shopify Search & Discovery (free) covers basic filters, synonyms, boosts and recommendations.",
+      "pricing_url": "https://www.nosto.com/pricing/",
+      "shopify_url": "https://apps.shopify.com/nosto-personalization-for-shopify",
+      "unconfirmed": [
+        "All plan prices are quote-only"
+      ],
+      "notes": "",
+      "sources": [
+        [
+          "Nosto pricing page",
+          "https://www.nosto.com/pricing/"
+        ],
+        [
+          "Shopify App Store listing",
+          "https://apps.shopify.com/nosto-personalization-for-shopify"
+        ]
+      ],
+      "checked": "2026-10-19",
+      "affiliate_url": "",
+      "unit": "Quote"
+    }
   ]
- },
- "apps": [
-  {
-   "slug": "shopify-search-discovery",
-   "name": "Shopify Search & Discovery",
-   "type": "Shopify's own search, filter & recommendations app",
-   "model": "free",
-   "summary": "Shopify's free app for customising storefront search: filters, synonyms, product boosts, related/complementary product recommendations and search analytics. Semantic (AI) understanding is built into Shopify's online store search.",
-   "ai_billing": "No usage fee. The app is free. Shopify says semantic understanding is included in online store search, so there's nothing extra to switch on or pay for in the app. Your Shopify plan itself is a separate cost.",
-   "ai_short": "Free app; semantic search built into Shopify search",
-   "plans": [
-    {
-     "name": "Free",
-     "monthly": 0,
-     "annual": null,
-     "includes": "Filters, synonyms, product boosts, related & complementary recommendations, search analytics"
-    }
-   ],
-   "params": {},
-   "free_alt": "This is the free option.",
-   "pricing_url": "https://apps.shopify.com/search-and-discovery",
-   "shopify_url": "https://apps.shopify.com/search-and-discovery",
-   "unconfirmed": [],
-   "notes": "Rated 2.6/5 (511 reviews) on the Shopify App Store when checked. Merchants with big catalogs or heavy merchandising needs often outgrow it, which is why the paid apps below exist.",
-   "sources": [
-    [
-     "Shopify App Store listing",
-     "https://apps.shopify.com/search-and-discovery"
-    ],
-    [
-     "Shopify Help Center: semantic understanding",
-     "https://help.shopify.com/en/manual/online-store/storefront-search/search-and-discovery-modify-search"
-    ]
-   ],
-   "checked": "2026-10-19",
-   "affiliate_url": "",
-   "unit": "Free"
-  },
-  {
-   "slug": "searchanise",
-   "name": "Searchanise Search & Filter",
-   "type": "AI search & filters",
-   "model": "tiered",
-   "summary": "Search and filter app priced purely by the number of products in your catalog. Every paid plan has the same core features (AI personalization, filters, recommendations); bigger plans add support hours and a dedicated server.",
-   "ai_billing": "No per-search or per-session fees. You pay a flat monthly price set by how many active, searchable products you have (Free up to 25, then 1.5k, 7.5k, 15k, 30k, 50k and 300k product tiers). Personalized AI search is included on every paid plan.",
-   "ai_short": "Flat fee by product count; unlimited searches",
-   "plans": [
-    {
-     "name": "Free",
-     "monthly": 0,
-     "annual": null,
-     "includes": "Up to 25 products (and dev stores)"
-    },
-    {
-     "name": "Basic",
-     "monthly": 19,
-     "annual": 16,
-     "includes": "Up to 1,500 products"
-    },
-    {
-     "name": "Essential",
-     "monthly": 39,
-     "annual": 33,
-     "includes": "Up to 7,500 products; label removed, banners"
-    },
-    {
-     "name": "Advanced",
-     "monthly": 89,
-     "annual": 74,
-     "includes": "Up to 15,000 products"
-    },
-    {
-     "name": "Growth",
-     "monthly": 139,
-     "annual": 116,
-     "includes": "Up to 30,000 products"
-    },
-    {
-     "name": "Pro",
-     "monthly": 209,
-     "annual": 174,
-     "includes": "Up to 50,000 products"
-    },
-    {
-     "name": "Premium",
-     "monthly": 349,
-     "annual": 291,
-     "includes": "Up to 300,000 products; dedicated server, calls"
-    },
-    {
-     "name": "Enterprise",
-     "monthly": null,
-     "annual": null,
-     "includes": "Up to 2,000,000 products; custom quote"
-    }
-   ],
-   "params": {
-    "metric": "products",
-    "plans": [
-     [
-      "Free",
-      0,
-      25
-     ],
-     [
-      "Basic",
-      19,
-      1500
-     ],
-     [
-      "Essential",
-      39,
-      7500
-     ],
-     [
-      "Advanced",
-      89,
-      15000
-     ],
-     [
-      "Growth",
-      139,
-      30000
-     ],
-     [
-      "Pro",
-      209,
-      50000
-     ],
-     [
-      "Premium",
-      349,
-      300000
-     ]
-    ]
-   },
-   "free_alt": "Shopify Search & Discovery (free) covers basic filters, synonyms and boosts.",
-   "pricing_url": "https://searchanise.io/pricing/",
-   "shopify_url": "https://apps.shopify.com/searchanise",
-   "unconfirmed": [],
-   "notes": "Annual billing saves up to 17% (e.g. Essential $396/yr = $33/mo).",
-   "sources": [
-    [
-     "Searchanise Shopify pricing",
-     "https://searchanise.io/pricing/"
-    ],
-    [
-     "Shopify App Store listing",
-     "https://apps.shopify.com/searchanise"
-    ]
-   ],
-   "checked": "2026-10-19",
-   "affiliate_url": "",
-   "unit": "Products"
-  },
-  {
-   "slug": "boost-ai-search",
-   "name": "Boost AI Search & Discovery",
-   "type": "AI search, filters & recommendations",
-   "model": "quote",
-   "summary": "One of the biggest Shopify search & filter apps. Since October 2025 new installs are priced by your store's monthly GMV (gross sales), not product count, across three packages: Launch, Convert and Accelerate.",
-   "ai_billing": "Monthly subscription set by your 'Base GMV' (average gross sales over the last 3 months), plus an overage of $2 per $1,000 of GMV above your plan's limit (capped). AI search, synonyms and semantic search are included; AI personalization is on Accelerate.",
-   "ai_short": "Monthly fee by store GMV (sales), + $2 per $1k GMV over limit",
-   "plans": [
-    {
-     "name": "Launch",
-     "monthly": 29,
-     "annual": null,
-     "includes": "From $29/mo; Boost's site shows $29 for up to $50K monthly GMV"
-    },
-    {
-     "name": "Convert",
-     "monthly": null,
-     "annual": null,
-     "includes": "Boost's site shows $239 for up to $100K GMV; Boost's help centre example shows Convert at $299 for a $100K limit"
-    },
-    {
-     "name": "Accelerate",
-     "monthly": null,
-     "annual": null,
-     "includes": "Boost's site shows $399 for up to $650K GMV; help centre example shows an Accelerate tier at $699"
-    },
-    {
-     "name": "Enterprise",
-     "monthly": null,
-     "annual": null,
-     "includes": "Over $2.5M monthly GMV: custom"
-    }
-   ],
-   "params": {
-    "msgs": [
-     "Launch: Boost's pricing page shows $29/mo for up to $50K monthly GMV, so a $15K-GMV store should land here. Boost assigns the exact sub-tier from your order data, and its Shopify listing describes Launch as 'from $29', so confirm in-app.",
-     "Convert tier for ~$75K GMV: Boost's pricing page shows $239/mo (up to $100K GMV) while its help centre example shows $299/mo for a $100K limit. Conflicting official figures, so not public / check site.",
-     "~$300K GMV: Boost's pricing page shows Accelerate $399/mo up to $650K GMV, while its help centre shows Accelerate tiers from $699. Not public / check site."
-    ],
-    "plans": [
-     "Launch (from $29)",
-     "Convert ($239–$299 per official pages)",
-     "Convert/Accelerate (sub-tier not public)"
-    ],
-    "totals": [
-     29,
-     null,
-     null
-    ]
-   },
-   "free_alt": "Shopify Search & Discovery (free) covers basic filters, synonyms and boosts.",
-   "pricing_url": "https://boostcommerce.net/platform/pricing",
-   "shopify_url": "https://apps.shopify.com/product-filter-search",
-   "unconfirmed": [
-    "Exact GMV sub-tier prices: Boost's pricing page and help centre show different figures for the Convert and Accelerate packages",
-    "When we checked from our location, the Shopify App Store page showed 'not currently available'. It may be regional; check the listing yourself"
-   ],
-   "notes": "Merchants who installed before October 2025 stay on legacy, product-count pricing.",
-   "sources": [
-    [
-     "Boost pricing page",
-     "https://boostcommerce.net/platform/pricing"
-    ],
-    [
-     "Boost help: GMV-based pricing overview",
-     "https://support.boostcommerce.net/en/articles/12545618-gmv-based-pricing-plan-overview"
-    ]
-   ],
-   "checked": "2026-10-19",
-   "affiliate_url": "",
-   "unit": "Monthly GMV"
-  },
-  {
-   "slug": "fast-simon",
-   "name": "Fast Simon AI Search & Filters",
-   "type": "AI search, filters & merchandising",
-   "model": "tiered",
-   "summary": "AI search and collection merchandising app priced by monthly sessions, meaning every store visit, not just visits that use search. Paid plans support up to 40,000 products.",
-   "ai_billing": "Flat monthly plans capped by monthly sessions: 100 (free), 2,000, 10,000 and 30,000. Above 30,000 sessions you need a custom/Enterprise quote. AI multimodal search is on Top Pro.",
-   "ai_short": "Flat fee by monthly sessions (all store visits)",
-   "plans": [
-    {
-     "name": "Free",
-     "monthly": 0,
-     "annual": null,
-     "includes": "100 monthly sessions, up to 250 products"
-    },
-    {
-     "name": "Starter",
-     "monthly": 39.99,
-     "annual": 33.33,
-     "includes": "2,000 monthly sessions"
-    },
-    {
-     "name": "Essential",
-     "monthly": 99.99,
-     "annual": 83.33,
-     "includes": "10,000 monthly sessions, realtime sync"
-    },
-    {
-     "name": "Top Pro",
-     "monthly": 299.99,
-     "annual": 249.99,
-     "includes": "30,000 monthly sessions, merchandising rules, A/B tests, AI multimodal search"
-    },
-    {
-     "name": "Enterprise",
-     "monthly": null,
-     "annual": null,
-     "includes": "Custom quote"
-    }
-   ],
-   "params": {
-    "metric": "sessions",
-    "plans": [
-     [
-      "Free",
-      0,
-      100
-     ],
-     [
-      "Starter",
-      39.99,
-      2000
-     ],
-     [
-      "Essential",
-      99.99,
-      10000
-     ],
-     [
-      "Top Pro",
-      299.99,
-      30000
-     ]
-    ]
-   },
-   "free_alt": "Shopify Search & Discovery (free) covers basic filters, synonyms and boosts.",
-   "pricing_url": "https://apps.shopify.com/instant-search",
-   "shopify_url": "https://apps.shopify.com/instant-search",
-   "unconfirmed": [
-    "Prices above 30,000 monthly sessions (Enterprise) are not public"
-   ],
-   "notes": "A third-party review (motive.co) reports that a Fast Simon session is every store visit, whether or not the shopper searches; Fast Simon's own listing just says 'Monthly Sessions'. Annual prices: $399.96/$999.96/$2,999.88 a year.",
-   "sources": [
-    [
-     "Shopify App Store listing",
-     "https://apps.shopify.com/instant-search"
-    ],
-    [
-     "Fast Simon pricing page",
-     "https://www.fastsimon.com/pricing/"
-    ]
-   ],
-   "checked": "2026-10-19",
-   "affiliate_url": "",
-   "unit": "Sessions"
-  },
-  {
-   "slug": "doofinder",
-   "name": "Doofinder",
-   "type": "AI search, recommendations & quizzes",
-   "model": "tiered",
-   "summary": "Site search with recommendations and a quiz builder in every plan. Shopify prices are higher than Doofinder's general web prices, and plans are capped by monthly requests per product (search, recommendations, quiz).",
-   "ai_billing": "Flat monthly plans capped by requests per month. A request is counted whenever Doofinder's server responds, and search-as-you-type counts from the third keystroke. Doofinder lists caps of 10k (Basic), 150k (Pro) and 400k (Advanced) requests per product.",
-   "ai_short": "Flat fee by monthly search requests (keystroke-level)",
-   "plans": [
-    {
-     "name": "Basic",
-     "monthly": 61,
-     "annual": 55.12,
-     "includes": "AI guided search, custom results, recommendations, quiz maker; up to 10k requests/mo per product"
-    },
-    {
-     "name": "Pro",
-     "monthly": 186,
-     "annual": 167.62,
-     "includes": "AI alerts, multi-index, search suggestions; up to 150k requests/mo"
-    },
-    {
-     "name": "Advanced",
-     "monthly": 436,
-     "annual": 392.62,
-     "includes": "1:1 personalization, visual search; up to 400k requests/mo"
-    },
-    {
-     "name": "Enterprise",
-     "monthly": null,
-     "annual": null,
-     "includes": "Custom"
-    }
-   ],
-   "params": {
-    "metric": "requests",
-    "plans": [
-     [
-      "Basic",
-      61,
-      10000
-     ],
-     [
-      "Pro",
-      186,
-      150000
-     ],
-     [
-      "Advanced",
-      436,
-      400000
-     ]
-    ]
-   },
-   "free_alt": "Shopify Search & Discovery (free) covers basic filters, synonyms and boosts.",
-   "pricing_url": "https://apps.shopify.com/doofinder",
-   "shopify_url": "https://apps.shopify.com/doofinder",
-   "unconfirmed": [
-    "Request caps come from doofinder.com's general pricing page; the Shopify listing doesn't state them, so we assume they apply to the Shopify plans too"
-   ],
-   "notes": "On doofinder.com the general (non-Shopify) prices are $49/$149/$349 a month. The Shopify App Store prices ($61/$186/$436) are used here. Annual: $661.44/$2,011.44/$4,711.44 a year.",
-   "sources": [
-    [
-     "Shopify App Store listing",
-     "https://apps.shopify.com/doofinder"
-    ],
-    [
-     "Doofinder pricing page (request limits)",
-     "https://www.doofinder.com/en/pricing"
-    ]
-   ],
-   "checked": "2026-10-19",
-   "affiliate_url": "",
-   "unit": "Requests"
-  },
-  {
-   "slug": "algolia",
-   "name": "Algolia",
-   "type": "Search API (developer-built)",
-   "model": "algolia",
-   "summary": "Developer-first search API used by large brands. The pay-as-you-go plans are very cheap at low volume, but you or a developer must build and maintain the Shopify integration.",
-   "ai_billing": "Pay as you go. Grow Plus (keyword search plus AI ranking, AI synonyms and personalization) includes 10K search requests/month, then charges $1.75 per extra 1K. Plain keyword Grow is $0.50 per extra 1K. 100K records are included on both, then $0.40 per 1K. Search-as-you-type counts every keystroke as a request.",
-   "ai_short": "$1.75 per 1K search requests over 10K (Grow Plus)",
-   "plans": [
-    {
-     "name": "Free",
-     "monthly": 0,
-     "annual": null,
-     "includes": "10K search requests/mo, 50K records, 5K recommendation requests"
-    },
-    {
-     "name": "Grow",
-     "monthly": 0,
-     "annual": null,
-     "includes": "$0 base; 10K requests incl., then $0.50/1K; 100K records incl., then $0.40/1K"
-    },
-    {
-     "name": "Grow Plus",
-     "monthly": 0,
-     "annual": null,
-     "includes": "$0 base; 10K requests incl., then $1.75/1K; AI ranking, AI synonyms, personalization"
-    },
-    {
-     "name": "Elevate",
-     "monthly": null,
-     "annual": null,
-     "includes": "Annual contract, NeuralSearch; custom pricing"
-    }
-   ],
-   "params": {
-    "incl": 10000,
-    "unit": 1.75,
-    "unit_basic": 0.5,
-    "records_incl": 100000
-   },
-   "free_alt": "Shopify Search & Discovery (free) covers basic filters, synonyms and boosts.",
-   "pricing_url": "https://www.algolia.com/pricing",
-   "shopify_url": "",
-   "unconfirmed": [
-    "Elevate (NeuralSearch, the full AI search) pricing is custom/annual"
-   ],
-   "notes": "The estimate covers search requests only. Recommendations (10K/mo included, then $0.60 per 1K), developer time and any Shopify connector costs aren't included. Records: each product variant or pre-sorted replica can count as a record.",
-   "sources": [
-    [
-     "Algolia pricing page",
-     "https://www.algolia.com/pricing"
-    ]
-   ],
-   "checked": "2026-10-19",
-   "affiliate_url": "",
-   "unit": "Search requests"
-  },
-  {
-   "slug": "wiser",
-   "name": "Wiser AI Upsell & Cross Sell",
-   "type": "AI recommendations & upsells",
-   "model": "tiered",
-   "summary": "AI product recommendations, frequently-bought-together, cart drawer and post-purchase upsells, priced by your total monthly store orders. AI search (IntelliSearch) is only on the Enterprise plan.",
-   "ai_billing": "Flat monthly fee set automatically by your store's total orders that month: free to 50, $9 to 100, $19 to 300, $49 to 500, $99 to 1,000, $199 to 2,000. Above 2,000 orders is an Enterprise quote.",
-   "ai_short": "Flat fee by monthly store orders",
-   "plans": [
-    {
-     "name": "Free",
-     "monthly": 0,
-     "annual": null,
-     "includes": "0–50 orders/mo"
-    },
-    {
-     "name": "Basic",
-     "monthly": 9,
-     "annual": null,
-     "includes": "51–100 orders/mo"
-    },
-    {
-     "name": "Growth",
-     "monthly": 19,
-     "annual": null,
-     "includes": "101–300 orders/mo"
-    },
-    {
-     "name": "Premium",
-     "monthly": 49,
-     "annual": null,
-     "includes": "301–500 orders/mo"
-    },
-    {
-     "name": "501–1,000 orders",
-     "monthly": 99,
-     "annual": null,
-     "includes": "Per Wiser's pricing page"
-    },
-    {
-     "name": "1,001–2,000 orders",
-     "monthly": 199,
-     "annual": null,
-     "includes": "Per Wiser's pricing page"
-    },
-    {
-     "name": "Enterprise",
-     "monthly": null,
-     "annual": null,
-     "includes": "2,000+ orders; adds IntelliSearch AI search"
-    }
-   ],
-   "params": {
-    "metric": "orders",
-    "plans": [
-     [
-      "Free",
-      0,
-      50
-     ],
-     [
-      "Basic",
-      9,
-      100
-     ],
-     [
-      "Growth",
-      19,
-      300
-     ],
-     [
-      "Premium",
-      49,
-      500
-     ],
-     [
-      "501–1,000 orders",
-      99,
-      1000
-     ],
-     [
-      "1,001–2,000 orders",
-      199,
-      2000
-     ]
-    ]
-   },
-   "free_alt": "Shopify Search & Discovery (free) adds related and complementary product recommendations.",
-   "pricing_url": "https://www.getwiser.ai/pricing",
-   "shopify_url": "https://apps.shopify.com/recommended-products-wiser",
-   "unconfirmed": [
-    "Enterprise pricing (over 2,000 orders/month) is not public"
-   ],
-   "notes": "All orders in your store admin count toward the plan, not just orders Wiser influenced.",
-   "sources": [
-    [
-     "Wiser pricing page",
-     "https://www.getwiser.ai/pricing"
-    ],
-    [
-     "Shopify App Store listing",
-     "https://apps.shopify.com/recommended-products-wiser"
-    ]
-   ],
-   "checked": "2026-10-19",
-   "affiliate_url": "",
-   "unit": "Orders"
-  },
-  {
-   "slug": "limespot",
-   "name": "LimeSpot AI Bundles & Upsells",
-   "type": "AI personalization, recommendations & bundles",
-   "model": "limespot",
-   "summary": "AI recommendations, bundles and upsells. Turbo is priced by orders and isn't available on Shopify Plus. Max (segmentation, A/B tests, email/SMS personalization) is priced by Online Store revenue.",
-   "ai_billing": "Turbo starts at $9.99/mo and rises with orders (LimeSpot's example: up to 250 orders = $19.99); it's free for up to 10 orders. Max is priced by Online Store revenue per 30 days: $50 up to $15K, $75 up to $25K, $150 up to $50K, $225 up to $75K, $300 up to $100K, $375 up to $200K, $525 up to $400K, and so on up to $3,200 for $5M.",
-   "ai_short": "Turbo by orders; Max by revenue ($50–$3,200/mo)",
-   "plans": [
-    {
-     "name": "Turbo Free",
-     "monthly": 0,
-     "annual": null,
-     "includes": "Up to 10 orders/mo; not for Shopify Plus"
-    },
-    {
-     "name": "Turbo",
-     "monthly": 9.99,
-     "annual": null,
-     "includes": "From $9.99; up to 250 orders = $19.99; higher order tiers not public"
-    },
-    {
-     "name": "Max",
-     "monthly": 50,
-     "annual": null,
-     "includes": "From $50 (up to $15K revenue/30 days); $150 at $50K; $525 at $400K; $1,500 at $2M"
-    },
-    {
-     "name": "Max $5M+",
-     "monthly": null,
-     "annual": null,
-     "includes": "Contact us"
-    }
-   ],
-   "params": {
-    "turbo": [
-     [
-      10,
-      0
-     ],
-     [
-      250,
-      19.99
-     ]
-    ],
-    "max": [
-     [
-      15000,
-      50
-     ],
-     [
-      25000,
-      75
-     ],
-     [
-      50000,
-      150
-     ],
-     [
-      75000,
-      225
-     ],
-     [
-      100000,
-      300
-     ],
-     [
-      200000,
-      375
-     ],
-     [
-      400000,
-      525
-     ],
-     [
-      500000,
-      600
-     ],
-     [
-      600000,
-      650
-     ],
-     [
-      700000,
-      700
-     ],
-     [
-      800000,
-      750
-     ],
-     [
-      900000,
-      800
-     ],
-     [
-      1000000,
-      850
-     ],
-     [
-      2000000,
-      1500
-     ],
-     [
-      3500000,
-      2400
-     ],
-     [
-      5000000,
-      3200
-     ]
-    ]
-   },
-   "free_alt": "Shopify Search & Discovery (free) adds related and complementary product recommendations.",
-   "pricing_url": "https://www.limespot.com/pricing",
-   "shopify_url": "https://apps.shopify.com/limespot",
-   "unconfirmed": [
-    "Turbo prices above 250 orders/month are not public, so medium and large stores are priced on Max (Turbo may be cheaper)"
-   ],
-   "notes": "Max revenue tiers are read from the slider on LimeSpot's official pricing page. On 19 Oct 2026 LimeSpot's pricing page also advertised a sign-up offer of 50% off for life. Our estimates use the list prices, so check whether the offer still applies when you sign up.",
-   "sources": [
-    [
-     "LimeSpot pricing page (Max tiers)",
-     "https://www.limespot.com/pricing"
-    ],
-    [
-     "Shopify App Store listing",
-     "https://apps.shopify.com/limespot"
-    ]
-   ],
-   "checked": "2026-10-19",
-   "affiliate_url": "",
-   "unit": "Orders / revenue"
-  },
-  {
-   "slug": "rebuy",
-   "name": "Rebuy Personalization Engine",
-   "type": "AI personalization, smart cart, search & upsells",
-   "model": "quote",
-   "summary": "Popular personalization suite (smart cart, upsells, bundles, Smart Search) sold as à-la-carte packages, each priced by your monthly Shopify orders, or as the all-in-one Platform One.",
-   "ai_billing": "Each package (Cart & Merchandising, Checkout & Post Purchase, Search & Collections, Flows & A/B Testing) is priced by orders per month, from $25/mo for one package. Bundling saves 10% on two, 20% on three and 30% on four. Premium support is $499/mo. Rebuy bills on a 30-day cycle based on the previous 30 days' orders.",
-   "ai_short": "Per package, priced by monthly orders (from $25)",
-   "plans": [
-    {
-     "name": "Rebuy Monetize",
-     "monthly": 0,
-     "annual": null,
-     "includes": "Free; pays you for post-purchase partner offers"
-    },
-    {
-     "name": "Build your own (per package)",
-     "monthly": 25,
-     "annual": null,
-     "includes": "From $25/mo per package; per-order tiers not public"
-    },
-    {
-     "name": "Platform One",
-     "monthly": 534,
-     "annual": null,
-     "includes": "All packages; Rebuy's page shows $534/mo billed monthly (order volume for that figure not stated)"
-    },
-    {
-     "name": "Premium Support",
-     "monthly": 499,
-     "annual": null,
-     "includes": "Add-on"
-    }
-   ],
-   "params": {
-    "msgs": [
-     "Rebuy prices each package by orders per month but doesn't publish the order tiers. Lowest published price: $25/mo for one package.",
-     "Order-based tiers not public. Talk to Rebuy's sales team or check the in-app estimate.",
-     "Order-based tiers not public. Platform One is shown at $534/mo, but the order volume behind that figure isn't stated."
-    ],
-    "plans": [
-     "From $25/mo per package",
-     "Not public",
-     "Not public"
-    ],
-    "totals": [
-     null,
-     null,
-     null
-    ]
-   },
-   "free_alt": "Shopify Search & Discovery (free) adds basic related-product recommendations.",
-   "pricing_url": "https://www.rebuyengine.com/pricing",
-   "shopify_url": "https://apps.shopify.com/rebuy",
-   "unconfirmed": [
-    "Order-based package tiers are not public (the page shows placeholders until you pick a volume)",
-    "When we checked from our location, the Shopify App Store page showed 'not currently available'. It may be regional; check the listing yourself"
-   ],
-   "notes": "Existing customers aren't automatically moved to package pricing.",
-   "sources": [
-    [
-     "Rebuy pricing page",
-     "https://www.rebuyengine.com/pricing"
-    ]
-   ],
-   "checked": "2026-10-19",
-   "affiliate_url": "",
-   "unit": "Orders"
-  },
-  {
-   "slug": "klevu",
-   "name": "Klevu / Searchspring (Athos Commerce)",
-   "type": "Enterprise AI search & merchandising",
-   "model": "quote",
-   "summary": "Klevu and Searchspring are now part of Athos Commerce. The Shopify app is free to install, but the AI search, merchandising and recommendations are sold as annual Athos plans on a custom quote.",
-   "ai_billing": "Custom quote. Athos sells Onsite Discovery (AI search, merchandising, recommendations, bundling) as annual plans and bills separately from your Shopify invoice.",
-   "ai_short": "Custom annual quote",
-   "plans": [
-    {
-     "name": "Shopify app",
-     "monthly": 0,
-     "annual": null,
-     "includes": "Free to install; an Athos plan is required"
-    },
-    {
-     "name": "Onsite Discovery",
-     "monthly": null,
-     "annual": null,
-     "includes": "Annual plan, custom quote"
-    },
-    {
-     "name": "Intelligent Discovery Platform",
-     "monthly": null,
-     "annual": null,
-     "includes": "Onsite + Offsite, custom quote"
-    }
-   ],
-   "params": {
-    "msgs": [
-     "Not public. Athos Commerce quotes every plan.",
-     "Not public. Athos Commerce quotes every plan.",
-     "Not public. Athos Commerce quotes every plan."
-    ],
-    "plans": [
-     "Custom quote",
-     "Custom quote",
-     "Custom quote"
-    ],
-    "totals": [
-     null,
-     null,
-     null
-    ]
-   },
-   "free_alt": "Shopify Search & Discovery (free) covers basic filters, synonyms and boosts.",
-   "pricing_url": "https://www.athoscommerce.com/pricing",
-   "shopify_url": "https://apps.shopify.com/klevu-smart-search",
-   "unconfirmed": [
-    "All plan prices are quote-only"
-   ],
-   "notes": "Searchspring is also part of Athos Commerce, so its pricing is quote-only too.",
-   "sources": [
-    [
-     "Athos Commerce pricing page",
-     "https://www.athoscommerce.com/pricing"
-    ],
-    [
-     "Klevu Shopify App Store listing",
-     "https://apps.shopify.com/klevu-smart-search"
-    ]
-   ],
-   "checked": "2026-10-19",
-   "affiliate_url": "",
-   "unit": "Quote"
-  },
-  {
-   "slug": "nosto",
-   "name": "Nosto AI Search & Discovery",
-   "type": "Enterprise personalization, search & merchandising",
-   "model": "quote",
-   "summary": "Modular commerce experience platform (personalized search, category merchandising, recommendations, bundles, pop-ups, UGC). The Shopify app is free to install, but a paid Nosto account is required.",
-   "ai_billing": "Custom quote: a base platform fee plus a fixed fee based on your GMV turnover and traffic, and the modules you choose. AI is included in every module. There's no self-serve free trial, only a proof of concept for qualified merchants.",
-   "ai_short": "Custom quote by GMV, traffic & modules",
-   "plans": [
-    {
-     "name": "Shopify app",
-     "monthly": 0,
-     "annual": null,
-     "includes": "Free to install; a Nosto account is required and isn't free"
-    },
-    {
-     "name": "Modular plan",
-     "monthly": null,
-     "annual": null,
-     "includes": "Base platform fee + volume-based fee; custom quote"
-    }
-   ],
-   "params": {
-    "msgs": [
-     "Not public. Nosto quotes by GMV, traffic and modules.",
-     "Not public. Nosto quotes by GMV, traffic and modules.",
-     "Not public. Nosto quotes by GMV, traffic and modules."
-    ],
-    "plans": [
-     "Custom quote",
-     "Custom quote",
-     "Custom quote"
-    ],
-    "totals": [
-     null,
-     null,
-     null
-    ]
-   },
-   "free_alt": "Shopify Search & Discovery (free) covers basic filters, synonyms, boosts and recommendations.",
-   "pricing_url": "https://www.nosto.com/pricing/",
-   "shopify_url": "https://apps.shopify.com/nosto-personalization-for-shopify",
-   "unconfirmed": [
-    "All plan prices are quote-only"
-   ],
-   "notes": "",
-   "sources": [
-    [
-     "Nosto pricing page",
-     "https://www.nosto.com/pricing/"
-    ],
-    [
-     "Shopify App Store listing",
-     "https://apps.shopify.com/nosto-personalization-for-shopify"
-    ]
-   ],
-   "checked": "2026-10-19",
-   "affiliate_url": "",
-   "unit": "Quote"
-  }
- ]
 }

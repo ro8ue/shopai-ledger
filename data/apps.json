@@ -445,7 +445,7 @@
       ],
       "checked": "2026-10-19",
       "affiliate_url": null,
-      "ai_short": "Token meter, ~$0.20–0.24 per AI conversation, $200/mo minimum, plus seats"
+      "ai_short": "Token meter, ~$0.20\u20130.24 per AI conversation, $200/mo minimum, plus seats"
     },
     {
       "slug": "reamaze",
@@ -826,6 +826,15 @@
     }
   ],
   "changelog": [
+    {
+      "date": "2026-10-19",
+      "title": "LimeSpot: full Turbo order tiers added (vendor reply)",
+      "items": [
+        "LimeSpot support (Shihab) pointed us to https://limespot.com/shopify for Turbo and Max pricing. We read the order and revenue sliders from that page's published tiers.",
+        "Turbo above 250 orders is now public: medium store (1,000 orders) is Turbo $149.99/mo instead of Max $225/mo. Large store (4,000 orders / $300k revenue) stays on Max at $525/mo because Turbo would be $649.99.",
+        "Estimates now pick the cheaper of Turbo (by orders) and Max (by revenue) for each store size. List prices still ignore the 50% lifetime new-signup offer."
+      ]
+    },
     {
       "date": "2026-10-19",
       "title": "Weekly re-check: no price changes in either category",
