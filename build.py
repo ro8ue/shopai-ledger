@@ -266,7 +266,7 @@ page("methodology.html", "How We Calculate Shopify AI App Costs | ShopAI Ledger"
 # ---- disclosure
 page("disclosure.html", "Affiliate Disclosure | ShopAI Ledger", "How ShopAI Ledger makes money and how that is kept separate from prices and rankings.",
  """<h1>Affiliate disclosure</h1><!--/hero--><div class=box><p><b>ShopAI Ledger earns a commission from some apps.</b> If you sign up through a link labelled "affiliate link", the app maker may pay us, at no extra cost to you. Every "official pricing" link still goes straight to the vendor with no tracking.</p>
-<p>Apps we're currently an affiliate of: Gorgias (since 18 Oct 2026). This list is updated whenever that changes. Affiliate status never changes the prices we show, the math, or the sort order (always by estimated cost).</p>
+<p>Apps we're currently an affiliate of: Gorgias (since 18 Oct 2026) and Searchanise (since 24 Oct 2026). This list is updated whenever that changes. Affiliate status never changes the prices we show, the math, or the sort order (always by estimated cost).</p>
 <p>We may also offer clearly-labelled sponsored placements. Sponsored content is always marked "Sponsored" and never changes an app's price data. See <a href="advertise.html">Advertise</a>.</p></div>""")
 
 # ---- advertise
