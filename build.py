@@ -48,10 +48,10 @@ def page(fn, title, desc, body, head=""):
 <div class="links"><a href="methodology.html">How we calculate</a><a href="disclosure.html">Affiliate disclosure</a><a href="changelog.html">Change log</a><a href="advertise.html">Advertise / get listed</a><a href="mailto:{S['contact']}?subject=ShopAI%20Ledger%20correction">Report a wrong price</a></div>
 <div class="base"><span>Prices checked {S['updated']}</span><a href="#">Back to top ↑</a></div></div></footer></body></html>""")
 
-# Newsletter placeholder: swap the inner #newsletter-embed contents for the Beehiiv embed when ready.
-NEWS = """<section class="news" id="newsletter"><div class="wrap"><div><p class="eyebrow">( The weekly ledger )</p><h2>Get the weekly AI app price changes</h2>
-<p>One short email a week: which Shopify AI apps changed their prices or plans, and what that means for your bill.</p><div class="perks"><span>Free</span><span>Weekly</span><span>Unsubscribe anytime</span></div></div>
-<div class="embed" id="newsletter-embed"><script async src="https://subscribe-forms.beehiiv.com/v3/loader.js" data-beehiiv-form="15c91c67-f932-4b17-b631-62f1e5d4e75b"></script><p style="font-size:.85em;margin:14px 0 0">Free, one email a week. Or read it at <a href="https://shopai-ledger.beehiiv.com/">shopai-ledger.beehiiv.com</a>.</p></div></div></section>"""
+# Newsletter: Substack signup (shopailedger.substack.com) inside the cream .news .embed card.
+NEWS = """<section class="news" id="newsletter"><div class="wrap"><div><p class="eyebrow">( The Ledger )</p><h2>The Ledger, every Monday</h2>
+<p>The Ledger, every Monday: what AI apps really cost Shopify stores, plus a Thursday deep-dive.</p><div class="perks"><span>Free</span><span>Mondays + Thursdays</span><span>Unsubscribe anytime</span></div></div>
+<div class="embed" id="newsletter-embed"><iframe src="https://shopailedger.substack.com/embed" width="480" height="320" title="Subscribe to The Ledger on Substack" loading="lazy" style="border:1px solid #EEE;background:white" frameborder="0" scrolling="no"></iframe><p style="font-size:.85em;margin:14px 0 0">Free. Or read past issues at <a href="https://shopailedger.substack.com">shopailedger.substack.com</a>.</p></div></div></section>"""
 
 sizes_html = '<div class="sizes">' + "".join(f"<span><b>{s['label']}</b>: {s['conv']:,} support conversations/mo, {s['seats']} agent seat{'s' if s['seats']>1 else ''}</span>" for s in SIZES) + f"<span>AI resolves {int(RATE*100)}% of conversations</span></div>"
 def flag(a): return f'<span class="tag free">Free option overlaps</span>' if a.get("free_alt") and a["model"] != "free" else ('<span class="tag free">Free</span>' if a["model"] == "free" else "")
@@ -270,11 +270,11 @@ page("disclosure.html", "Affiliate Disclosure | ShopAI Ledger", "How ShopAI Ledg
 <p>We may also offer clearly-labelled sponsored placements. Sponsored content is always marked "Sponsored" and never changes an app's price data. See <a href="advertise.html">Advertise</a>.</p></div>""")
 
 # ---- advertise
-page("advertise.html", "Advertise or Get Your App Listed | ShopAI Ledger", "App makers: get your Shopify AI app listed, correct your pricing, or sponsor the weekly price-change email.",
+page("advertise.html", "Advertise or Get Your App Listed | ShopAI Ledger", "App makers: get your Shopify AI app listed, correct your pricing, or sponsor The Ledger newsletter.",
  f"""<h1>Advertise / get your app listed</h1><p class=lead>ShopAI Ledger is read by Shopify merchants comparing what AI apps really cost.</p><!--/hero-->
 <div class=grid><div class=card><b>Free listing</b><p class=muted>Have a Shopify AI support, search or recommendation app with public pricing? Send us the link, and we list apps for free if the pricing is public.</p></div>
 <div class=card><b>Pricing corrections</b><p class=muted>Changed your plans? Tell us and we'll re-check against your public pricing page within a week.</p></div>
-<div class=card><b>Sponsorship</b><p class=muted>Featured placements and sponsor slots in the weekly price-change email (launching soon). Always labelled as sponsored. Placements never change price data.</p></div></div>
+<div class=card><b>Sponsorship</b><p class=muted>Featured placements and sponsor slots in The Ledger, our Monday newsletter with a Thursday deep-dive, on <a href="https://shopailedger.substack.com">Substack</a>. Always labelled as sponsored. Placements never change price data.</p></div></div>
 <p><a class=btn href="mailto:{S['contact']}?subject=ShopAI%20Ledger%20listing%20%2F%20sponsorship">Contact us</a></p>""")
 
 (R / "style.css").write_text(CSS)
