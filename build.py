@@ -67,7 +67,9 @@ def sortkey(a):
     t = a["est"][1]["total"]; return (t is None, t if t is not None else 0)
 ordered = sorted(A, key=sortkey)
 
-COMPS = [("gorgias", "tidio"), ("gorgias", "intercom-fin"), ("zendesk", "gorgias"), ("intercom-fin", "zendesk"), ("tidio", "shopify-inbox"), ("gorgias", "richpanel")]
+COMPS = [("gorgias", "tidio"), ("gorgias", "intercom-fin"), ("zendesk", "gorgias"), ("intercom-fin", "zendesk"), ("tidio", "shopify-inbox"), ("gorgias", "richpanel"), ("gorgias", "reamaze"), ("gorgias", "freshdesk"), ("richpanel", "reamaze")]
+def vs_btns(*apps):  # official pricing links stay clean; affiliate is a separate labelled rel=sponsored button
+    return "<p>" + "".join(f"<a class=btn href='{e(a['pricing_url'])}' rel='nofollow noopener' target='_blank'>{e(a['_n'])} official pricing</a>" + (f"<a class='btn alt' href='{e(a['affiliate_url'])}' rel='sponsored noopener' target='_blank'>Try {e(a['_n'])} (affiliate link)</a>" if a.get("affiliate_url") else "") for a in apps) + "</p>"
 def cslug(x, y): return f"{x}-vs-{y}-pricing.html"
 def short(a): return a["name"].split(" (")[0]
 
@@ -85,7 +87,7 @@ def stable(apps):
                    + "".join(f"<td class=n data-l='{SSIZES[k]['label'].split()[0]}'>{cell(o, colmax(apps, k), smoney(o))}<span class=muted style='font-weight:400'>{e(o['plan'])}</span></td>" for k, o in enumerate(x["est"])) + f"<td class='muted ck'>{x['checked']}</td></tr>" for x in apps)
     return ("<p class=scroll-hint>Swipe sideways to see every store size →</p><div class=tw><table class=cmp><thead><tr><th>App</th><th>How it's billed</th>" + "".join(f"<th>{s['label']}<br><span style='font-weight:400'>{s['products']:,} products · {s['orders']:,} orders</span></th>" for s in SSIZES)
             + f"<th>Checked</th></tr></thead><tbody>{rows}</tbody></table></div>")
-SCOMPS = [("searchanise", "boost-ai-search"), ("rebuy", "limespot"), ("doofinder", "algolia")]
+SCOMPS = [("searchanise", "boost-ai-search"), ("rebuy", "limespot"), ("doofinder", "algolia"), ("doofinder", "searchanise")]
 SALTS = ["klevu", "boost-ai-search"]
 def sshort(a): return {"shopify-search-discovery": "Shopify Search & Discovery", "searchanise": "Searchanise", "boost-ai-search": "Boost", "fast-simon": "Fast Simon", "wiser": "Wiser", "limespot": "LimeSpot", "rebuy": "Rebuy", "klevu": "Klevu", "nosto": "Nosto"}.get(a["slug"], a["name"])
 scomp_links = "".join(f"<li><a href='{cslug(x,y)}'>{e(sshort(SBY[x]))} vs {e(sshort(SBY[y]))} pricing</a></li>" for x, y in SCOMPS) + "".join(f"<li><a href='{x}-alternatives.html'>{e(sshort(SBY[x]))} alternatives by real cost</a></li>" for x in SALTS)
@@ -158,8 +160,8 @@ for x, y in COMPS:
         ("Details", f"<a href='{x}-pricing.html'>{e(na)} pricing & math</a>", f"<a href='{y}-pricing.html'>{e(nb)} pricing & math</a>")])
     page(cslug(x, y), f"{na} vs {nb} Pricing (2026): Real Monthly Cost Compared | ShopAI Ledger",
      f"{na} vs {nb}: how each bills for AI, and the estimated monthly cost for small, medium and large Shopify stores side by side. Prices checked {S['updated']}.",
-     f"<h1>{e(na)} vs {e(nb)} pricing</h1><p class=lead>Two different ways of billing AI support. Here's what each would cost the same Shopify store, using official prices checked {S['updated']}.</p>{HERO_END}{sizes_html}"
-     f"<div class=tw><table class=vs><thead><tr><th></th><th>{e(na)}</th><th>{e(nb)}</th></tr></thead><tbody>{rows}</tbody></table></div><h2>Bottom line on cost</h2><ul>{''.join(lines)}</ul>"
+     f"<h1>{e(na)} vs {e(nb)} pricing</h1><p class=lead>How {e(na)} and {e(nb)} bill for AI, and what each would cost the same Shopify store, using official prices checked {S['updated']}.</p>{HERO_END}{sizes_html}"
+     f"<div class=tw><table class=vs><thead><tr><th></th><th>{e(na)}</th><th>{e(nb)}</th></tr></thead><tbody>{rows}</tbody></table></div><h2>Bottom line on cost</h2><ul>{''.join(lines)}</ul>" + vs_btns({**a, "_n": na}, {**b, "_n": nb}) +
      "<p class=muted>Cost is only one factor. Features, channels, integrations and AI quality differ, and your real volume and resolution rate will move these numbers. See the full math on each app's page.</p>" + NEWS)
 
 # ---- Gorgias alternatives
@@ -227,7 +229,7 @@ for x, y in SCOMPS:
     page(cslug(x, y), f"{na} vs {nb} Pricing (2026): Real Monthly Cost for Shopify Stores | ShopAI Ledger",
      f"{na} vs {nb}: what each bills on, and the estimated monthly cost for small, medium and large Shopify stores side by side. Prices checked {S['updated']}.",
      f"<p class=crumb><a href='{SLAND}'>Search & recommendations</a> › Comparison</p><h1>{e(na)} vs {e(nb)} pricing</h1><p class=lead>{e(na)} bills on {e(a['unit'].lower())}; {e(nb)} bills on {e(b['unit'].lower())}. Here's what each would cost the same Shopify store, using official prices checked {S['updated']}.</p>{HERO_END}{ssizes_html}"
-     f"<div class=tw><table class=vs><thead><tr><th></th><th>{e(na)}</th><th>{e(nb)}</th></tr></thead><tbody>{rows}</tbody></table></div><h2>Bottom line on cost</h2><ul>{''.join(lines)}</ul>"
+     f"<div class=tw><table class=vs><thead><tr><th></th><th>{e(na)}</th><th>{e(nb)}</th></tr></thead><tbody>{rows}</tbody></table></div><h2>Bottom line on cost</h2><ul>{''.join(lines)}</ul>" + vs_btns({**a, "_n": na}, {**b, "_n": nb}) +
      "<p class=muted>Cost is only one factor. Features, merchandising controls, AI quality and integrations differ, and your real catalog, traffic and orders will move these numbers. See the full math on each app's page.</p>" + NEWS)
 
 # ---- search alternatives pages
@@ -279,6 +281,7 @@ page("advertise.html", "Advertise or Get Your App Listed | ShopAI Ledger", "App 
 (R / "favicon.svg").write_text('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" rx="7" fill="#0c0c0c"/><rect x="7" y="9" width="18" height="2.6" rx="1.3" fill="#f3efe6"/><rect x="7" y="14.7" width="11.5" height="2.6" rx="1.3" fill="#f3efe6"/><rect x="7" y="20.4" width="14.5" height="2.6" rx="1.3" fill="#f3efe6" fill-opacity=".55"/></svg>')
 (R / "404.html").write_text(f'<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Not found | ShopAI Ledger</title><meta name="robots" content="noindex"><link rel="icon" href="/shopai-ledger/favicon.svg" type="image/svg+xml">{FONTS}<link rel="stylesheet" href="/shopai-ledger/style.css"></head><body><section class="hero"><div class="wrap"><p class="eyebrow">( 404 )</p><h1>Page not <em>found</em></h1><p style="margin:0"><a class="btn light" href="/shopai-ledger/">Go to the ShopAI Ledger comparison</a></p></div></section></body></html>')
 (R / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "".join(f"  <url><loc>{S['base_url']}/{'' if p=='index.html' else p}</loc><lastmod>{S['updated']}</lastmod></url>\n" for p in PAGES) + "</urlset>\n")
-(R / "robots.txt").write_text(f"User-agent: *\nAllow: /\nSitemap: {S['base_url']}/sitemap.xml\n")
+(R / "sitemap.txt").write_text("".join(f"{S['base_url']}/{'' if p=='index.html' else p}\n" for p in PAGES))
+(R / "robots.txt").write_text(f"User-agent: *\nAllow: /\nSitemap: {S['base_url']}/sitemap.xml\nSitemap: {S['base_url']}/sitemap.txt\n")
 (R / ".nojekyll").write_text("")
 print("built", len(PAGES), "pages")
