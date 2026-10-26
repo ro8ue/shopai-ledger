@@ -2,7 +2,7 @@
   "site": {
     "name": "ShopAI Ledger",
     "base_url": "https://ro8ue.github.io/shopai-ledger",
-    "updated": "2026-10-19",
+    "updated": "2026-10-26",
     "contact": "alinkewu@gmail.com",
     "sizes": [
       {
@@ -112,7 +112,7 @@
           "https://www.gorgias.com/pricing"
         ]
       ],
-      "checked": "2026-10-19",
+      "checked": "2026-10-26",
       "affiliate_url": "https://partner.gorgias.com/7bk6ikez45x3",
       "ai_short": "$1.00 per automated interaction (monthly), plus ticket fees"
     },
@@ -190,7 +190,7 @@
           "https://apps.shopify.com/tidio-chat"
         ]
       ],
-      "checked": "2026-10-19",
+      "checked": "2026-10-26",
       "affiliate_url": null,
       "ai_short": "Per Lyro conversation ($39 for 200), human chats billed separately"
     },
@@ -247,7 +247,7 @@
           "https://apps.shopify.com/intercom"
         ]
       ],
-      "checked": "2026-10-19",
+      "checked": "2026-10-26",
       "affiliate_url": null,
       "ai_short": "$0.99 per Fin outcome, plus per-seat fee"
     },
@@ -302,7 +302,7 @@
           "https://www.zendesk.com/pricing/"
         ]
       ],
-      "checked": "2026-10-19",
+      "checked": "2026-10-26",
       "affiliate_url": null,
       "ai_short": "$2.00 per automated resolution PAYG ($1.50 committed), plus seats"
     },
@@ -361,7 +361,7 @@
           "https://blog.hubspot.com/service/hubspot-service-hub-pricing"
         ]
       ],
-      "checked": "2026-10-19",
+      "checked": "2026-10-26",
       "affiliate_url": null,
       "ai_short": "$0.50 per resolution via credits; Professional seats required"
     },
@@ -393,7 +393,7 @@
           "https://apps.shopify.com/inbox"
         ]
       ],
-      "checked": "2026-10-19",
+      "checked": "2026-10-26",
       "affiliate_url": null,
       "ai_short": "Free"
     },
@@ -443,9 +443,9 @@
           "https://www.richpanel.com/pricing"
         ]
       ],
-      "checked": "2026-10-19",
+      "checked": "2026-10-26",
       "affiliate_url": null,
-      "ai_short": "Token meter, ~$0.20\u20130.24 per AI conversation, $200/mo minimum, plus seats"
+      "ai_short": "Token meter, ~$0.20–0.24 per AI conversation, $200/mo minimum, plus seats"
     },
     {
       "slug": "reamaze",
@@ -505,7 +505,7 @@
           "https://www.reamaze.com/pricing"
         ]
       ],
-      "checked": "2026-10-19",
+      "checked": "2026-10-26",
       "affiliate_url": null,
       "ai_short": "$0.85 per resolution after small per-user allowance, plus seats"
     },
@@ -555,7 +555,7 @@
           "https://www.freshworks.com/freshdesk/pricing/"
         ]
       ],
-      "checked": "2026-10-19",
+      "checked": "2026-10-26",
       "affiliate_url": null,
       "ai_short": "$49 per 100 AI sessions, plus seats"
     },
@@ -636,7 +636,7 @@
           "https://apps.shopify.com/zipchat"
         ]
       ],
-      "checked": "2026-10-19",
+      "checked": "2026-10-26",
       "affiliate_url": null,
       "ai_short": "Per AI reply (plan allowances; $49 per 250 extra)"
     },
@@ -680,7 +680,7 @@
           "https://www.siena.cx/pricing"
         ]
       ],
-      "checked": "2026-10-19",
+      "checked": "2026-10-26",
       "affiliate_url": null,
       "ai_short": "$0.90 per automated ticket + $750/mo platform fee"
     },
@@ -749,7 +749,7 @@
           "https://apps.shopify.com/chatty"
         ]
       ],
-      "checked": "2026-10-19",
+      "checked": "2026-10-26",
       "affiliate_url": null,
       "ai_short": "Per AI conversation (plan allowances; $0.40 extra)"
     },
@@ -768,42 +768,42 @@
           "includes": "10 tickets/mo, then $0.25/ticket"
         },
         {
-          "name": "Basic",
-          "monthly": 5.99,
-          "annual": 5.0,
-          "includes": "50 tickets/mo, then $0.16/ticket. AI FAQs"
-        },
-        {
           "name": "Standard",
-          "monthly": 19.99,
-          "annual": 16.67,
-          "includes": "300 tickets/mo, then $0.15/ticket"
+          "monthly": 40,
+          "annual": 33.33,
+          "includes": "500 tickets/mo, then $0.15/ticket. AI-generated FAQ articles, unlimited seats"
         },
         {
           "name": "Advanced",
-          "monthly": 49.99,
-          "annual": 41.58,
-          "includes": "1,000 tickets/mo, then $0.10/ticket"
+          "monthly": 70,
+          "annual": 58.33,
+          "includes": "1,000 tickets/mo, then $0.12/ticket"
+        },
+        {
+          "name": "Enterprise",
+          "monthly": 120,
+          "annual": 100.0,
+          "includes": "2,000 tickets/mo, then $0.10/ticket. Dedicated account manager"
         }
       ],
       "params": {
         "plans": [
           [
-            "Basic",
-            5.99,
-            50,
-            0.16
-          ],
-          [
             "Standard",
-            19.99,
-            300,
+            40,
+            500,
             0.15
           ],
           [
             "Advanced",
-            49.99,
+            70,
             1000,
+            0.12
+          ],
+          [
+            "Enterprise",
+            120,
+            2000,
             0.1
           ]
         ]
@@ -813,19 +813,29 @@
       "site_url": "https://apps.shopify.com/helpcenter",
       "shopify_url": "https://apps.shopify.com/helpcenter",
       "unconfirmed": [],
-      "notes": "The annual prices are the yearly price divided by 12 ($59.99, $199.99 and $498.96 per year). Our estimates count every conversation as a ticket.",
+      "notes": "The annual prices are the yearly price divided by 12 ($400, $700 and $1,200 per year). Our estimates count every conversation as a ticket. On 26 Oct 2026 the listing dropped the $5.99 Basic plan and repriced the rest (was Standard $19.99/300 tickets, Advanced $49.99/1,000 tickets).",
       "sources": [
         [
           "Helpcenter on Shopify App Store",
           "https://apps.shopify.com/helpcenter"
         ]
       ],
-      "checked": "2026-10-19",
+      "checked": "2026-10-26",
       "affiliate_url": null,
       "ai_short": "No AI agent fee; priced per ticket (AI FAQs)"
     }
   ],
   "changelog": [
+    {
+      "date": "2026-10-26",
+      "title": "Weekly re-check: Helpcenter and Fast Simon changed prices",
+      "items": [
+        "SB Helpdesk (Helpcenter) repriced on the Shopify App Store. The $5.99 Basic plan is gone. Standard went from $19.99 (300 tickets) to $40 (500 tickets, then $0.15/ticket). Advanced went from $49.99 to $70 (1,000 tickets, overage up from $0.10 to $0.12). A new Enterprise plan is $120 for 2,000 tickets, then $0.10/ticket.",
+        "Helpcenter estimates: small store $19.99 to $40, medium $49.99 to $70, large $349.99 to $320 (the new Enterprise plan is cheaper at 4,000 tickets than the old Advanced plan plus overage).",
+        "Fast Simon raised its Essential plan (10,000 monthly sessions) from $99.99 to $114.99 a month ($999.96 to $1,149.96 a year). Starter ($39.99) and Top Pro ($299.99) didn't change. Our small-store estimate moves from $99.99 to $114.99.",
+        "Everything else matched last week: we re-read the pricing pages for all 13 support apps and all 11 search & recommendation apps. Boost and Rebuy still show 'not currently available' on the Shopify App Store from our location, and LimeSpot still advertises 50% off for life for new sign-ups (we show list prices). Wiser's App Store listing moved to apps.shopify.com/recommended-products-wiser."
+      ]
+    },
     {
       "date": "2026-10-19",
       "title": "LimeSpot: full Turbo order tiers added (vendor reply)",

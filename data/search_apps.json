@@ -65,7 +65,7 @@
           "https://help.shopify.com/en/manual/online-store/storefront-search/search-and-discovery-modify-search"
         ]
       ],
-      "checked": "2026-10-19",
+      "checked": "2026-10-26",
       "affiliate_url": "",
       "unit": "Free"
     },
@@ -182,7 +182,7 @@
           "https://apps.shopify.com/searchanise"
         ]
       ],
-      "checked": "2026-10-19",
+      "checked": "2026-10-26",
       "affiliate_url": "https://searchanise.io/affiliate-program/get/?fpr=ali-922346",
       "unit": "Products"
     },
@@ -228,7 +228,7 @@
         ],
         "plans": [
           "Launch (from $29)",
-          "Convert ($239\u2013$299 per official pages)",
+          "Convert ($239–$299 per official pages)",
           "Convert/Accelerate (sub-tier not public)"
         ],
         "totals": [
@@ -255,7 +255,7 @@
           "https://support.boostcommerce.net/en/articles/12545618-gmv-based-pricing-plan-overview"
         ]
       ],
-      "checked": "2026-10-19",
+      "checked": "2026-10-26",
       "affiliate_url": "",
       "unit": "Monthly GMV"
     },
@@ -282,8 +282,8 @@
         },
         {
           "name": "Essential",
-          "monthly": 99.99,
-          "annual": 83.33,
+          "monthly": 114.99,
+          "annual": 95.83,
           "includes": "10,000 monthly sessions, realtime sync"
         },
         {
@@ -314,7 +314,7 @@
           ],
           [
             "Essential",
-            99.99,
+            114.99,
             10000
           ],
           [
@@ -330,7 +330,7 @@
       "unconfirmed": [
         "Prices above 30,000 monthly sessions (Enterprise) are not public"
       ],
-      "notes": "A third-party review (motive.co) reports that a Fast Simon session is every store visit, whether or not the shopper searches; Fast Simon's own listing just says 'Monthly Sessions'. Annual prices: $399.96/$999.96/$2,999.88 a year.",
+      "notes": "A third-party review (motive.co) reports that a Fast Simon session is every store visit, whether or not the shopper searches; Fast Simon's own listing just says 'Monthly Sessions'. Annual prices: $399.96/$1,149.96/$2,999.88 a year. Essential went from $99.99 to $114.99 a month on 26 Oct 2026.",
       "sources": [
         [
           "Shopify App Store listing",
@@ -341,7 +341,7 @@
           "https://www.fastsimon.com/pricing/"
         ]
       ],
-      "checked": "2026-10-19",
+      "checked": "2026-10-26",
       "affiliate_url": "",
       "unit": "Sessions"
     },
@@ -416,7 +416,7 @@
           "https://www.doofinder.com/en/pricing"
         ]
       ],
-      "checked": "2026-10-19",
+      "checked": "2026-10-26",
       "affiliate_url": "",
       "unit": "Requests"
     },
@@ -473,7 +473,7 @@
           "https://www.algolia.com/pricing"
         ]
       ],
-      "checked": "2026-10-19",
+      "checked": "2026-10-26",
       "affiliate_url": "",
       "unit": "Search requests"
     },
@@ -490,34 +490,34 @@
           "name": "Free",
           "monthly": 0,
           "annual": null,
-          "includes": "0\u201350 orders/mo"
+          "includes": "0–50 orders/mo"
         },
         {
           "name": "Basic",
           "monthly": 9,
           "annual": null,
-          "includes": "51\u2013100 orders/mo"
+          "includes": "51–100 orders/mo"
         },
         {
           "name": "Growth",
           "monthly": 19,
           "annual": null,
-          "includes": "101\u2013300 orders/mo"
+          "includes": "101–300 orders/mo"
         },
         {
           "name": "Premium",
           "monthly": 49,
           "annual": null,
-          "includes": "301\u2013500 orders/mo"
+          "includes": "301–500 orders/mo"
         },
         {
-          "name": "501\u20131,000 orders",
+          "name": "501–1,000 orders",
           "monthly": 99,
           "annual": null,
           "includes": "Per Wiser's pricing page"
         },
         {
-          "name": "1,001\u20132,000 orders",
+          "name": "1,001–2,000 orders",
           "monthly": 199,
           "annual": null,
           "includes": "Per Wiser's pricing page"
@@ -553,12 +553,12 @@
             500
           ],
           [
-            "501\u20131,000 orders",
+            "501–1,000 orders",
             99,
             1000
           ],
           [
-            "1,001\u20132,000 orders",
+            "1,001–2,000 orders",
             199,
             2000
           ]
@@ -581,7 +581,7 @@
           "https://apps.shopify.com/recommended-products-wiser"
         ]
       ],
-      "checked": "2026-10-19",
+      "checked": "2026-10-26",
       "affiliate_url": "",
       "unit": "Orders"
     },
@@ -592,7 +592,7 @@
       "model": "limespot",
       "summary": "AI recommendations, bundles and upsells. Turbo is priced by orders and isn't available on Shopify Plus. Max (segmentation, A/B tests, email/SMS personalization) is priced by Online Store revenue.",
       "ai_billing": "Turbo is priced by Online Store orders/30 days (not for Shopify Plus): free to 10, $9.99 to 100, $19.99 to 250, $34.99 to 350, $49.99 to 500, $124.99 to 750, $149.99 to 1,000, $249.99 to 1,500, $299.99 to 2,000, $499.99 to 3,000, $649.99 to 4,000, $799.99 to 5,000, $1,249.99 to 7,500, $1,749.99 to 10,000, $2,499.99 above 10,000. Max is priced by Online Store revenue/30 days: $50 up to $15K, $75 to $25K, $150 to $50K, $225 to $75K, $300 to $100K, $375 to $200K, $525 to $400K, and so on up to $3,200 for $5M.",
-      "ai_short": "Turbo by orders ($0\u2013$2,499.99); Max by revenue ($50\u2013$3,200)",
+      "ai_short": "Turbo by orders ($0–$2,499.99); Max by revenue ($50–$3,200)",
       "plans": [
         {
           "name": "Turbo Free",
@@ -768,7 +768,7 @@
           "https://apps.shopify.com/limespot"
         ]
       ],
-      "checked": "2026-10-19",
+      "checked": "2026-10-26",
       "affiliate_url": "",
       "unit": "Orders / revenue"
     },
@@ -777,7 +777,7 @@
       "name": "Rebuy Personalization Engine",
       "type": "AI personalization, smart cart, search & upsells",
       "model": "quote",
-      "summary": "Popular personalization suite (smart cart, upsells, bundles, Smart Search) sold as \u00e0-la-carte packages, each priced by your monthly Shopify orders, or as the all-in-one Platform One.",
+      "summary": "Popular personalization suite (smart cart, upsells, bundles, Smart Search) sold as à-la-carte packages, each priced by your monthly Shopify orders, or as the all-in-one Platform One.",
       "ai_billing": "Each package (Cart & Merchandising, Checkout & Post Purchase, Search & Collections, Flows & A/B Testing) is priced by orders per month, from $25/mo for one package. Bundling saves 10% on two, 20% on three and 30% on four. Premium support is $499/mo. Rebuy bills on a 30-day cycle based on the previous 30 days' orders.",
       "ai_short": "Per package, priced by monthly orders (from $25)",
       "plans": [
@@ -837,7 +837,7 @@
           "https://www.rebuyengine.com/pricing"
         ]
       ],
-      "checked": "2026-10-19",
+      "checked": "2026-10-26",
       "affiliate_url": "",
       "unit": "Orders"
     },
@@ -903,7 +903,7 @@
           "https://apps.shopify.com/klevu-smart-search"
         ]
       ],
-      "checked": "2026-10-19",
+      "checked": "2026-10-26",
       "affiliate_url": "",
       "unit": "Quote"
     },
@@ -963,7 +963,7 @@
           "https://apps.shopify.com/nosto-personalization-for-shopify"
         ]
       ],
-      "checked": "2026-10-19",
+      "checked": "2026-10-26",
       "affiliate_url": "",
       "unit": "Quote"
     }
