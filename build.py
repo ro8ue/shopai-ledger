@@ -27,6 +27,15 @@ def ld(o): return '<script type="application/ld+json">' + json.dumps(o) + "</scr
 PAGES = []
 LOGO = """<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="0.5" y="0.5" width="23" height="23" rx="4" fill="none" stroke="currentColor" stroke-opacity=".35"/><rect x="5" y="6" width="14" height="2" rx="1" fill="currentColor"/><rect x="5" y="11" width="9" height="2" rx="1" fill="currentColor"/><rect x="5" y="16" width="11.5" height="2" rx="1" fill="currentColor" fill-opacity=".55"/></svg>"""
 FONTS = '<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap">'
+# ---- Analytics: Umami Cloud (cookieless, no banner). Paste the Website ID from cloud.umami.is after sign-up.
+# Empty = no analytics snippet is emitted, so the build output is unchanged.
+UMAMI_ID = ""
+ANALYTICS = "" if not UMAMI_ID else (
+    f'<script defer src="https://cloud.umami.is/script.js" data-website-id="{UMAMI_ID}" data-domains="ro8ue.github.io" data-exclude-search="true"></script>'
+    # Outbound clicks: rel=sponsored links count as "affiliate-click", every other external link as "outbound-click".
+    '<script>document.addEventListener("click",function(ev){var a=ev.target.closest&&ev.target.closest("a[href]");if(!a||a.host===location.host||!/^https?:/.test(a.href))return;'
+    'var r=(a.getAttribute("rel")||"").indexOf("sponsored")>-1;var d={dest:a.host,url:a.href.slice(0,300),page:location.pathname,label:(a.textContent||"").trim().slice(0,80)};'
+    'if(window.umami&&umami.track)umami.track(r?"affiliate-click":"outbound-click",d);},true);</script>')
 def page(fn, title, desc, body, head=""):
     PAGES.append(fn)
     url = S["base_url"] + "/" + ("" if fn == "index.html" else fn)
@@ -41,7 +50,7 @@ def page(fn, title, desc, body, head=""):
 <title>{e(title)}</title><meta name="description" content="{e(desc)}"><link rel="canonical" href="{url}">
 <meta property="og:type" content="website"><meta property="og:site_name" content="ShopAI Ledger"><meta property="og:title" content="{e(title)}"><meta property="og:description" content="{e(desc)}"><meta property="og:url" content="{url}"><meta name="twitter:card" content="summary">
 <meta name="theme-color" content="#0c0c0c"><link rel="icon" href="favicon.svg" type="image/svg+xml">
-{FONTS}<link rel="stylesheet" href="style.css">{head}</head><body>
+{FONTS}<link rel="stylesheet" href="style.css">{head}{ANALYTICS}</head><body>
 <header class="top"><div class="wrap"><a class="logo" href="index.html" aria-label="ShopAI Ledger home">{LOGO}<span>ShopAI <em>Ledger</em></span></a><nav class="main" aria-label="Main">{nav}</nav><a class="btn light sm" href="{'#newsletter' if news else 'index.html#newsletter'}">Weekly email</a></div></header>
 {hero}<main class="wrap">{rest}</main>{NEWS if news else ""}
 <footer class="site"><div class="wrap"><div><a class="logo" href="index.html">{LOGO}<span>ShopAI <em>Ledger</em></span></a><p>ShopAI Ledger is independent and not affiliated with Shopify or any app listed. Prices are in USD, checked by hand on the date shown, and can change at any time. Always confirm on the vendor's site.</p></div>
