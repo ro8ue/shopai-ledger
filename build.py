@@ -29,7 +29,7 @@ LOGO = """<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="0.5" y="0.5" widt
 FONTS = '<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap">'
 # ---- Analytics: Umami Cloud (cookieless, no banner). Paste the Website ID from cloud.umami.is after sign-up.
 # Empty = no analytics snippet is emitted, so the build output is unchanged.
-UMAMI_ID = ""
+UMAMI_ID = "ef83573c-dc05-416b-8ade-a59229995cc7"
 ANALYTICS = "" if not UMAMI_ID else (
     f'<script defer src="https://cloud.umami.is/script.js" data-website-id="{UMAMI_ID}" data-domains="ro8ue.github.io" data-exclude-search="true"></script>'
     # Outbound clicks: rel=sponsored links count as "affiliate-click", every other external link as "outbound-click".
