@@ -1,6 +1,7 @@
 import json, html, pathlib
 from calc import MODELS, m
 R = pathlib.Path(__file__).parent
+O = R / "site"; O.mkdir(exist_ok=True)
 D = json.load(open(R / "data/apps.json")); S = D["site"]; A = D["apps"]; e = html.escape
 SIZES = S["sizes"]; RATE = S["ai_rate"]; BY = {a["slug"]: a for a in A}
 for a in A:
@@ -31,7 +32,7 @@ FONTS = '<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="p
 # Empty = no analytics snippet is emitted, so the build output is unchanged.
 UMAMI_ID = "ef83573c-dc05-416b-8ade-a59229995cc7"
 ANALYTICS = "" if not UMAMI_ID else (
-    f'<script defer src="https://cloud.umami.is/script.js" data-website-id="{UMAMI_ID}" data-domains="ro8ue.github.io" data-exclude-search="true"></script>'
+    f'<script defer src="https://cloud.umami.is/script.js" data-website-id="{UMAMI_ID}" data-domains="stillprice.com" data-exclude-search="true"></script>'
     # Outbound clicks: rel=sponsored links count as "affiliate-click", every other external link as "outbound-click".
     '<script>document.addEventListener("click",function(ev){var a=ev.target.closest&&ev.target.closest("a[href]");if(!a||a.host===location.host||!/^https?:/.test(a.href))return;'
     'var r=(a.getAttribute("rel")||"").indexOf("sponsored")>-1;var d={dest:a.host,url:a.href.slice(0,300),page:location.pathname,label:(a.textContent||"").trim().slice(0,80)};'
@@ -53,7 +54,7 @@ def page(fn, title, desc, body, head=""):
         w=" ".join(ws).upper().replace('"',"")
         return f'<h2{m.group(1)} data-sec="{e(w)}">{m.group(2)}</h2>'
     rest = re.sub(r"<h2([^>]*)>(.*?)</h2>", _sec, rest)
-    (R / fn).write_text(f"""<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="google-site-verification" content="JHZv0niTmEJr6Eywzr3X6kB2OFSl9WHrn6igGEJn2Qw" />
+    (O / fn).write_text(f"""<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="google-site-verification" content="JHZv0niTmEJr6Eywzr3X6kB2OFSl9WHrn6igGEJn2Qw" />
 <title>{e(title)}</title><meta name="description" content="{e(desc)}"><link rel="canonical" href="{url}">
 <meta property="og:type" content="website"><meta property="og:site_name" content="Stillprice"><meta property="og:title" content="{e(title)}"><meta property="og:description" content="{e(desc)}"><meta property="og:url" content="{url}"><meta name="twitter:card" content="summary">
 <meta name="theme-color" content="#0A0A0A"><link rel="icon" href="favicon.svg" type="image/svg+xml">
@@ -64,10 +65,10 @@ def page(fn, title, desc, body, head=""):
 <div class="links"><a href="methodology.html">How we calculate</a><a href="disclosure.html">Affiliate disclosure</a><a href="changelog.html">Change log</a><a href="free-calculator.html">Free cost calculator</a><a href="advertise.html">Advertise / get listed</a><a href="mailto:{S['contact']}?subject=Stillprice%20correction">Report a wrong price</a></div>
 <div class="base"><span>Prices checked {S['updated']}</span><a href="#">Back to top ↑</a></div></div></footer></body></html>""")
 
-# Newsletter: Substack signup (shopailedger.substack.com) inside the cream .news .embed card.
+# Newsletter: Substack signup (stillprice.substack.com) inside the cream .news .embed card.
 NEWS = """<section class="news" id="newsletter"><div class="wrap"><div><p class="eyebrow">( The Ledger )</p><h2>The Ledger, every Monday</h2>
 <p>The Ledger, every Monday: what AI apps really cost Shopify stores, plus a Thursday deep-dive.</p><div class="perks"><span>Free</span><span>Mondays + Thursdays</span><span>Unsubscribe anytime</span></div></div>
-<div class="embed" id="newsletter-embed"><p class="eyebrow" style="margin:0 0 14px">Free · Every Monday</p><p style="margin:0 0 22px;color:#ECEAE5;font-size:17px">Price changes, new fees and the real monthly bill for Shopify AI apps. One short email a week.</p><p style="margin:0"><a class="btn light" href="https://shopailedger.substack.com/subscribe">Subscribe on Substack <span class=arr>→</span></a><a class="btn ghost" href="https://shopailedger.substack.com">Read past issues</a></p></div></div></section>"""
+<div class="embed" id="newsletter-embed"><p class="eyebrow" style="margin:0 0 14px">Free · Every Monday</p><p style="margin:0 0 22px;color:#ECEAE5;font-size:17px">Price changes, new fees and the real monthly bill for Shopify AI apps. One short email a week.</p><p style="margin:0"><a class="btn light" href="https://stillprice.substack.com/subscribe">Subscribe on Substack <span class=arr>→</span></a><a class="btn ghost" href="https://stillprice.substack.com">Read past issues</a></p></div></div></section>"""
 
 sizes_html = '<div class="sizes">' + "".join(f"<span><b>{s['label']}</b>: {s['conv']:,} support conversations/mo, {s['seats']} agent seat{'s' if s['seats']>1 else ''}</span>" for s in SIZES) + f"<span>AI resolves {int(RATE*100)}% of conversations</span></div>"
 def flag(a): return f'<span class="tag free">Free option overlaps</span>' if a.get("free_alt") and a["model"] != "free" else ('<span class="tag free">Free</span>' if a["model"] == "free" else "")
@@ -290,25 +291,25 @@ page("advertise.html", "Advertise or Get Your App Listed | Stillprice", "App mak
  f"""<h1>Advertise / get your app listed</h1><p class=lead>Stillprice is read by Shopify merchants comparing what AI apps really cost.</p><!--/hero-->
 <div class=grid><div class=card><b>Free listing</b><p class=muted>Have a Shopify AI support, search or recommendation app with public pricing? Send us the link, and we list apps for free if the pricing is public.</p></div>
 <div class=card><b>Pricing corrections</b><p class=muted>Changed your plans? Tell us and we'll re-check against your public pricing page within a week.</p></div>
-<div class=card><b>Sponsorship</b><p class=muted>Featured placements and sponsor slots in The Ledger, our Monday newsletter with a Thursday deep-dive, on <a href="https://shopailedger.substack.com">Substack</a>. Always labelled as sponsored. Placements never change price data.</p></div></div>
+<div class=card><b>Sponsorship</b><p class=muted>Featured placements and sponsor slots in The Ledger, our Monday newsletter with a Thursday deep-dive, on <a href="https://stillprice.substack.com">Substack</a>. Always labelled as sponsored. Placements never change price data.</p></div></div>
 <p><a class=btn href="mailto:{S['contact']}?subject=Stillprice%20listing%20%2F%20sponsorship">Contact us</a></p>""")
 
 # ---- free calculator download
 page("free-calculator.html", "Free AI Support Cost Calculator (Shopify, Excel/Sheets) | Stillprice", "Free spreadsheet: see what Gorgias and Chatty really cost your Shopify store at 1x, 2x, 5x and Black Friday volume. Prices checked 26 Oct 2026.",
  """<p class=eyebrow>( Free download · .xlsx )</p><h1>Free AI support <em>cost calculator</em></h1><p class=lead>Put in your monthly conversations, AI share and seats. The sheet shows what Gorgias and Chatty would really bill you at normal volume, 2x, 5x and in your Black Friday month, and highlights the cheapest.</p>
-<p style="margin:0"><a class="btn light" href="downloads/Stillprice-AI-Support-Cost-Calculator-LITE.xlsx" data-umami-event="lite-download" download>Download the free calculator <span class=arr>→</span></a><a class="btn ghost" href="https://shopailedger.substack.com/subscribe">Get price updates by email</a></p><!--/hero-->
+<p style="margin:0"><a class="btn light" href="downloads/Stillprice-AI-Support-Cost-Calculator-LITE.xlsx" data-umami-event="lite-download" download>Download the free calculator <span class=arr>→</span></a><a class="btn ghost" href="https://stillprice.substack.com/subscribe">Get price updates by email</a></p><!--/hero-->
 <h2>What the defaults show</h2><p class=muted>1,000 conversations a month, AI handles 50%, 2 seats, Black Friday month at 3x.</p>
 <div class=tw><table><thead><tr><th>App</th><th>1x</th><th>2x</th><th>5x</th><th>BFCM month</th></tr></thead><tbody>
 <tr><td><b>Gorgias</b></td><td class=n>$670</td><td class=n>$1,170</td><td class=n>$2,870</td><td class=n>$1,870</td></tr>
 <tr><td><b>Chatty AI Chatbot &amp; Live Chat</b></td><td class=n>$199</td><td class=n>$599</td><td class=n>$1,799</td><td class=n>$999</td></tr></tbody></table></div>
 <p class=muted>Prices checked 26 Oct 2026. List prices, monthly billing. Assumes every AI-touched conversation is billed (resolution-based apps may bill less). Taxes and add-ons not included. Works in Excel, Google Sheets and Numbers.</p>
-<h2>Get the next price change</h2><p>Prices move. <a href="https://shopailedger.substack.com/subscribe">Subscribe to The Ledger on Substack</a> for a short Monday email when they do. See <a href="methodology.html">how we calculate</a>.</p>""")
+<h2>Get the next price change</h2><p>Prices move. <a href="https://stillprice.substack.com/subscribe">Subscribe to The Ledger on Substack</a> for a short Monday email when they do. See <a href="methodology.html">how we calculate</a>.</p>""")
 
-(R / "style.css").write_text(CSS)
-(R / "favicon.svg").write_text('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" rx="7" fill="#0c0c0c"/><rect x="7" y="9" width="18" height="2.6" rx="1.3" fill="#f3efe6"/><rect x="7" y="14.7" width="11.5" height="2.6" rx="1.3" fill="#f3efe6"/><rect x="7" y="20.4" width="14.5" height="2.6" rx="1.3" fill="#f3efe6" fill-opacity=".55"/></svg>')
-(R / "404.html").write_text(f'<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Not found | Stillprice</title><meta name="robots" content="noindex"><link rel="icon" href="/shopai-ledger/favicon.svg" type="image/svg+xml">{FONTS}<link rel="stylesheet" href="/shopai-ledger/style.css"></head><body><section class="hero"><div class="wrap"><p class="eyebrow">( 404 )</p><h1>Page not <em>found</em></h1><p style="margin:0"><a class="btn light" href="/shopai-ledger/">Go to the Stillprice comparison</a></p></div></section></body></html>')
-(R / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "".join(f"  <url><loc>{S['base_url']}/{'' if p=='index.html' else p}</loc><lastmod>{S['updated']}</lastmod></url>\n" for p in PAGES) + "</urlset>\n")
-(R / "sitemap.txt").write_text("".join(f"{S['base_url']}/{'' if p=='index.html' else p}\n" for p in PAGES))
-(R / "robots.txt").write_text(f"User-agent: *\nAllow: /\nSitemap: {S['base_url']}/sitemap.xml\nSitemap: {S['base_url']}/sitemap.txt\n")
-(R / ".nojekyll").write_text("")
+(O / "style.css").write_text(CSS)
+(O / "favicon.svg").write_text('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" rx="7" fill="#0c0c0c"/><rect x="7" y="9" width="18" height="2.6" rx="1.3" fill="#f3efe6"/><rect x="7" y="14.7" width="11.5" height="2.6" rx="1.3" fill="#f3efe6"/><rect x="7" y="20.4" width="14.5" height="2.6" rx="1.3" fill="#f3efe6" fill-opacity=".55"/></svg>')
+(O / "404.html").write_text(f'<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Not found | Stillprice</title><meta name="robots" content="noindex"><link rel="icon" href="/favicon.svg" type="image/svg+xml">{FONTS}<link rel="stylesheet" href="/style.css"></head><body><section class="hero"><div class="wrap"><p class="eyebrow">( 404 )</p><h1>Page not <em>found</em></h1><p style="margin:0"><a class="btn light" href="/">Go to the Stillprice comparison</a></p></div></section></body></html>')
+(O / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "".join(f"  <url><loc>{S['base_url']}/{'' if p=='index.html' else p}</loc><lastmod>{S['updated']}</lastmod></url>\n" for p in PAGES) + "</urlset>\n")
+(O / "sitemap.txt").write_text("".join(f"{S['base_url']}/{'' if p=='index.html' else p}\n" for p in PAGES))
+(O / "robots.txt").write_text(f"User-agent: *\nAllow: /\nSitemap: {S['base_url']}/sitemap.xml\nSitemap: {S['base_url']}/sitemap.txt\n")
+(O / ".nojekyll").write_text("")
 print("built", len(PAGES), "pages")
