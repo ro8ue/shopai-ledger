@@ -278,3 +278,31 @@ main h2::before{content:counter(sec,decimal-leading-zero) " — " attr(data-sec)
 .home>.wrap:first-child>div>h1,.home>.wrap:first-child>div>.eyebrow{grid-column:1/-1}
 .home>.wrap:first-child>div>h1{margin-bottom:44px}
 .news .embed a.btn.light,.news .embed a.btn.light:hover{color:#0A0A0A}
+
+/* ===== brent UI pass (house style consistency) ===== */
+:root{--bg:#0A0A0A;--surf:#141414;--bd:#262523;--mu:#8F8B85;--tx:#ECEAE5;--ac:#CFCCC6}
+.wrap{max-width:1264px}
+/* nav: full-bleed blur, mobile scroll row fades instead of hard-clipping */
+.top{left:0;right:0;width:100%}
+@media(max-width:760px){nav.main{overflow-x:auto;scrollbar-width:none;-webkit-mask-image:linear-gradient(90deg,#000 85%,transparent);mask-image:linear-gradient(90deg,#000 85%,transparent)}nav.main::-webkit-scrollbar{display:none}}
+/* type: one eyebrow treatment everywhere */
+.eyebrow,.crumb,main h2::before,.cats .idx,.est .idx{font-family:"Geist Mono",ui-monospace,monospace;font-weight:400;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mu)}
+h1{letter-spacing:-.025em}h1 em,h2 em{font-style:italic}
+h2{letter-spacing:-.02em}
+main p,main li{color:#BDB9B2}main p b,main li b,main a{color:var(--tx)}
+/* cards: one radius, one border, no shadows, equal-height cells */
+.box,.callout,.tw,.ledger,.news .embed,.grid{border-radius:14px;box-shadow:none}
+.grid{background:var(--surf);border-color:var(--bd);overflow:hidden;align-items:stretch}
+.grid>.card{height:100%}
+.cats{gap:16px;border:0;background:transparent;overflow:visible}
+.cats .card{border:1px solid var(--bd)!important;border-radius:14px;margin:0;background:var(--surf)}
+.cats .card:hover{background:#181817}
+.callout{background:var(--surf);border:1px solid var(--bd);border-left:2px solid var(--ac)}
+/* newsletter card: left-aligned like the rest of the page */
+.news .embed{text-align:left}
+/* home hero on mobile: ledger header + ticker tidy */
+@media(max-width:760px){
+.ledger header{flex-wrap:wrap;row-gap:4px;font-size:10px}
+.ticker .wrap{flex-direction:column;gap:8px}.ticker span:after{display:none}
+.cats{grid-template-columns:1fr}
+.btn{margin:0 8px 10px 0}}

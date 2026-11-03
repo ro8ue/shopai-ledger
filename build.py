@@ -49,18 +49,22 @@ def page(fn, title, desc, body, head=""):
         hero = f'<section class="hero"><div class="wrap">{hero}</div></section>' if hero else ""
     def _sec(m):
         t=re.sub(r"<[^>]+>","",m.group(2)).replace("&amp;","&")
-        ws=[x.strip(":,.") for x in t.split() if x!="&"][:3]
-        while len(ws)>1 and ws[-1].lower() in ("the","a","of","and","to","for","vs","in","on"): ws.pop()
+        ws=[x.strip(":,.?") for x in t.split()]
+        if len(ws)>5:
+            ws=[x for x in ws if x!="&"][:3]
+            while len(ws)>1 and ws[-1].lower() in ("the","a","of","and","to","for","vs","in","on","next","what","how"): ws.pop()
         w=" ".join(ws).upper().replace('"',"")
         return f'<h2{m.group(1)} data-sec="{e(w)}">{m.group(2)}</h2>'
     rest = re.sub(r"<h2([^>]*)>(.*?)</h2>", _sec, rest)
+    _eb=lambda s: re.sub(r'(<p class=\W?eyebrow\W?[^>]*>)\(\s*(.*?)\s*\)(</p>)', r"\1\2\3", s)
+    hero, rest = _eb(hero), _eb(rest)
     (O / fn).write_text(f"""<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="google-site-verification" content="JHZv0niTmEJr6Eywzr3X6kB2OFSl9WHrn6igGEJn2Qw" />
 <title>{e(title)}</title><meta name="description" content="{e(desc)}"><link rel="canonical" href="{url}">
 <meta property="og:type" content="website"><meta property="og:site_name" content="Stillprice"><meta property="og:title" content="{e(title)}"><meta property="og:description" content="{e(desc)}"><meta property="og:url" content="{url}"><meta name="twitter:card" content="summary">
 <meta name="theme-color" content="#0A0A0A"><link rel="icon" href="favicon.svg" type="image/svg+xml">
 {FONTS}<link rel="stylesheet" href="style.css">{head}{ANALYTICS}</head><body>
 <header class="top"><div class="wrap"><a class="logo" href="index.html" aria-label="Stillprice home"><span>Stillprice</span></a><nav class="main" aria-label="Main">{nav}</nav><a class="btn light sm" href="{'#newsletter' if news else 'index.html#newsletter'}">Weekly email</a></div></header>
-{hero}<main class="wrap">{rest}</main>{NEWS if news else ""}
+{hero}<main class="wrap">{rest}</main>{_eb(NEWS) if news else ""}
 <footer class="site"><div class="wrap"><div><a class="logo" href="index.html"><span>Stillprice</span></a><p>Stillprice is independent and not affiliated with Shopify or any app listed. Prices are in USD, checked by hand on the date shown, and can change at any time. Always confirm on the vendor's site.</p></div>
 <div class="links"><a href="methodology.html">How we calculate</a><a href="disclosure.html">Affiliate disclosure</a><a href="changelog.html">Change log</a><a href="free-calculator.html">Free cost calculator</a><a href="advertise.html">Advertise / get listed</a><a href="mailto:{S['contact']}?subject=Stillprice%20correction">Report a wrong price</a></div>
 <div class="base"><span>Prices checked {S['updated']}</span><a href="#">Back to top ↑</a></div></div></footer></body></html>""")
