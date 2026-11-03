@@ -44,3 +44,4 @@ https://ro8ue.github.io/shopai-ledger/changelog.html
 https://ro8ue.github.io/shopai-ledger/methodology.html
 https://ro8ue.github.io/shopai-ledger/disclosure.html
 https://ro8ue.github.io/shopai-ledger/advertise.html
+https://ro8ue.github.io/shopai-ledger/free-calculator.html

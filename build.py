@@ -61,7 +61,7 @@ def page(fn, title, desc, body, head=""):
 <header class="top"><div class="wrap"><a class="logo" href="index.html" aria-label="Stillprice home"><span>Stillprice</span></a><nav class="main" aria-label="Main">{nav}</nav><a class="btn light sm" href="{'#newsletter' if news else 'index.html#newsletter'}">Weekly email</a></div></header>
 {hero}<main class="wrap">{rest}</main>{NEWS if news else ""}
 <footer class="site"><div class="wrap"><div><a class="logo" href="index.html"><span>Stillprice</span></a><p>Stillprice is independent and not affiliated with Shopify or any app listed. Prices are in USD, checked by hand on the date shown, and can change at any time. Always confirm on the vendor's site.</p></div>
-<div class="links"><a href="methodology.html">How we calculate</a><a href="disclosure.html">Affiliate disclosure</a><a href="changelog.html">Change log</a><a href="advertise.html">Advertise / get listed</a><a href="mailto:{S['contact']}?subject=Stillprice%20correction">Report a wrong price</a></div>
+<div class="links"><a href="methodology.html">How we calculate</a><a href="disclosure.html">Affiliate disclosure</a><a href="changelog.html">Change log</a><a href="free-calculator.html">Free cost calculator</a><a href="advertise.html">Advertise / get listed</a><a href="mailto:{S['contact']}?subject=Stillprice%20correction">Report a wrong price</a></div>
 <div class="base"><span>Prices checked {S['updated']}</span><a href="#">Back to top ↑</a></div></div></footer></body></html>""")
 
 # Newsletter: Substack signup (shopailedger.substack.com) inside the cream .news .embed card.
@@ -292,6 +292,17 @@ page("advertise.html", "Advertise or Get Your App Listed | Stillprice", "App mak
 <div class=card><b>Pricing corrections</b><p class=muted>Changed your plans? Tell us and we'll re-check against your public pricing page within a week.</p></div>
 <div class=card><b>Sponsorship</b><p class=muted>Featured placements and sponsor slots in The Ledger, our Monday newsletter with a Thursday deep-dive, on <a href="https://shopailedger.substack.com">Substack</a>. Always labelled as sponsored. Placements never change price data.</p></div></div>
 <p><a class=btn href="mailto:{S['contact']}?subject=Stillprice%20listing%20%2F%20sponsorship">Contact us</a></p>""")
+
+# ---- free calculator download
+page("free-calculator.html", "Free AI Support Cost Calculator (Shopify, Excel/Sheets) | Stillprice", "Free spreadsheet: see what Gorgias and Chatty really cost your Shopify store at 1x, 2x, 5x and Black Friday volume. Prices checked 26 Oct 2026.",
+ """<p class=eyebrow>( Free download · .xlsx )</p><h1>Free AI support <em>cost calculator</em></h1><p class=lead>Put in your monthly conversations, AI share and seats. The sheet shows what Gorgias and Chatty would really bill you at normal volume, 2x, 5x and in your Black Friday month, and highlights the cheapest.</p>
+<p style="margin:0"><a class="btn light" href="downloads/Stillprice-AI-Support-Cost-Calculator-LITE.xlsx" data-umami-event="lite-download" download>Download the free calculator <span class=arr>→</span></a><a class="btn ghost" href="https://shopailedger.substack.com/subscribe">Get price updates by email</a></p><!--/hero-->
+<h2>What the defaults show</h2><p class=muted>1,000 conversations a month, AI handles 50%, 2 seats, Black Friday month at 3x.</p>
+<div class=tw><table><thead><tr><th>App</th><th>1x</th><th>2x</th><th>5x</th><th>BFCM month</th></tr></thead><tbody>
+<tr><td><b>Gorgias</b></td><td class=n>$670</td><td class=n>$1,170</td><td class=n>$2,870</td><td class=n>$1,870</td></tr>
+<tr><td><b>Chatty AI Chatbot &amp; Live Chat</b></td><td class=n>$199</td><td class=n>$599</td><td class=n>$1,799</td><td class=n>$999</td></tr></tbody></table></div>
+<p class=muted>Prices checked 26 Oct 2026. List prices, monthly billing. Assumes every AI-touched conversation is billed (resolution-based apps may bill less). Taxes and add-ons not included. Works in Excel, Google Sheets and Numbers.</p>
+<h2>Get the next price change</h2><p>Prices move. <a href="https://shopailedger.substack.com/subscribe">Subscribe to The Ledger on Substack</a> for a short Monday email when they do. See <a href="methodology.html">how we calculate</a>.</p>""")
 
 (R / "style.css").write_text(CSS)
 (R / "favicon.svg").write_text('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" rx="7" fill="#0c0c0c"/><rect x="7" y="9" width="18" height="2.6" rx="1.3" fill="#f3efe6"/><rect x="7" y="14.7" width="11.5" height="2.6" rx="1.3" fill="#f3efe6"/><rect x="7" y="20.4" width="14.5" height="2.6" rx="1.3" fill="#f3efe6" fill-opacity=".55"/></svg>')
