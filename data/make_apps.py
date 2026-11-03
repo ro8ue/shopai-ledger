@@ -159,7 +159,7 @@ apps = [
   sources=[["Helpcenter on Shopify App Store","https://apps.shopify.com/helpcenter"]]),
 ]
 for a in apps: a.update(checked=C, affiliate_url=None)
-site = dict(name="ShopAI Ledger", base_url="https://ro8ue.github.io/shopai-ledger", updated=C, contact="alinkewu@gmail.com",
+site = dict(name="Stillprice", base_url="https://ro8ue.github.io/shopai-ledger", updated=C, contact="alinkewu@gmail.com",
   sizes=[dict(key="small",label="Small store",conv=200,seats=1),dict(key="medium",label="Medium store",conv=1000,seats=2),dict(key="large",label="Large store",conv=4000,seats=5)],
   ai_rate=0.5)
 json.dump(dict(site=site, apps=apps), open("data/apps.json","w"), indent=1)
