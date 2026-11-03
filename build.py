@@ -46,21 +46,28 @@ def page(fn, title, desc, body, head=""):
     if fn != "index.html":
         hero = re.sub(r"<h1>(.*?): (.*?)</h1>", r"<h1>\1: <em>\2</em></h1>", hero, count=1)
         hero = f'<section class="hero"><div class="wrap">{hero}</div></section>' if hero else ""
+    def _sec(m):
+        t=re.sub(r"<[^>]+>","",m.group(2)).replace("&amp;","&")
+        ws=[x.strip(":,.") for x in t.split() if x!="&"][:3]
+        while len(ws)>1 and ws[-1].lower() in ("the","a","of","and","to","for","vs","in","on"): ws.pop()
+        w=" ".join(ws).upper().replace('"',"")
+        return f'<h2{m.group(1)} data-sec="{e(w)}">{m.group(2)}</h2>'
+    rest = re.sub(r"<h2([^>]*)>(.*?)</h2>", _sec, rest)
     (R / fn).write_text(f"""<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="google-site-verification" content="JHZv0niTmEJr6Eywzr3X6kB2OFSl9WHrn6igGEJn2Qw" />
 <title>{e(title)}</title><meta name="description" content="{e(desc)}"><link rel="canonical" href="{url}">
-<meta property="og:type" content="website"><meta property="og:site_name" content="ShopAI Ledger"><meta property="og:title" content="{e(title)}"><meta property="og:description" content="{e(desc)}"><meta property="og:url" content="{url}"><meta name="twitter:card" content="summary">
+<meta property="og:type" content="website"><meta property="og:site_name" content="Stillprice"><meta property="og:title" content="{e(title)}"><meta property="og:description" content="{e(desc)}"><meta property="og:url" content="{url}"><meta name="twitter:card" content="summary">
 <meta name="theme-color" content="#0A0A0A"><link rel="icon" href="favicon.svg" type="image/svg+xml">
 {FONTS}<link rel="stylesheet" href="style.css">{head}{ANALYTICS}</head><body>
-<header class="top"><div class="wrap"><a class="logo" href="index.html" aria-label="ShopAI Ledger home"><span>ShopAI Ledger</span></a><nav class="main" aria-label="Main">{nav}</nav><a class="btn light sm" href="{'#newsletter' if news else 'index.html#newsletter'}">Weekly email</a></div></header>
+<header class="top"><div class="wrap"><a class="logo" href="index.html" aria-label="Stillprice home"><span>Stillprice</span></a><nav class="main" aria-label="Main">{nav}</nav><a class="btn light sm" href="{'#newsletter' if news else 'index.html#newsletter'}">Weekly email</a></div></header>
 {hero}<main class="wrap">{rest}</main>{NEWS if news else ""}
-<footer class="site"><div class="wrap"><div><a class="logo" href="index.html"><span>ShopAI Ledger</span></a><p>ShopAI Ledger is independent and not affiliated with Shopify or any app listed. Prices are in USD, checked by hand on the date shown, and can change at any time. Always confirm on the vendor's site.</p></div>
-<div class="links"><a href="methodology.html">How we calculate</a><a href="disclosure.html">Affiliate disclosure</a><a href="changelog.html">Change log</a><a href="advertise.html">Advertise / get listed</a><a href="mailto:{S['contact']}?subject=ShopAI%20Ledger%20correction">Report a wrong price</a></div>
+<footer class="site"><div class="wrap"><div><a class="logo" href="index.html"><span>Stillprice</span></a><p>Stillprice is independent and not affiliated with Shopify or any app listed. Prices are in USD, checked by hand on the date shown, and can change at any time. Always confirm on the vendor's site.</p></div>
+<div class="links"><a href="methodology.html">How we calculate</a><a href="disclosure.html">Affiliate disclosure</a><a href="changelog.html">Change log</a><a href="advertise.html">Advertise / get listed</a><a href="mailto:{S['contact']}?subject=Stillprice%20correction">Report a wrong price</a></div>
 <div class="base"><span>Prices checked {S['updated']}</span><a href="#">Back to top ↑</a></div></div></footer></body></html>""")
 
 # Newsletter: Substack signup (shopailedger.substack.com) inside the cream .news .embed card.
 NEWS = """<section class="news" id="newsletter"><div class="wrap"><div><p class="eyebrow">( The Ledger )</p><h2>The Ledger, every Monday</h2>
 <p>The Ledger, every Monday: what AI apps really cost Shopify stores, plus a Thursday deep-dive.</p><div class="perks"><span>Free</span><span>Mondays + Thursdays</span><span>Unsubscribe anytime</span></div></div>
-<div class="embed" id="newsletter-embed"><iframe src="https://shopailedger.substack.com/embed" width="480" height="320" title="Subscribe to The Ledger on Substack" loading="lazy" style="border:1px solid #EEE;background:white" frameborder="0" scrolling="no"></iframe><p style="font-size:.85em;margin:14px 0 0">Free. Or read past issues at <a href="https://shopailedger.substack.com">shopailedger.substack.com</a>.</p></div></div></section>"""
+<div class="embed" id="newsletter-embed"><p class="eyebrow" style="margin:0 0 14px">Free · Every Monday</p><p style="margin:0 0 22px;color:#ECEAE5;font-size:17px">Price changes, new fees and the real monthly bill for Shopify AI apps. One short email a week.</p><p style="margin:0"><a class="btn light" href="https://shopailedger.substack.com/subscribe">Subscribe on Substack <span class=arr>→</span></a><a class="btn ghost" href="https://shopailedger.substack.com">Read past issues</a></p></div></div></section>"""
 
 sizes_html = '<div class="sizes">' + "".join(f"<span><b>{s['label']}</b>: {s['conv']:,} support conversations/mo, {s['seats']} agent seat{'s' if s['seats']>1 else ''}</span>" for s in SIZES) + f"<span>AI resolves {int(RATE*100)}% of conversations</span></div>"
 def flag(a): return f'<span class="tag free">Free option overlaps</span>' if a.get("free_alt") and a["model"] != "free" else ('<span class="tag free">Free</span>' if a["model"] == "free" else "")
@@ -110,7 +117,7 @@ hero_ledger = (f"<aside class=ledger aria-label='Sample: medium store monthly co
   + "".join(f"<li><span>{i+1:02d}</span>{e(short(x))}<b>{money(x['est'][1])}</b><i style='--w:{max(2, round(x['est'][1]['total'] / _hmx * 100))}%'></i></li>" for i, x in enumerate(HL))
   + f"</ol><footer>AI resolves {int(RATE*100)}% of conversations. <a href='#support'>See all {len(A)} support apps →</a></footer></aside>")
 comp_links = "".join(f"<li><a href='{cslug(x,y)}'>{e(short(BY[x]))} vs {e(short(BY[y]))} pricing</a></li>" for x, y in COMPS)
-page("index.html", "ShopAI Ledger: What Shopify AI Apps Really Cost (Support, Search & Recommendations, 2026)",
+page("index.html", "Stillprice: What Shopify AI Apps Really Cost (Support, Search & Recommendations, 2026)",
  f"Real monthly cost of {len(A)} AI support apps (Gorgias, Tidio Lyro, Intercom Fin, Zendesk…) and {len(SA)} AI search & recommendation apps (Searchanise, Boost, Doofinder, Rebuy, LimeSpot…) for Shopify at three store sizes, with the math and dated sources.",
  f"<section class='hero home'><div class=wrap><div><p class=eyebrow>( Shopify AI app pricing · checked {S['updated']} )</p><h1>What Shopify AI apps <em>really cost</em></h1><p class=lead>AI apps bill per resolution, per conversation, per search, per order or by your revenue, so the sticker price rarely matches the invoice. We read every official pricing page by hand and show the estimated monthly bill at three store sizes, with the math.</p>"
  f"<p style='margin:0'><a class='btn light' href='#support'>Compare support apps <span class=arr>→</span></a><a class='btn ghost' href='{SLAND}'>Search & recommendation apps</a></p></div>{hero_ledger}</div>"
@@ -122,7 +129,7 @@ page("index.html", "ShopAI Ledger: What Shopify AI Apps Really Cost (Support, Se
  f"<h2>Why the support bill surprises people</h2><div class=grid><div class=card><b>Per-resolution billing</b><p class=muted>Gorgias, Zendesk, Intercom Fin, HubSpot, Re:amaze and Siena charge for each conversation the AI closes. Better automation means a bigger AI line on the bill.</p></div><div class=card><b>Per-conversation or per-reply billing</b><p class=muted>Tidio Lyro, Chatty, Richpanel, Freshdesk and Zipchat count conversations (or messages) the AI touches, resolved or not.</p></div><div class=card><b>Seats still matter</b><p class=muted>Intercom, Zendesk, HubSpot, Re:amaze, Freshdesk and Richpanel also charge per human agent seat, and HubSpot Professional adds a one-time onboarding fee.</p></div></div>"
  f"<h2 id=search>AI search & recommendation apps</h2>{ssizes_html}<p class=muted>Prices checked {S['updated']}. Sorted by medium-store cost. <a href='{SLAND}'>See the full search & recommendations comparison</a>.</p>{stable(sordered)}"
  f"<h2>Search & recommendation comparisons</h2><ul>{scomp_links}</ul>{NEWS}",
- head=ld({"@context": "https://schema.org", "@type": "WebSite", "name": "ShopAI Ledger", "url": S["base_url"] + "/"}))
+ head=ld({"@context": "https://schema.org", "@type": "WebSite", "name": "Stillprice", "url": S["base_url"] + "/"}))
 
 # ---- app pages
 def plans_table(a):
@@ -142,7 +149,7 @@ for a in A:
     fa = f"<div class=box><b>Free Shopify alternative:</b> {e(a['free_alt'])} {'<a href=\"shopify-inbox-pricing.html\">See Shopify Inbox</a>.' if a['model']!='free' else ''}</div>" if a.get("free_alt") else ""
     faq = [(f"How much does {nm} cost per month?", f"On our assumptions, about {money(a['est'][0])} for a small store ({SIZES[0]['conv']} conversations), {money(a['est'][1])} for a medium store and {money(a['est'][2])} for a large store. Prices checked {a['checked']}."),
            (f"How does {nm} charge for AI?", a["ai_billing"])]
-    page(f"{a['slug']}-pricing.html", f"{nm} Pricing 2026: Plans & Real Monthly Cost for Shopify Stores | ShopAI Ledger",
+    page(f"{a['slug']}-pricing.html", f"{nm} Pricing 2026: Plans & Real Monthly Cost for Shopify Stores | Stillprice",
      f"{nm} pricing explained: plans, how AI usage is billed, and the estimated monthly cost for small, medium and large Shopify stores, with the math. Checked {a['checked']}.",
      f"<h1>{e(nm)} pricing: what it really costs a Shopify store</h1><p class=lead>{e(a['summary'])}</p><p class=metaline>{conf(a)}{flag(a)}<span class=muted>Price checked on {a['checked']} from the official source.</span></p>{HERO_END}"
      f"<h2>Plans</h2>{plans_table(a)}<h2>How AI usage is billed</h2><p>{e(a['ai_billing'])}</p>"
@@ -167,7 +174,7 @@ for x, y in COMPS:
         *[(f"{s['label']} ({s['conv']:,} conv)", f"<b>{money(oa)}</b><br><span class=muted>{e(oa['plan'])}</span>", f"<b>{money(ob)}</b><br><span class=muted>{e(ob['plan'])}</span>") for s, oa, ob in zip(SIZES, a["est"], b["est"])],
         ("Free Shopify alternative", e(a.get("free_alt") or "—"), e(b.get("free_alt") or "—")), ("Checked", a["checked"], b["checked"]),
         ("Details", f"<a href='{x}-pricing.html'>{e(na)} pricing & math</a>", f"<a href='{y}-pricing.html'>{e(nb)} pricing & math</a>")])
-    page(cslug(x, y), f"{na} vs {nb} Pricing (2026): Real Monthly Cost Compared | ShopAI Ledger",
+    page(cslug(x, y), f"{na} vs {nb} Pricing (2026): Real Monthly Cost Compared | Stillprice",
      f"{na} vs {nb}: how each bills for AI, and the estimated monthly cost for small, medium and large Shopify stores side by side. Prices checked {S['updated']}.",
      f"<h1>{e(na)} vs {e(nb)} pricing</h1><p class=lead>How {e(na)} and {e(nb)} bill for AI, and what each would cost the same Shopify store, using official prices checked {S['updated']}.</p>{HERO_END}{sizes_html}"
      f"<div class=tw><table class=vs><thead><tr><th></th><th>{e(na)}</th><th>{e(nb)}</th></tr></thead><tbody>{rows}</tbody></table></div><h2>Bottom line on cost</h2><ul>{''.join(lines)}</ul>" + vs_btns({**a, "_n": na}, {**b, "_n": nb}) +
@@ -175,13 +182,13 @@ for x, y in COMPS:
 
 # ---- Gorgias alternatives
 alts = [o for o in ordered if o["slug"] != "gorgias"]
-page("gorgias-alternatives.html", "Gorgias Alternatives 2026: Real Monthly Cost of 12 AI Support Apps for Shopify | ShopAI Ledger",
+page("gorgias-alternatives.html", "Gorgias Alternatives 2026: Real Monthly Cost of 12 AI Support Apps for Shopify | Stillprice",
  "Gorgias alternatives for Shopify compared on real monthly cost at three store sizes: Tidio, Intercom Fin, Zendesk, HubSpot, Richpanel, Re:amaze, Freshdesk, Zipchat, Chatty and Shopify Inbox.",
  f"<h1>Gorgias alternatives, compared on real cost</h1><p class=lead>For reference, Gorgias comes out at about <b>{money(BY['gorgias']['est'][0])}</b> (small), <b>{money(BY['gorgias']['est'][1])}</b> (medium) and <b>{money(BY['gorgias']['est'][2])}</b> (large) a month on our assumptions (<a href='gorgias-pricing.html'>see the math</a>). Here's how the alternatives price out for the same store.</p>{HERO_END}"
  f"{sizes_html}{table(alts)}<p class=muted>Some of these are full helpdesks, and others (Zipchat, Chatty, Shopify Inbox) are chat/AI layers only. Compare like with like. <a href='methodology.html'>How we calculate</a>.</p>{NEWS}")
 
 # ---- search & recommendations: category landing
-page(SLAND, "Shopify AI Search & Product Recommendation Apps: Real Monthly Cost Compared (2026) | ShopAI Ledger",
+page(SLAND, "Shopify AI Search & Product Recommendation Apps: Real Monthly Cost Compared (2026) | Stillprice",
  f"Real monthly cost of {len(SA)} Shopify AI search, filter and recommendation apps (Searchanise, Boost, Fast Simon, Doofinder, Algolia, Wiser, LimeSpot, Rebuy, Klevu, Nosto) at three store sizes, with the math. Checked {S['updated']}.",
  f"<h1>What Shopify AI search & recommendation apps really cost</h1><p class=lead>Search and recommendation apps bill on completely different things: product count, store visits, keystrokes, orders or revenue. We converted each official price list into one monthly bill for the same three stores.</p>{HERO_END}"
  f"{ssizes_html}<p class=muted>Prices checked {S['updated']} from official pricing pages and Shopify App Store listings. Monthly billing unless noted. Sorted by medium-store cost. \"Not public / check site\" means the vendor doesn't publish a price for that size, so we don't guess.</p>{stable(sordered)}"
@@ -210,7 +217,7 @@ for a in SA:
     fa = (f"<div class=box><b>Free Shopify alternative:</b> {e(a['free_alt'])} <a href='shopify-search-discovery-pricing.html'>See Shopify Search & Discovery</a>.</div>" if a["model"] != "free" else "")
     faq = [(f"How much does {nm} cost per month?", f"On our assumptions: {smoney(a['est'][0])} for a small store, {smoney(a['est'][1])} for a medium store and {smoney(a['est'][2])} for a large store. Prices checked {a['checked']}."),
            (f"How does {nm} charge?", a["ai_billing"])]
-    page(f"{a['slug']}-pricing.html", f"{nm} Pricing 2026: Plans & Real Monthly Cost for Shopify Stores | ShopAI Ledger",
+    page(f"{a['slug']}-pricing.html", f"{nm} Pricing 2026: Plans & Real Monthly Cost for Shopify Stores | Stillprice",
      f"{nm} pricing explained: plans, what it bills on ({a['unit'].lower()}), and the estimated monthly cost for small, medium and large Shopify stores, with the math. Checked {a['checked']}.",
      f"<p class=crumb><a href='{SLAND}'>Search & recommendations</a> › {e(nm)}</p><h1>{e(nm)} pricing: what it really costs a Shopify store</h1><p class=lead>{e(a['summary'])}</p><p class=metaline>{sconf(a)}{sflag(a)}<span class=muted>Price checked on {a['checked']} from the official source.</span></p>{HERO_END}"
      f"<h2>Plans</h2>{splans_table(a)}<h2>How it's billed</h2><p>{e(a['ai_billing'])}</p>"
@@ -235,7 +242,7 @@ for x, y in SCOMPS:
         *[(f"{s['label']}", f"<b>{smoney(oa)}</b><br><span class=muted>{e(oa['plan'])}</span>", f"<b>{smoney(ob)}</b><br><span class=muted>{e(ob['plan'])}</span>") for s, oa, ob in zip(SSIZES, a["est"], b["est"])],
         ("Free Shopify alternative", e(a["free_alt"]), e(b["free_alt"])), ("Checked", a["checked"], b["checked"]),
         ("Details", f"<a href='{x}-pricing.html'>{e(na)} pricing & math</a>", f"<a href='{y}-pricing.html'>{e(nb)} pricing & math</a>")])
-    page(cslug(x, y), f"{na} vs {nb} Pricing (2026): Real Monthly Cost for Shopify Stores | ShopAI Ledger",
+    page(cslug(x, y), f"{na} vs {nb} Pricing (2026): Real Monthly Cost for Shopify Stores | Stillprice",
      f"{na} vs {nb}: what each bills on, and the estimated monthly cost for small, medium and large Shopify stores side by side. Prices checked {S['updated']}.",
      f"<p class=crumb><a href='{SLAND}'>Search & recommendations</a> › Comparison</p><h1>{e(na)} vs {e(nb)} pricing</h1><p class=lead>{e(na)} bills on {e(a['unit'].lower())}; {e(nb)} bills on {e(b['unit'].lower())}. Here's what each would cost the same Shopify store, using official prices checked {S['updated']}.</p>{HERO_END}{ssizes_html}"
      f"<div class=tw><table class=vs><thead><tr><th></th><th>{e(na)}</th><th>{e(nb)}</th></tr></thead><tbody>{rows}</tbody></table></div><h2>Bottom line on cost</h2><ul>{''.join(lines)}</ul>" + vs_btns({**a, "_n": na}, {**b, "_n": nb}) +
@@ -245,19 +252,19 @@ for x, y in SCOMPS:
 for x in SALTS:
     a = SBY[x]; na = sshort(a); alts = [o for o in sordered if o["slug"] != x]
     ref = " / ".join(f"<b>{smoney(o)}</b> ({s['label'].split()[0].lower()})" for s, o in zip(SSIZES, a["est"]))
-    page(f"{x}-alternatives.html", f"{na} Alternatives 2026: Real Monthly Cost of {len(alts)} Shopify AI Search & Recommendation Apps | ShopAI Ledger",
+    page(f"{x}-alternatives.html", f"{na} Alternatives 2026: Real Monthly Cost of {len(alts)} Shopify AI Search & Recommendation Apps | Stillprice",
      f"{na} alternatives for Shopify compared on real monthly cost at three store sizes: Searchanise, Fast Simon, Doofinder, Algolia, Wiser, LimeSpot, Rebuy, Nosto and the free Shopify Search & Discovery.",
      f"<p class=crumb><a href='{SLAND}'>Search & recommendations</a> › Alternatives</p><h1>{e(na)} alternatives, compared on real cost</h1><p class=lead>For reference, {e(na)} comes out at {ref} on our assumptions (<a href='{x}-pricing.html'>see the math</a>). Here's how the alternatives price out for the same store.</p>{HERO_END}"
      f"{ssizes_html}{stable(alts)}<p class=muted>Some of these are search & filter apps, and others (Wiser, LimeSpot, Rebuy) focus on recommendations and upsells. Compare like with like. <a href='methodology.html#search'>How we calculate</a>.</p>{NEWS}")
 
 # ---- change log
 CL = D.get("changelog") or []
-page("changelog.html", "Shopify AI App Price Change Log | ShopAI Ledger", "A dated log of pricing and plan changes for Shopify AI apps (customer support, search and product recommendations), updated weekly.",
+page("changelog.html", "Shopify AI App Price Change Log | Stillprice", "A dated log of pricing and plan changes for Shopify AI apps (customer support, search and product recommendations), updated weekly.",
  "<h1>Price change log</h1><p class=lead>Every pricing or plan change we spot, dated. We re-check every app's official pricing page weekly.</p><!--/hero-->"
  + "".join(f"<div class=box><b>{e(c['date'])}</b>: {e(c['title'])}<ul>" + "".join(f"<li>{e(i)}</li>" for i in c["items"]) + "</ul></div>" for c in CL) + NEWS)
 
 # ---- methodology
-page("methodology.html", "How We Calculate Shopify AI App Costs | ShopAI Ledger", "The store sizes, assumptions and formulas ShopAI Ledger uses to estimate the real monthly cost of Shopify AI support, search and recommendation apps.",
+page("methodology.html", "How We Calculate Shopify AI App Costs | Stillprice", "The store sizes, assumptions and formulas Stillprice uses to estimate the real monthly cost of Shopify AI support, search and recommendation apps.",
  f"""<h1>How we calculate</h1><!--/hero--><div class=box><h2 style="margin-top:0">Sources</h2><ul><li>Every price comes from the vendor's official pricing page or its official Shopify App Store listing, read by hand. No scraping, no third-party price lists.</li>
 <li>Each app shows the date we checked it and links the source. If a number isn't published, we say <b>"Not public / check site"</b> instead of guessing.</li><li>We re-check weekly and log changes on the <a href="changelog.html">change log</a>.</li></ul></div>
 <div class=box><h2 style="margin-top:0">Support apps: store sizes</h2>{sizes_html}<p>For support apps we size stores by <b>support conversations per month</b>, not orders, because conversations are what these apps bill. Seats are the number of human agents paying for a seat.</p></div>
@@ -270,25 +277,25 @@ page("methodology.html", "How We Calculate Shopify AI App Costs | ShopAI Ledger"
 <li>We pick the <b>cheapest published plan that covers the store</b> on the app's billing unit, at monthly-billing prices. If the store is above the largest published plan, or the vendor only quotes, we show <b>"Not public / check site"</b>.</li>
 <li>Algolia is pay-as-you-go: we price search requests on Grow Plus (its AI tier) and leave out recommendation requests, developer time and connectors.</li>
 <li>Excluded: taxes, setup/developer work, optional add-ons (e.g. premium support) and negotiated or annual discounts.</li></ul></div>
-<p>Spotted an error? <a href="mailto:{S['contact']}?subject=ShopAI%20Ledger%20correction">Email a correction</a>. App makers are welcome to send corrections too, and we'll verify them against your public pricing page.</p>""")
+<p>Spotted an error? <a href="mailto:{S['contact']}?subject=Stillprice%20correction">Email a correction</a>. App makers are welcome to send corrections too, and we'll verify them against your public pricing page.</p>""")
 
 # ---- disclosure
-page("disclosure.html", "Affiliate Disclosure | ShopAI Ledger", "How ShopAI Ledger makes money and how that is kept separate from prices and rankings.",
- """<h1>Affiliate disclosure</h1><!--/hero--><div class=box><p><b>ShopAI Ledger earns a commission from some apps.</b> If you sign up through a link labelled "affiliate link", the app maker may pay us, at no extra cost to you. Every "official pricing" link still goes straight to the vendor with no tracking.</p>
+page("disclosure.html", "Affiliate Disclosure | Stillprice", "How Stillprice makes money and how that is kept separate from prices and rankings.",
+ """<h1>Affiliate disclosure</h1><!--/hero--><div class=box><p><b>Stillprice earns a commission from some apps.</b> If you sign up through a link labelled "affiliate link", the app maker may pay us, at no extra cost to you. Every "official pricing" link still goes straight to the vendor with no tracking.</p>
 <p>Apps we're currently an affiliate of: Gorgias (since 18 Oct 2026) and Searchanise (since 24 Oct 2026). This list is updated whenever that changes. Affiliate status never changes the prices we show, the math, or the sort order (always by estimated cost).</p>
 <p>We may also offer clearly-labelled sponsored placements. Sponsored content is always marked "Sponsored" and never changes an app's price data. See <a href="advertise.html">Advertise</a>.</p></div>""")
 
 # ---- advertise
-page("advertise.html", "Advertise or Get Your App Listed | ShopAI Ledger", "App makers: get your Shopify AI app listed, correct your pricing, or sponsor The Ledger newsletter.",
- f"""<h1>Advertise / get your app listed</h1><p class=lead>ShopAI Ledger is read by Shopify merchants comparing what AI apps really cost.</p><!--/hero-->
+page("advertise.html", "Advertise or Get Your App Listed | Stillprice", "App makers: get your Shopify AI app listed, correct your pricing, or sponsor The Ledger newsletter.",
+ f"""<h1>Advertise / get your app listed</h1><p class=lead>Stillprice is read by Shopify merchants comparing what AI apps really cost.</p><!--/hero-->
 <div class=grid><div class=card><b>Free listing</b><p class=muted>Have a Shopify AI support, search or recommendation app with public pricing? Send us the link, and we list apps for free if the pricing is public.</p></div>
 <div class=card><b>Pricing corrections</b><p class=muted>Changed your plans? Tell us and we'll re-check against your public pricing page within a week.</p></div>
 <div class=card><b>Sponsorship</b><p class=muted>Featured placements and sponsor slots in The Ledger, our Monday newsletter with a Thursday deep-dive, on <a href="https://shopailedger.substack.com">Substack</a>. Always labelled as sponsored. Placements never change price data.</p></div></div>
-<p><a class=btn href="mailto:{S['contact']}?subject=ShopAI%20Ledger%20listing%20%2F%20sponsorship">Contact us</a></p>""")
+<p><a class=btn href="mailto:{S['contact']}?subject=Stillprice%20listing%20%2F%20sponsorship">Contact us</a></p>""")
 
 (R / "style.css").write_text(CSS)
 (R / "favicon.svg").write_text('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" rx="7" fill="#0c0c0c"/><rect x="7" y="9" width="18" height="2.6" rx="1.3" fill="#f3efe6"/><rect x="7" y="14.7" width="11.5" height="2.6" rx="1.3" fill="#f3efe6"/><rect x="7" y="20.4" width="14.5" height="2.6" rx="1.3" fill="#f3efe6" fill-opacity=".55"/></svg>')
-(R / "404.html").write_text(f'<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Not found | ShopAI Ledger</title><meta name="robots" content="noindex"><link rel="icon" href="/shopai-ledger/favicon.svg" type="image/svg+xml">{FONTS}<link rel="stylesheet" href="/shopai-ledger/style.css"></head><body><section class="hero"><div class="wrap"><p class="eyebrow">( 404 )</p><h1>Page not <em>found</em></h1><p style="margin:0"><a class="btn light" href="/shopai-ledger/">Go to the ShopAI Ledger comparison</a></p></div></section></body></html>')
+(R / "404.html").write_text(f'<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Not found | Stillprice</title><meta name="robots" content="noindex"><link rel="icon" href="/shopai-ledger/favicon.svg" type="image/svg+xml">{FONTS}<link rel="stylesheet" href="/shopai-ledger/style.css"></head><body><section class="hero"><div class="wrap"><p class="eyebrow">( 404 )</p><h1>Page not <em>found</em></h1><p style="margin:0"><a class="btn light" href="/shopai-ledger/">Go to the Stillprice comparison</a></p></div></section></body></html>')
 (R / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "".join(f"  <url><loc>{S['base_url']}/{'' if p=='index.html' else p}</loc><lastmod>{S['updated']}</lastmod></url>\n" for p in PAGES) + "</urlset>\n")
 (R / "sitemap.txt").write_text("".join(f"{S['base_url']}/{'' if p=='index.html' else p}\n" for p in PAGES))
 (R / "robots.txt").write_text(f"User-agent: *\nAllow: /\nSitemap: {S['base_url']}/sitemap.xml\nSitemap: {S['base_url']}/sitemap.txt\n")

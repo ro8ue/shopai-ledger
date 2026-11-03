@@ -250,3 +250,31 @@ h2{font-size:40px;margin-top:80px}.box h2{font-size:28px}
 main.wrap{padding-top:56px;padding-bottom:80px}.news .wrap{padding-top:80px;padding-bottom:80px}
 .grid>.card,.box{padding:24px}.est .num{font-size:46px}.stats b{font-size:38px}}
 @media(max-width:640px){.cmp tr,.plans tr{border-color:var(--bd)}.cmp tr:nth-child(even),.plans tr:nth-child(even){background:#171716}.vs tbody td+td{border-color:var(--bd)}}
+
+/* ===== restyle fixes ===== */
+.home>.wrap:first-child{grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);column-gap:64px;row-gap:0;align-items:start;padding-top:120px;padding-bottom:72px}
+.home>.wrap:first-child>div{display:contents}
+.home>.wrap:first-child>div>*{grid-column:1}
+.home>.wrap:first-child>div>.eyebrow,.home h1{grid-column:1/-1}
+.home h1{font-size:clamp(56px,8vw,112px);max-width:none;margin-bottom:48px}
+.home .ledger{grid-column:2;grid-row:3/span 2;align-self:start}
+.home .stats{margin-top:56px}
+body:has(.home) main.wrap{padding-top:56px}
+.home~main>.cats{margin-top:0}
+main h2::before{content:counter(sec,decimal-leading-zero) " — " attr(data-sec)}
+.tag:not(.warn):not(.free):not(.np)::before{content:"✓ ";color:var(--ac)}
+.tag.warn,.hero .tag.warn{background:#1F1C17;color:#C9BBA3;border:1px dashed #6B604F}
+.tag.warn::before{content:"◐ "}
+.news .embed{padding:32px}.news .embed .btn{margin:0 10px 10px 0}
+@media(max-width:760px){.home>.wrap:first-child{display:grid;grid-template-columns:1fr;padding-top:72px;padding-bottom:48px}.home .ledger{grid-column:1;grid-row:auto;margin-top:32px}.home h1{font-size:56px;margin-bottom:28px}}
+.hero.home h1{max-width:none!important;font-size:clamp(56px,7.4vw,104px)}
+.home>.wrap:first-child{grid-template-rows:auto auto auto auto 1fr;padding-bottom:40px}
+.home .ledger{grid-row:3/span 3}
+.home>.wrap:first-child>div>p:last-child{margin-top:28px!important;align-self:start}
+.home .stats{margin-top:24px}
+.home .ticker{margin-top:0}.home .ticker .wrap{padding-top:22px!important;padding-bottom:22px!important}
+.home>.wrap+.wrap{padding-top:0!important;padding-bottom:40px!important}
+@media(max-width:760px){.home .ledger{grid-row:auto}.home>.wrap:first-child{grid-template-rows:none}}
+.home>.wrap:first-child>div>h1,.home>.wrap:first-child>div>.eyebrow{grid-column:1/-1}
+.home>.wrap:first-child>div>h1{margin-bottom:44px}
+.news .embed a.btn.light,.news .embed a.btn.light:hover{color:#0A0A0A}
