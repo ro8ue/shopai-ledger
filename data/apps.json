@@ -755,7 +755,7 @@
     },
     {
       "slug": "helpcenter",
-      "name": "SB Helpdesk, Live Chat & FAQs (Helpcenter)",
+      "name": "HelpCenter: AI Helpdesk & Chat",
       "type": "Budget helpdesk + AI FAQs",
       "model": "helpcenter",
       "summary": "Low-cost Shopify helpdesk priced by tickets, with OpenAI-integrated FAQs. It isn't an autonomous AI agent.",

@@ -75,7 +75,7 @@ def verdict(fn):
             "<p class=muted style='font-size:14px'>Opinion, written by a person. Numbers come from the estimates on this site. <a href='principles.html'>Affiliate status never changes a verdict.</a></p></div>")
 def page(fn, title, desc, body, head=""):
     PAGES.append(fn)
-    url = S["base_url"] + "/" + ("" if fn == "index.html" else fn)
+    url = S["base_url"] + "/" + ("" if fn == "index.html" else fn[:-5] if fn.endswith(".html") else fn)
     nav = "".join(f'<a href="{h}"' + (' aria-current="page"' if h == fn else "") + f'>{t}</a>' for h, t in NAV)
     news = NEWS in body; body = body.replace(NEWS, "")
     hero, sep, rest = body.partition(HERO_END)
@@ -103,7 +103,7 @@ def page(fn, title, desc, body, head=""):
 <header class="top"><div class="wrap"><a class="logo" href="index.html" aria-label="Stillprice home"><span>Stillprice</span></a><nav class="main" aria-label="Main">{nav}</nav><a class="btn light sm" href="{'#newsletter' if news else 'index.html#newsletter'}">Weekly email</a></div></header>
 {hero}<main class="wrap">{rest}</main>{_eb(NEWS) if news else ""}
 <footer class="site"><div class="wrap"><div><a class="logo" href="index.html"><span>Stillprice</span></a><p>Stillprice is independent and not affiliated with Shopify or any app listed. Prices are in USD, checked by hand on the date shown, and can change at any time. Always confirm on the vendor's site.</p></div>
-<div class="links"><a href="principles.html">Our principles</a><a href="price-moves.html">Price moves</a><a href="methodology.html">How we calculate</a><a href="disclosure.html">Affiliate disclosure</a><a href="changelog.html">Change log</a><a href="free-calculator.html">Free cost calculator</a><a href="advertise.html">Advertise / get listed</a><a href="mailto:{S['contact']}?subject=Stillprice%20correction">Report a wrong price</a></div>
+<div class="links"><a href="principles.html">Our principles</a><a href="price-moves.html">Price moves</a><a href="methodology.html">How we calculate</a><a href="disclosure.html">Affiliate disclosure</a><a href="changelog.html">Change log</a><a href="free-calculator.html">Free cost calculator</a><a href="https://stillprice.substack.com/subscribe">Weekly email signup</a><a href="advertise.html">Advertise / get listed</a><a href="mailto:{S['contact']}?subject=Stillprice%20correction">Report a wrong price</a></div>
 <div class="base"><span>Prices checked {S['updated']}</span><a href="#">Back to top ↑</a></div></div></footer></body></html>""")
 
 # Newsletter: Substack signup (stillprice.substack.com) inside the cream .news .embed card.
@@ -191,9 +191,15 @@ for a in A:
     fa = f"<div class=box><b>Free Shopify alternative:</b> {e(a['free_alt'])} {'<a href=\"shopify-inbox-pricing.html\">See Shopify Inbox</a>.' if a['model']!='free' else ''}</div>" if a.get("free_alt") else ""
     faq = [(f"How much does {nm} cost per month?", f"On our assumptions, about {money(a['est'][0])} for a small store ({SIZES[0]['conv']} conversations), {money(a['est'][1])} for a medium store and {money(a['est'][2])} for a large store. Prices checked {a['checked']}."),
            (f"How does {nm} charge for AI?", a["ai_billing"])]
-    page(f"{a['slug']}-pricing.html", f"{nm} Pricing 2026: Plans & Real Monthly Cost for Shopify Stores | Stillprice",
-     f"{nm} pricing explained: plans, how AI usage is billed, and the estimated monthly cost for small, medium and large Shopify stores, with the math. Checked {a['checked']}.",
-     f"<h1>{e(nm)} pricing: what it really costs a Shopify store</h1><p class=lead>{e(a['summary'])}</p><p class=metaline>{conf(a)}{flag(a)}<span class=muted>Price checked on {a['checked']} from the official source.</span></p>{HERO_END}"
+    _cheap = [o for o in ordered if o is not a and o["model"] != "free" and o["est"][1]["total"] is not None][:1]
+    _mm = lambda o: money(o) if o["total"] is not None else "a quote (price not public)"
+    qa = (f"<div class=box><b>Short answer:</b> on our assumptions {e(nm)} comes to {_mm(a['est'][0])} a month for a small store, {_mm(a['est'][1])} for a medium store and {_mm(a['est'][2])} for a large store. "
+          + (f"The lowest priced paid support app we track for a medium store is <a href='{_cheap[0]['slug']}-pricing.html'>{e(short(_cheap[0]))}</a> at {money(_cheap[0]['est'][1])}. " if _cheap else "")
+          + f"Put in your own volume with the <a href='free-calculator.html'>free calculator</a>, or see <a href='gorgias-alternatives.html'>all support apps by real cost</a>.</div>")
+    faq.append((f"Is {nm} worth it?", f"It depends on volume. At {_mm(a['est'][1])} a month for a medium store on our assumptions, compare it with the other {len(A)-1} support apps we track and check what your own conversation count would cost."))
+    page(f"{a['slug']}-pricing.html", f"{nm} Pricing 2026: Real Monthly Cost, Plans & Is It Worth It | Stillprice",
+     f"{nm} pricing for Shopify: " + (f"about {money(a['est'][1])}/mo for a medium store on our assumptions." if a["est"][1]["total"] is not None else f"about {_mm(a['est'][0])}/mo for a small store on our assumptions.") + f" Plans, how AI is billed, cheaper alternatives and the math. Checked {a['checked']}.",
+     f"<h1>{e(nm)} pricing: what it really costs a Shopify store</h1><p class=lead>{e(a['summary'])}</p><p class=metaline>{conf(a)}{flag(a)}<span class=muted>Price checked on {a['checked']} from the official source.</span></p>{HERO_END}{qa}"
      f"<h2>Plans</h2>{plans_table(a)}<h2>How AI usage is billed</h2><p>{e(a['ai_billing'])}</p>"
      f"<h2>Estimated monthly cost by store size</h2>{est_block(a)}<p class=muted>Assumptions: AI resolves {int(RATE*100)}% of conversations; monthly billing unless noted; taxes, add-ons, SMS/voice and phone fees excluded. <a href='methodology.html'>How we calculate</a>.</p>"
      f"{unc}{fa}" + (f"<p class=muted>Note: {e(a['notes'])}</p>" if a["notes"] else "")
@@ -216,9 +222,9 @@ for x, y in COMPS:
         *[(f"{s['label']} ({s['conv']:,} conv)", f"<b>{money(oa)}</b><br><span class=muted>{e(oa['plan'])}</span>", f"<b>{money(ob)}</b><br><span class=muted>{e(ob['plan'])}</span>") for s, oa, ob in zip(SIZES, a["est"], b["est"])],
         ("Free Shopify alternative", e(a.get("free_alt") or "—"), e(b.get("free_alt") or "—")), ("Checked", a["checked"], b["checked"]),
         ("Details", f"<a href='{x}-pricing.html'>{e(na)} pricing & math</a>", f"<a href='{y}-pricing.html'>{e(nb)} pricing & math</a>")])
-    page(cslug(x, y), f"{na} vs {nb} Pricing (2026): Real Monthly Cost Compared | Stillprice",
+    page(cslug(x, y), f"{na} vs {nb} Pricing 2026: Which Costs Less for a Shopify Store? | Stillprice",
      f"{na} vs {nb}: how each bills for AI, and the estimated monthly cost for small, medium and large Shopify stores side by side. Prices checked {S['updated']}.",
-     f"<h1>{e(na)} vs {e(nb)} pricing</h1><p class=lead>How {e(na)} and {e(nb)} bill for AI, and what each would cost the same Shopify store, using official prices checked {S['updated']}.</p>{HERO_END}{sizes_html}"
+     f"<h1>{e(na)} vs {e(nb)} pricing</h1><p class=lead>How {e(na)} and {e(nb)} bill for AI, and what each would cost the same Shopify store, using official prices checked {S['updated']}.</p>{HERO_END}<div class=box><b>Short answer:</b><ul>{''.join(lines)}</ul>Try your own numbers in the <a href='free-calculator.html'>free calculator</a>, or see <a href='gorgias-alternatives.html'>every support app by real cost</a>.</div>{sizes_html}"
      f"<div class=tw><table class=vs><thead><tr><th></th><th>{e(na)}</th><th>{e(nb)}</th></tr></thead><tbody>{rows}</tbody></table></div><h2>Bottom line on cost</h2><ul>{''.join(lines)}</ul>" + vs_btns({**a, "_n": na}, {**b, "_n": nb}) +
      "<p class=muted>Cost is only one factor. Features, channels, integrations and AI quality differ, and your real volume and resolution rate will move these numbers. See the full math on each app's page.</p>" + NEWS)
 
@@ -395,8 +401,8 @@ page("free-calculator.html", "Free AI Support Cost Calculator for Shopify | Stil
 (O / "style.css").write_text(CSS)
 (O / "favicon.svg").write_text('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" rx="7" fill="#0c0c0c"/><rect x="7" y="9" width="18" height="2.6" rx="1.3" fill="#f3efe6"/><rect x="7" y="14.7" width="11.5" height="2.6" rx="1.3" fill="#f3efe6"/><rect x="7" y="20.4" width="14.5" height="2.6" rx="1.3" fill="#f3efe6" fill-opacity=".55"/></svg>')
 (O / "404.html").write_text(f'<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Not found | Stillprice</title><meta name="robots" content="noindex"><link rel="icon" href="/favicon.svg" type="image/svg+xml">{FONTS}<link rel="stylesheet" href="/style.css"></head><body><section class="hero"><div class="wrap"><p class="eyebrow">( 404 )</p><h1>Page not <em>found</em></h1><p style="margin:0"><a class="btn light" href="/">Go to the Stillprice comparison</a></p></div></section></body></html>')
-(O / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "".join(f"  <url><loc>{S['base_url']}/{'' if p=='index.html' else p}</loc><lastmod>{S['updated']}</lastmod></url>\n" for p in PAGES) + "</urlset>\n")
-(O / "sitemap.txt").write_text("".join(f"{S['base_url']}/{'' if p=='index.html' else p}\n" for p in PAGES))
+(O / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "".join(f"  <url><loc>{S['base_url']}/{'' if p=='index.html' else p[:-5]}</loc><lastmod>{S['updated']}</lastmod></url>\n" for p in PAGES) + "</urlset>\n")
+(O / "sitemap.txt").write_text("".join(f"{S['base_url']}/{'' if p=='index.html' else p[:-5]}\n" for p in PAGES))
 (O / "robots.txt").write_text(f"User-agent: *\nAllow: /\nSitemap: {S['base_url']}/sitemap.xml\nSitemap: {S['base_url']}/sitemap.txt\n")
 (O / ".nojekyll").write_text("")
 print("built", len(PAGES), "pages")
