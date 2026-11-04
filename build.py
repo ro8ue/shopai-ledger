@@ -23,7 +23,7 @@ CSS = (R / "design.css").read_text()  # edit design.css, not style.css (style.cs
 import re
 HERO_END = "<!--/hero-->"
 
-NAV = [("index.html#support", "Support apps"), (SLAND, "Search & recommendations"), ("gorgias-alternatives.html", "Gorgias alternatives"), ("changelog.html", "Change log"), ("methodology.html", "How we calculate"), ("advertise.html", "Advertise")]
+NAV = [("index.html#support", "Support apps"), (SLAND, "Search & recommendations"), ("gorgias-alternatives.html", "Gorgias alternatives"), ("changelog.html", "Change log"), ("price-moves.html", "Price moves"), ("principles.html", "Principles"), ("methodology.html", "How we calculate"), ("advertise.html", "Advertise")]
 def ld(o): return '<script type="application/ld+json">' + json.dumps(o) + "</script>"
 PAGES = []
 LOGO = """<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="0.5" y="0.5" width="23" height="23" rx="4" fill="none" stroke="currentColor" stroke-opacity=".35"/><rect x="5" y="6" width="14" height="2" rx="1" fill="currentColor"/><rect x="5" y="11" width="9" height="2" rx="1" fill="currentColor"/><rect x="5" y="16" width="11.5" height="2" rx="1" fill="currentColor" fill-opacity=".55"/></svg>"""
@@ -37,6 +37,42 @@ ANALYTICS = "" if not UMAMI_ID else (
     '<script>document.addEventListener("click",function(ev){var a=ev.target.closest&&ev.target.closest("a[href]");if(!a||a.host===location.host||!/^https?:/.test(a.href))return;'
     'var r=(a.getAttribute("rel")||"").indexOf("sponsored")>-1;var d={dest:a.host,url:a.href.slice(0,300),page:location.pathname,label:(a.textContent||"").trim().slice(0,80)};'
     'if(window.umami&&umami.track)umami.track(r?"affiliate-click":"outbound-click",d);},true);</script>')
+
+# ---- Honest verdicts (human written opinion; every number comes from data/*.json). Affiliate status never changes these.
+VERDICTS = {
+ "gorgias-pricing.html": dict(app="Gorgias", aff=True,
+  suits="Stores that live in email and social tickets every day and want orders, returns and refunds handled inside one helpdesk. It is priced by tickets, not seats, so a big team on modest volume does fine.",
+  over="Small and medium stores that mostly need chat. On our numbers a medium store pays about $670 a month on Pro, against $199 for Chatty or $300 for Zipchat at the same volume. Nearly half of that, $310, is the AI line: 500 AI interactions minus the 190 included, at $1.00 each.",
+  gotchas=["Every AI interaction also counts as a helpdesk ticket, so automation eats your ticket allowance too.","The pricing page lists $1.50 per interaction above a plan's included allowance, and its markup carries a second, higher price set (Basic $77, Pro $471, Advanced $1,227). Get your quote in writing.","Advanced ($900 a month) is sold through a demo, so you cannot just click to buy it."],
+  bottom="Good product, often poor value below about 1,000 conversations a month. We earn a commission if you sign up through our link. That does not change this verdict."),
+ "gorgias-alternatives.html": dict(app="Gorgias alternatives", aff=False,
+  suits="If you need a real helpdesk, Re:amaze, HubSpot and Intercom Fin land between $420 and $575 a month for our medium store, below Gorgias at $670. If you only need chat with AI, Chatty ($199) and Zipchat ($300) cost far less.",
+  over="Anyone paying for a full helpdesk when Shopify Inbox would do. Inbox is free and now has an AI agent. Zendesk is the priciest on our numbers at about $1,118 for a medium store and $4,295 for a large one.",
+  gotchas=["Seat based tools (Intercom, Zendesk, HubSpot, Re:amaze, Freshdesk, Richpanel) get expensive fast as your team grows.","Chat only tools (Zipchat, Chatty, Shopify Inbox) do not handle email tickets, so they are not a like for like swap.","Tidio's prices above the small store tier are not public, so we cannot rank it there."],
+  bottom="Price the job you actually have. Most small stores are buying more helpdesk than they use."),
+ "searchanise-pricing.html": dict(app="Searchanise", aff=True,
+  suits="Most small and mid catalogs. You pay by product count only, with unlimited searches, so a traffic spike or Black Friday does not raise the bill. On our numbers that is $19 small, $39 medium and $139 large.",
+  over="Stores under 25 products, which get it free anyway, and stores that only need filters, synonyms and boosts, which Shopify Search & Discovery does for $0.",
+  gotchas=["The tiers jump with catalog size: 7,501 products moves you from $39 to $89.","Bigger plans add support hours and a dedicated server, not better core search, so do not upgrade for features.","Annual billing saves up to 17%, so the monthly figures here are the higher ones."],
+  bottom="Fair value and the most predictable bill in the search category. We earn a commission if you sign up through our link. That does not change this verdict."),
+ "rebuy-vs-limespot-pricing.html": dict(app="Rebuy vs LimeSpot", aff=False,
+  suits="LimeSpot publishes every tier, so you can know your bill before you install: about $19.99 small, $149.99 medium and $525 large on our numbers. Rebuy suits teams happy to go through sales for a custom package.",
+  over="Anyone signing up for Rebuy without a written quote. Its order based tiers are not public, and the $534 a month Platform One figure does not say what order volume it covers.",
+  gotchas=["LimeSpot Turbo is not available on Shopify Plus, so Plus stores land on Max, which is priced by revenue.","LimeSpot's 50% off for life offer for new sign ups is not in our figures. We show list prices.","When we checked, Rebuy's Shopify App Store page showed 'not currently available' from our location."],
+  bottom="On price transparency LimeSpot wins clearly. Neither app pays us."),
+ "klevu-alternatives.html": dict(app="Klevu alternatives", aff=False,
+  suits="Klevu and Searchspring (Athos Commerce) are quote only annual plans, built for enterprise merchandising teams. If you want a known bill, Searchanise ($39), Algolia (about $87.50) and Doofinder ($186) all publish prices for our medium store.",
+  over="Small and mid stores signing an annual Athos contract for search they could get from a published plan, or from the free Shopify Search & Discovery.",
+  gotchas=["Athos bills separately from your Shopify invoice, on an annual plan.","Algolia and Doofinder count search requests, and search as you type sends one per keystroke, so busy months cost more.","Doofinder's Shopify App Store prices ($61, $186, $436) are higher than its own website prices ($49, $149, $349)."],
+  bottom="Get a quote only after you have priced two published alternatives. We earn a commission from Searchanise, one of the apps listed. That does not change this verdict."),
+}
+def verdict(fn):
+    v = VERDICTS.get(fn)
+    if not v: return ""
+    g = "".join(f"<li>{e(x)}</li>" for x in v["gotchas"])
+    return (f"<div class='box verdict'><p class=eyebrow style='color:inherit;opacity:.6;margin:0 0 6px'>( Our verdict )</p><h2 style='margin-top:0'>Honest take: {e(v['app'])}</h2>"
+            f"<p><b>Who it suits.</b> {e(v['suits'])}</p><p><b>Who overpays, and why.</b> {e(v['over'])}</p><p><b>Gotchas.</b></p><ul>{g}</ul><p><b>Bottom line.</b> {e(v['bottom'])}</p>"
+            "<p class=muted style='font-size:14px'>Opinion, written by a person. Numbers come from the estimates on this site. <a href='principles.html'>Affiliate status never changes a verdict.</a></p></div>")
 def page(fn, title, desc, body, head=""):
     PAGES.append(fn)
     url = S["base_url"] + "/" + ("" if fn == "index.html" else fn)
@@ -44,6 +80,7 @@ def page(fn, title, desc, body, head=""):
     news = NEWS in body; body = body.replace(NEWS, "")
     hero, sep, rest = body.partition(HERO_END)
     if not sep: hero, rest = "", body
+    rest = verdict(fn) + rest
     if fn != "index.html":
         hero = re.sub(r"<h1>(.*?): (.*?)</h1>", r"<h1>\1: <em>\2</em></h1>", hero, count=1)
         hero = f'<section class="hero"><div class="wrap">{hero}</div></section>' if hero else ""
@@ -66,7 +103,7 @@ def page(fn, title, desc, body, head=""):
 <header class="top"><div class="wrap"><a class="logo" href="index.html" aria-label="Stillprice home"><span>Stillprice</span></a><nav class="main" aria-label="Main">{nav}</nav><a class="btn light sm" href="{'#newsletter' if news else 'index.html#newsletter'}">Weekly email</a></div></header>
 {hero}<main class="wrap">{rest}</main>{_eb(NEWS) if news else ""}
 <footer class="site"><div class="wrap"><div><a class="logo" href="index.html"><span>Stillprice</span></a><p>Stillprice is independent and not affiliated with Shopify or any app listed. Prices are in USD, checked by hand on the date shown, and can change at any time. Always confirm on the vendor's site.</p></div>
-<div class="links"><a href="methodology.html">How we calculate</a><a href="disclosure.html">Affiliate disclosure</a><a href="changelog.html">Change log</a><a href="free-calculator.html">Free cost calculator</a><a href="advertise.html">Advertise / get listed</a><a href="mailto:{S['contact']}?subject=Stillprice%20correction">Report a wrong price</a></div>
+<div class="links"><a href="principles.html">Our principles</a><a href="price-moves.html">Price moves</a><a href="methodology.html">How we calculate</a><a href="disclosure.html">Affiliate disclosure</a><a href="changelog.html">Change log</a><a href="free-calculator.html">Free cost calculator</a><a href="advertise.html">Advertise / get listed</a><a href="mailto:{S['contact']}?subject=Stillprice%20correction">Report a wrong price</a></div>
 <div class="base"><span>Prices checked {S['updated']}</span><a href="#">Back to top ↑</a></div></div></footer></body></html>""")
 
 # Newsletter: Substack signup (stillprice.substack.com) inside the cream .news .embed card.
@@ -267,6 +304,45 @@ CL = D.get("changelog") or []
 page("changelog.html", "Shopify AI App Price Change Log | Stillprice", "A dated log of pricing and plan changes for Shopify AI apps (customer support, search and product recommendations), updated weekly.",
  "<h1>Price change log</h1><p class=lead>Every pricing or plan change we spot, dated. We re-check every app's official pricing page weekly.</p><!--/hero-->"
  + "".join(f"<div class=box><b>{e(c['date'])}</b>: {e(c['title'])}<ul>" + "".join(f"<li>{e(i)}</li>" for i in c["items"]) + "</ul></div>" for c in CL) + NEWS)
+
+
+# ---- principles (manifesto)
+PRIN = """<p class=eyebrow>( Principles )</p><h1>What we believe: <em>the real bill, shown plainly</em></h1><p class=lead>Pricing pages are built to sell. We are built to show you what you would actually pay.</p><!--/hero-->
+<div class=box><h2 style="margin-top:0">What we believe</h2><ul>
+<li><b>Pricing pages hide the real cost.</b> AI apps bill per resolution, per conversation, per search, per order or by your revenue. The headline price is rarely the invoice.</li>
+<li><b>Your size is what matters.</b> We work out the monthly bill for a small, medium and large store, and we show every line of the math so you can redo it with your own numbers.</li>
+<li><b>We write "not public" rather than guess.</b> If a vendor does not publish a price, we say so. A blank is more honest than a made up number.</li>
+<li><b>Every price has a date and a source.</b> We read official pricing pages by hand and link them. When a price moves, it goes on the <a href="price-moves.html">price moves</a> page.</li>
+<li><b>Depth beats volume.</b> We would rather say something useful about a few apps than publish a hundred thin pages.</li></ul></div>
+<div class=box><h2 style="margin-top:0">What we will never do</h2><ul>
+<li>Sell a ranking, a verdict or a better number. Sponsored content is always labelled and never touches price data.</li>
+<li>Invent prices, reviews, testimonials or traffic numbers.</li>
+<li>Hide an affiliate link. Every official pricing link goes straight to the vendor with no tracking, and affiliate links are labelled as such.</li>
+<li>Show a launch discount as if it were the list price.</li>
+<li>Let AI write our opinions. We use software to fetch pages, spot changes and build the site. Verdicts are written by a person.</li></ul></div>
+<div class='box verdict'><h2 style="margin-top:0">The public rule</h2><p><b>Affiliate status never changes a verdict.</b> We earn a commission from some apps (listed on our <a href="disclosure.html">affiliate disclosure</a>). That never changes the prices we show, the math, the sort order or what we say about value. If an app that pays us is poor value at your size, we will tell you.</p></div>
+<p>Think we got something wrong? <a href="mailto:%s?subject=Stillprice%%20correction">Email a correction</a> and we will check it against the public pricing page. See also <a href="methodology.html">how we calculate</a>.</p>""" % S["contact"]
+page("principles.html", "Our Principles: How Stillprice Shows the Real Cost of Shopify AI Apps | Stillprice", "What Stillprice believes, what we will never do, and our public rule: affiliate status never changes a verdict.", PRIN)
+(O / "about.html").write_text('<!doctype html><html lang="en"><head><meta charset="utf-8"><title>About Stillprice</title><link rel="canonical" href="' + S["base_url"] + '/principles.html"><meta http-equiv="refresh" content="0; url=principles.html"><meta name="robots" content="noindex"></head><body><p><a href="principles.html">Our principles</a></p></body></html>')
+
+# ---- price moves (real changes and vendor replies, from the changelog in data/apps.json)
+MOVES = [
+ dict(date="2026-10-26", app="Helpcenter (SB Helpdesk)", kind="Price change", src=("Shopify App Store listing", "https://apps.shopify.com/helpcenter"), cl="2026-10-26", items=[0, 1]),
+ dict(date="2026-10-26", app="Fast Simon", kind="Price change", src=("Shopify App Store listing", "https://apps.shopify.com/instant-search"), cl="2026-10-26", items=[2]),
+ dict(date="2026-10-19", app="LimeSpot", kind="Vendor reply", src=("LimeSpot Shopify pricing page", "https://limespot.com/shopify"), cl="2026-10-19", title="LimeSpot", items=None),
+ dict(date="2026-10-19", app="Re:amaze", kind="Vendor reply", src=("Re:amaze pricing page", "https://www.reamaze.com/pricing"), cl="2026-10-19", title="Re:amaze", items=None),
+]
+def _cl(mv):
+    for c in CL:
+        if c["date"] != mv["cl"]: continue
+        if mv.get("title") and not c["title"].startswith(mv["title"]): continue
+        if mv["items"] is None: return c["items"]
+        if "changed prices" in c["title"]: return [c["items"][i] for i in mv["items"]]
+    return []
+mv_html = "".join(f"<div class=box><p class=eyebrow style='color:inherit;opacity:.6;margin:0 0 6px'>( {e(mv['kind'])} · {e(mv['date'])} )</p><b>{e(mv['app'])}</b><ul>" + "".join(f"<li>{e(i)}</li>" for i in _cl(mv)) + f"</ul><p class=muted style='font-size:14px'>Source: <a href='{e(mv['src'][1])}' rel='nofollow noopener' target='_blank'>{e(mv['src'][0])}</a></p></div>" for mv in MOVES)
+page("price-moves.html", "Price Moves: Real Price Changes in Shopify AI Apps, Dated and Sourced | Stillprice", "Every real price change and vendor reply we have on file for Shopify AI support, search and recommendation apps, with dates and sources.",
+ "<p class=eyebrow>( Price moves )</p><h1>Price moves: <em>what changed, and when</em></h1><p class=lead>Real price changes and vendor replies only, each with a date and a source. Weeks where nothing changed are on the full <a href='changelog.html'>change log</a>.</p><!--/hero-->"
+ + mv_html + "<p class=muted>Tracking started on 18 Oct 2026, so this list is short for now. We re-read every pricing page weekly. Spotted a move we missed? <a href='mailto:" + S['contact'] + "?subject=Stillprice%20price%20move'>Tell us</a>.</p>" + NEWS)
 
 # ---- methodology
 page("methodology.html", "How We Calculate Shopify AI App Costs | Stillprice", "The store sizes, assumptions and formulas Stillprice uses to estimate the real monthly cost of Shopify AI support, search and recommendation apps.",
