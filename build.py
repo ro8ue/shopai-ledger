@@ -374,16 +374,23 @@ page("advertise.html", "Advertise or Get Your App Listed | Stillprice", "App mak
 <div class=card><b>Sponsorship</b><p class=muted>Featured placements and sponsor slots in The Ledger, our Monday newsletter with a Thursday deep-dive, on <a href="https://stillprice.substack.com">Substack</a>. Always labelled as sponsored. Placements never change price data.</p></div></div>
 <p><a class=btn href="mailto:{S['contact']}?subject=Stillprice%20listing%20%2F%20sponsorship">Contact us</a></p>""")
 
-# ---- free calculator download
-page("free-calculator.html", "Free AI Support Cost Calculator (Shopify, Excel/Sheets) | Stillprice", "Free spreadsheet: see what Gorgias and Chatty really cost your Shopify store at 1x, 2x, 5x and Black Friday volume. Prices checked 26 Oct 2026.",
- """<p class=eyebrow>( Free download · .xlsx )</p><h1>Free AI support <em>cost calculator</em></h1><p class=lead>Put in your monthly conversations, AI share and seats. The sheet shows what Gorgias and Chatty would really bill you at normal volume, 2x, 5x and in your Black Friday month, and highlights the cheapest.</p>
-<p style="margin:0"><a class="btn light" href="downloads/Stillprice-AI-Support-Cost-Calculator-LITE.xlsx" data-umami-event="lite-download" download>Download the free calculator <span class=arr>→</span></a><a class="btn ghost" href="https://stillprice.substack.com/subscribe">Get price updates by email</a></p><!--/hero-->
-<h2>What the defaults show</h2><p class=muted>1,000 conversations a month, AI handles 50%, 2 seats, Black Friday month at 3x.</p>
-<div class=tw><table><thead><tr><th>App</th><th>1x</th><th>2x</th><th>5x</th><th>BFCM month</th></tr></thead><tbody>
-<tr><td><b>Gorgias</b></td><td class=n>$670</td><td class=n>$1,170</td><td class=n>$2,870</td><td class=n>$1,870</td></tr>
-<tr><td><b>Chatty AI Chatbot &amp; Live Chat</b></td><td class=n>$199</td><td class=n>$599</td><td class=n>$1,799</td><td class=n>$999</td></tr></tbody></table></div>
-<p class=muted>Prices checked 26 Oct 2026. List prices, monthly billing. Assumes every AI-touched conversation is billed (resolution-based apps may bill less). Taxes and add-ons not included. Works in Excel, Google Sheets and Numbers.</p>
-<h2>Get the next price change</h2><p>Prices move. <a href="https://stillprice.substack.com/subscribe">Subscribe to The Ledger on Substack</a> for a short Monday email when they do. See <a href="methodology.html">how we calculate</a>.</p>""")
+# ---- free calculator: live in-browser app (assets/calc.js mirrors calc.py) + email gate for the full breakdown
+_capps=[dict(slug=a["slug"],name=a["name"],model=a["model"],params=a["params"],pricing_url=a["pricing_url"],checked=a.get("checked",S["updated"]),ai_billing=a.get("ai_billing","")) for a in A]
+(O / "calc.js").write_text((R / "assets/calc.js").read_text())
+_asof=min(x["checked"] for x in _capps)+" to "+max(x["checked"] for x in _capps)
+page("free-calculator.html", "Free AI Support Cost Calculator for Shopify | Stillprice", f"Type in your monthly support conversations and see what {len(_capps)} AI support apps would bill you, cheapest first, with the math. Prices checked by hand.",
+ f"""<p class=eyebrow>( Free calculator )</p><h1>AI support <em>cost calculator</em></h1><p class=lead>Move the slider to your monthly support conversations. See what {len(_capps)} AI support apps would bill you, cheapest first, with the math shown.</p><!--/hero-->
+<div class="calc box"><div class=cin>
+<label for=c-conv>Support conversations a month</label><div class=crange><input id=c-slide type=range min=50 max=10000 step=50 value=1000 aria-label="Conversations a month"><input id=c-conv type=number min=1 max=100000 value=1000 inputmode=numeric></div>
+<div class=cpair><div><label for=c-seats>Agent seats</label><input id=c-seats type=number min=1 max=100 value=2 inputmode=numeric></div><div><label for=c-rate>Share handled by AI (%)</label><input id=c-rate type=number min=0 max=100 value={int(RATE*100)} inputmode=numeric></div></div></div>
+<div id=c-head class=chead></div></div>
+<div class="gate box" id=c-gate><h2 style="margin-top:0">Get the full breakdown and the weekly price check</h2><p>Enter your email to see every app's bill with the math, plus the spreadsheet. You will also get The Ledger, our free weekly email on Substack when prices change. Unsubscribe anytime.</p>
+<form id=c-form class=cform novalidate><input id=c-email type=email required placeholder="you@store.com" autocomplete=email aria-label="Email"><button class="btn light" type=submit>Show the full breakdown <span class=arr>→</span></button></form><p id=c-err class=muted role=alert></p>
+<p class=muted style="font-size:14px">Substack opens in a new tab to confirm your subscription. We never see or share your email beyond that.</p></div>
+<div id=c-full><h2>Every app, cheapest first</h2><p class=muted>Tap an app to see the math. List prices, monthly billing unless noted. Prices checked by hand {_asof}. Not public means the vendor does not publish a price at that size.</p><div id=c-rows class=crows></div>
+<p style="margin-top:18px"><a class="btn light" href="downloads/Stillprice-AI-Support-Cost-Calculator-LITE.xlsx" data-umami-event="lite-download" download>Download the spreadsheet <span class=arr>→</span></a></p></div>
+<p class=muted>Assumes every AI touched conversation is billed (resolution based apps may bill less). Taxes, setup and add-ons not included. See <a href="methodology.html">how we calculate</a>.</p>
+<script>window.SP_APPS={json.dumps(_capps)};</script><script src="calc.js" defer></script>""")
 
 (O / "style.css").write_text(CSS)
 (O / "favicon.svg").write_text('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" rx="7" fill="#0c0c0c"/><rect x="7" y="9" width="18" height="2.6" rx="1.3" fill="#f3efe6"/><rect x="7" y="14.7" width="11.5" height="2.6" rx="1.3" fill="#f3efe6"/><rect x="7" y="20.4" width="14.5" height="2.6" rx="1.3" fill="#f3efe6" fill-opacity=".55"/></svg>')
