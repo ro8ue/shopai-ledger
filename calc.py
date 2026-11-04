@@ -95,3 +95,10 @@ def helpcenter(p, conv, seats, ai):
 
 MODELS = dict(gorgias=gorgias, tidio=tidio, intercom=intercom, zendesk=zendesk, hubspot=hubspot, free=free, richpanel=richpanel,
               reamaze=reamaze, freshdesk=freshdesk, zipchat=zipchat, siena=siena, chatty=chatty, helpcenter=helpcenter)
+
+def aide(p, conv, seats, ai):
+    for name, price, cap in p["plans"]:
+        if conv <= cap:
+            return dict(total=price, plan=name, math=[f"{conv:,} conversations, assuming at least one AI reply each, fits {name} ({cap:,} AI replies/mo) → {m(price)}/mo (monthly billing, no seat fees)"])
+    return dict(total=None, plan="Above Scale", math=["More than 15,000 AI replies a month is above the published plans."])
+MODELS["aide"] = aide
