@@ -445,7 +445,7 @@
       ],
       "checked": "2026-10-26",
       "affiliate_url": null,
-      "ai_short": "Token meter, ~$0.20–0.24 per AI conversation, $200/mo minimum, plus seats"
+      "ai_short": "Token meter, ~$0.20\u20130.24 per AI conversation, $200/mo minimum, plus seats"
     },
     {
       "slug": "reamaze",
@@ -830,31 +830,31 @@
       "type": "Helpdesk + AI agent",
       "model": "aide",
       "summary": "Helpdesk with an AI agent, priced per AI reply with no seat fees.",
-      "ai_billing": "Per AI reply, not per resolution and not per seat. Each plan includes a monthly AI reply allowance; when it is used, AI pauses and your team takes over.",
+      "ai_billing": "Per AI reply, not per resolution and not per seat. Each plan includes a monthly AI reply allowance. On Free, AI pauses when the allowance is used and your team keeps answering. On paid plans, extra replies bill at the plan rate up to a monthly cap, then AI pauses.",
       "plans": [
         {
           "name": "Free",
           "monthly": 0,
           "annual": null,
-          "includes": "150 AI replies/mo, no card"
+          "includes": "150 AI replies/mo, then AI pauses, no card"
         },
         {
           "name": "Starter",
           "monthly": 39,
           "annual": 31,
-          "includes": "1,000 AI replies/mo ($372/yr billed annually)"
+          "includes": "1,000 AI replies/mo, then $0.15 each up to $110/mo ($372/yr billed annually)"
         },
         {
           "name": "Pro",
           "monthly": 149,
           "annual": 119,
-          "includes": "4,000 AI replies/mo ($1,428/yr billed annually)"
+          "includes": "4,000 AI replies/mo, then $0.10 each up to $350/mo ($1,428/yr billed annually)"
         },
         {
           "name": "Scale",
           "monthly": 499,
           "annual": 399,
-          "includes": "15,000 AI replies/mo ($4,788/yr billed annually)"
+          "includes": "15,000 AI replies/mo, then $0.07 each up to $1,000/mo ($4,788/yr billed annually)"
         }
       ],
       "params": {
@@ -862,22 +862,30 @@
           [
             "Free",
             0,
-            150
+            150,
+            0,
+            0
           ],
           [
             "Starter",
             39,
-            1000
+            1000,
+            0.15,
+            110
           ],
           [
             "Pro",
             149,
-            4000
+            4000,
+            0.1,
+            350
           ],
           [
             "Scale",
             499,
-            15000
+            15000,
+            0.07,
+            1000
           ]
         ]
       },
@@ -886,19 +894,28 @@
       "site_url": "https://aide.app/",
       "shopify_url": null,
       "unconfirmed": [],
-      "notes": "Listing requested by Aide's founder. We checked every number on aide.app/pricing ourselves. Our estimate assumes at least one AI reply per conversation.",
+      "notes": "Listing requested by Aide's founder. We checked every number on aide.app/pricing ourselves. Our estimate assumes at least one AI reply per conversation. Paid plan overages and caps were rechecked on 7 November 2026.",
       "sources": [
         [
           "Aide pricing page",
           "https://aide.app/pricing"
         ]
       ],
-      "checked": "2026-11-04",
+      "checked": "2026-11-07",
       "affiliate_url": null,
-      "ai_short": "Per AI reply (plan allowances, no seat fees)"
+      "ai_short": "Per AI reply (allowances, then paid extras up to a cap)"
     }
   ],
   "changelog": [
+    {
+      "date": "2026-11-07",
+      "title": "Aide paid plans bill extra replies instead of pausing at the allowance",
+      "items": [
+        "Aide's public pricing page now describes paid overages: Starter $0.15 per extra reply up to $110 a month, Pro $0.10 up to $350, Scale $0.07 up to $1,000. Free still pauses at 150 AI replies.",
+        "The calculator no longer jumps to the next plan as soon as the included replies run out. A store using 1,400 AI replies on Starter is $39 plus 400 \u00d7 $0.15 = $99, not Pro at $149.",
+        "Sample store estimates, assuming one AI reply per conversation: small $39, medium $39, large $149. Checked on aide.app/pricing."
+      ]
+    },
     {
       "date": "2026-11-04",
       "title": "New support app: Aide",
