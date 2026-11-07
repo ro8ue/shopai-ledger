@@ -398,6 +398,20 @@ page("free-calculator.html", "Free AI Support Cost Calculator for Shopify | Stil
 <p class=muted>Assumes every AI touched conversation is billed (resolution based apps may bill less). Taxes, setup and add-ons not included. See <a href="methodology.html">how we calculate</a>.</p>
 <script>window.SP_APPS={json.dumps(_capps)};</script><script src="calc.js" defer></script>""")
 
+# Stack Audit is approval-only. Uses shared chrome without changing existing pages.
+page("stack-audit.html", "Stillprice Stack Audit | Shopify support and search app review",
+     "A written review of your Shopify support and search apps. What to cut, keep, or replace. $149 one time, emailed within 48 hours of your answers.",
+     (R / "templates/stack-audit.html").read_text(),
+     head='<meta name="robots" content="noindex"><link rel="stylesheet" href="stack-audit.css">')
+(O / "stack-audit.css").write_text((R / "templates/stack-audit.css").read_text())
+# Do not advertise the approval-only page in the public sitemap.
+PAGES.remove("stack-audit.html")
+# Clean internal links on this page only; preserve shared newsletter/contact links.
+_audit_path = O / "stack-audit.html"
+_audit = re.sub(r'href="([a-z][a-z0-9-]*)\.html(#[^"]*)?"',
+                lambda m: 'href="https://stillprice.com/' + ("" if m[1] == "index" else m[1]) + (m[2] or "") + '"', _audit_path.read_text())
+_audit_path.write_text(_audit)
+
 (O / "style.css").write_text(CSS)
 (O / "favicon.svg").write_text('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" rx="7" fill="#0c0c0c"/><rect x="7" y="9" width="18" height="2.6" rx="1.3" fill="#f3efe6"/><rect x="7" y="14.7" width="11.5" height="2.6" rx="1.3" fill="#f3efe6"/><rect x="7" y="20.4" width="14.5" height="2.6" rx="1.3" fill="#f3efe6" fill-opacity=".55"/></svg>')
 (O / "404.html").write_text(f'<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Not found | Stillprice</title><meta name="robots" content="noindex"><link rel="icon" href="/favicon.svg" type="image/svg+xml">{FONTS}<link rel="stylesheet" href="/style.css"></head><body><section class="hero"><div class="wrap"><p class="eyebrow">( 404 )</p><h1>Page not <em>found</em></h1><p style="margin:0"><a class="btn light" href="/">Go to the Stillprice comparison</a></p></div></section></body></html>')

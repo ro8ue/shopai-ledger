@@ -1,0 +1,53 @@
+/* Approval-only page styles. All selectors are scoped to the Stack Audit. */
+body:has(.audit-page) .hero .wrap{padding-top:110px;padding-bottom:84px}
+.audit-hero h1{max-width:1050px;font-size:clamp(48px,6.6vw,88px);line-height:1.02;margin-bottom:28px;text-wrap:balance}
+.audit-hero h1 em{display:block;color:var(--ac)}
+.audit-hero .lead{max-width:650px;color:#BDB9B2;margin-bottom:30px}
+.audit-action{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.audit-action .btn,.audit-closing .btn{padding:16px 24px;margin:0;min-height:48px;gap:24px}
+.audit-action>span,.audit-caption{font-size:13px;color:var(--mu)}
+.audit-hero .audit-caption{margin:18px 0 0}
+body:has(.audit-page) main.wrap{padding-top:0;padding-bottom:0}
+.audit-page{color:#BDB9B2}
+.audit-page h2{margin:0 0 26px;font-weight:300;font-size:clamp(36px,4.3vw,56px);line-height:1.05}
+.audit-page h2::before{display:none;content:none}
+.audit-page h3{font:400 25px/1.2 var(--serif);color:var(--tx);margin:0 0 18px}
+.audit-page .eyebrow{color:var(--mu);margin:0 0 22px;font-size:11px;letter-spacing:.14em}
+.audit-section{padding:88px 0;border-bottom:1px solid var(--bd)}
+.audit-section:last-child{border-bottom:0}
+.audit-compare{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.audit-card{background:var(--surf);border:1px solid var(--bd);border-radius:14px;padding:34px;box-shadow:none;min-width:0}
+.audit-compare h2{font-size:38px;margin-bottom:20px}
+.audit-card p:last-child{margin:0}
+.audit-new{border-color:#45423e}
+.audit-split{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:80px}
+.audit-page .audit-checklist{list-style:none;padding:0;margin:0}
+.audit-checklist>li{position:relative;padding:19px 0 19px 32px;border-bottom:1px solid var(--bd);margin:0;line-height:1.65}
+.audit-checklist>li:first-child{padding-top:0}
+.audit-checklist>li:last-child{border-bottom:0;padding-bottom:0}
+.audit-checklist>li::before{content:'✓';position:absolute;left:0;color:var(--ac);font-size:15px}
+.audit-page .audit-steps{list-style:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;padding:0;margin:36px 0 0}
+.audit-steps>.audit-card{margin:0;padding:30px}
+.audit-steps .eyebrow{display:block;margin-bottom:36px}
+.audit-page .audit-intake{padding-left:17px;font-size:14px;line-height:1.65;margin:0}
+.audit-intake li{margin:0 0 10px}
+.audit-offer{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);gap:80px;align-items:stretch}
+.audit-offer-copy{padding:12px 0}
+.audit-price{padding:40px;background:var(--surf);border:1px solid var(--bd);border-radius:14px}
+.audit-price .audit-amount{font:300 100px/1 var(--serif);letter-spacing:-.04em;color:var(--tx);margin:0 0 12px}
+.audit-exclusions{border-top:1px solid var(--bd);padding-top:28px;margin-top:36px}
+.audit-exclusions h3{font:500 14px/1.5 var(--sans);margin-bottom:14px}
+.audit-exclusions ul{font-size:14px;line-height:1.7;margin:0;padding-left:18px}
+.audit-faq details{border-bottom:1px solid var(--bd);padding:24px 0}
+.audit-faq details:first-child{padding-top:0}
+.audit-faq summary{font-size:16px;line-height:1.6;color:var(--tx);cursor:pointer;list-style:none;position:relative;padding-right:32px}
+.audit-faq summary::-webkit-details-marker{display:none}
+.audit-faq summary::after{content:'+';position:absolute;right:0;top:0;color:var(--mu)}
+.audit-faq details[open] summary::after{content:'−'}
+.audit-faq details p{margin:18px 0 0;font-size:15px;line-height:1.7}
+.audit-disclosure>p:not(.eyebrow){max-width:760px;line-height:1.75}
+.audit-closing{margin-top:48px;display:flex;align-items:center;gap:28px}
+.audit-closing p{max-width:360px;font-size:14px;margin:0}
+.audit-page a:focus-visible,.audit-hero a:focus-visible,.audit-faq summary:focus-visible{outline:2px solid var(--ac);outline-offset:5px}
+@media(max-width:900px){.audit-split,.audit-offer{gap:36px}.audit-page .audit-steps{grid-template-columns:1fr}.audit-steps .eyebrow{margin-bottom:20px}.audit-steps>.audit-card{padding:30px}.audit-intake{columns:2;column-gap:30px}.audit-intake li{break-inside:avoid}}
+@media(max-width:600px){body:has(.audit-page) .hero .wrap{padding-top:64px;padding-bottom:56px}.audit-hero h1{font-size:48px;line-height:1.03;text-wrap:initial}.audit-hero h1 em{margin-top:12px}.audit-hero .lead{font-size:16px}.audit-section{padding:56px 0}.audit-compare,.audit-split,.audit-offer{grid-template-columns:1fr;gap:24px}.audit-card,.audit-price{padding:26px}.audit-compare h2{font-size:34px}.audit-page h2{font-size:40px;margin-bottom:22px}.audit-page .eyebrow{margin-bottom:18px}.audit-split>div:first-child h2{margin-bottom:8px}.audit-page .audit-steps{margin-top:28px;gap:16px}.audit-intake{columns:1}.audit-price .audit-amount{font-size:88px}.audit-closing{flex-direction:column;align-items:flex-start;gap:20px;margin-top:36px}.audit-action{gap:16px}.audit-disclosure>p:not(.eyebrow){font-size:15px}}
