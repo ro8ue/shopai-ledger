@@ -97,8 +97,29 @@ MODELS = dict(gorgias=gorgias, tidio=tidio, intercom=intercom, zendesk=zendesk, 
               reamaze=reamaze, freshdesk=freshdesk, zipchat=zipchat, siena=siena, chatty=chatty, helpcenter=helpcenter)
 
 def aide(p, conv, seats, ai):
-    for name, price, cap in p["plans"]:
-        if conv <= cap:
-            return dict(total=price, plan=name, math=[f"{conv:,} conversations, assuming at least one AI reply each, fits {name} ({cap:,} AI replies/mo) → {m(price)}/mo (monthly billing, no seat fees)"])
-    return dict(total=None, plan="Above Scale", math=["More than 15,000 AI replies a month is above the published plans."])
+    replies = conv
+    opts = []
+    for row in p["plans"]:
+        name, price, included = row[0], row[1], row[2]
+        over_rate = row[3] if len(row) > 3 else 0
+        over_cap = row[4] if len(row) > 4 else 0
+        extra = max(0, replies - included)
+        extra_cost = extra * over_rate
+        if extra == 0:
+            opts.append(dict(total=price, plan=name, math=[f"{replies:,} conversations, assuming at least one AI reply each, fits {name} ({included:,} AI replies/mo included) → {m(price)}/mo (monthly billing, no seat fees)"]))
+            continue
+        if not over_rate or extra_cost > over_cap + 1e-9:
+            continue
+        total = price + extra_cost
+        opts.append(dict(total=total, plan=name, math=[
+            f"{name} {m(price)}/mo includes {included:,} AI replies",
+            f"{replies:,} conversations, assuming at least one AI reply each → {extra:,} extra × {m(over_rate)} = {m(extra_cost)}",
+            f"Total {m(price)} + {m(extra_cost)} = {m(total)}/mo (monthly billing, no seat fees). Extra replies cap at {m(over_cap)}/mo, then AI pauses."
+        ]))
+    if not opts:
+        return dict(total=None, plan="Above published paid caps", math=["This many AI replies is above the published paid plans and their extra reply caps."])
+    o = cheapest(opts)
+    if len(opts) > 1:
+        o["math"] = list(o["math"]) + [f"Cheapest plan at this size: {o['plan']} = {m(o['total'])}/mo"]
+    return o
 MODELS["aide"] = aide
