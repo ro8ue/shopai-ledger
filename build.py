@@ -400,7 +400,7 @@ page("free-calculator.html", "Free AI Support Cost Calculator for Shopify | Stil
 
 # Stack Audit uses the shared site chrome.
 page("stack-audit.html", "Stillprice Stack Audit | Shopify support and search app review",
-     "A written review of your Shopify support and search apps. What to cut, keep, or replace. $149 one time, emailed within 48 hours of your answers.",
+     "A written review of your Shopify support and search apps. $149 USD regular price, fee waived for these first requests. Report emailed within 48 hours of complete stack details.",
      (R / "templates/stack-audit.html").read_text(),
      head='<link rel="stylesheet" href="stack-audit.css">')
 (O / "stack-audit.css").write_text((R / "templates/stack-audit.css").read_text())
