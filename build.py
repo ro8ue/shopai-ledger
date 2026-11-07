@@ -23,7 +23,7 @@ CSS = (R / "design.css").read_text()  # edit design.css, not style.css (style.cs
 import re
 HERO_END = "<!--/hero-->"
 
-NAV = [("index.html#support", "Support apps"), (SLAND, "Search & recommendations"), ("gorgias-alternatives.html", "Gorgias alternatives"), ("changelog.html", "Change log"), ("price-moves.html", "Price moves"), ("principles.html", "Principles"), ("methodology.html", "How we calculate"), ("advertise.html", "Advertise")]
+NAV = [("index.html#support", "Support apps"), (SLAND, "Search & recommendations"), ("gorgias-alternatives.html", "Gorgias alternatives"), ("/stack-audit", "Stack Audit"), ("changelog.html", "Change log"), ("price-moves.html", "Price moves"), ("principles.html", "Principles"), ("methodology.html", "How we calculate"), ("advertise.html", "Advertise")]
 def ld(o): return '<script type="application/ld+json">' + json.dumps(o) + "</script>"
 PAGES = []
 LOGO = """<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="0.5" y="0.5" width="23" height="23" rx="4" fill="none" stroke="currentColor" stroke-opacity=".35"/><rect x="5" y="6" width="14" height="2" rx="1" fill="currentColor"/><rect x="5" y="11" width="9" height="2" rx="1" fill="currentColor"/><rect x="5" y="16" width="11.5" height="2" rx="1" fill="currentColor" fill-opacity=".55"/></svg>"""
@@ -398,14 +398,12 @@ page("free-calculator.html", "Free AI Support Cost Calculator for Shopify | Stil
 <p class=muted>Assumes every AI touched conversation is billed (resolution based apps may bill less). Taxes, setup and add-ons not included. See <a href="methodology.html">how we calculate</a>.</p>
 <script>window.SP_APPS={json.dumps(_capps)};</script><script src="calc.js" defer></script>""")
 
-# Stack Audit is approval-only. Uses shared chrome without changing existing pages.
+# Stack Audit uses the shared site chrome.
 page("stack-audit.html", "Stillprice Stack Audit | Shopify support and search app review",
      "A written review of your Shopify support and search apps. What to cut, keep, or replace. $149 one time, emailed within 48 hours of your answers.",
      (R / "templates/stack-audit.html").read_text(),
-     head='<meta name="robots" content="noindex"><link rel="stylesheet" href="stack-audit.css">')
+     head='<link rel="stylesheet" href="stack-audit.css">')
 (O / "stack-audit.css").write_text((R / "templates/stack-audit.css").read_text())
-# Do not advertise the approval-only page in the public sitemap.
-PAGES.remove("stack-audit.html")
 # Clean internal links on this page only; preserve shared newsletter/contact links.
 _audit_path = O / "stack-audit.html"
 _audit = re.sub(r'href="([a-z][a-z0-9-]*)\.html(#[^"]*)?"',
