@@ -12,6 +12,7 @@ SD = json.load(open(R / "data/search_apps.json")); SC = SD["category"]; SA = SD[
 for a in SA:
     a["est"] = [SMODELS[a["model"]](a["params"], s, i) for i, s in enumerate(SSIZES)]
 SLAND = SC["slug"] + ".html"
+SUPPORT = "shopify-ai-support-apps.html"
 def money(o): return "Not public" if o["total"] is None else m(o["total"])
 def link(a): return a["pricing_url"]
 def colmax(apps, k): return max([x["est"][k]["total"] for x in apps if x["est"][k]["total"]] or [1])
@@ -23,11 +24,11 @@ CSS = (R / "design.css").read_text()  # edit design.css, not style.css (style.cs
 import re
 HERO_END = "<!--/hero-->"
 
-NAV = [("index.html#support", "Support apps"), (SLAND, "Search & recommendations"), ("gorgias-alternatives.html", "Gorgias alternatives"), ("/stack-audit", "Stack Audit"), ("changelog.html", "Change log"), ("essays.html", "Essays"), ("price-moves.html", "Price moves"), ("principles.html", "Principles"), ("methodology.html", "How we calculate"), ("advertise.html", "Advertise")]
+NAV = [(SUPPORT, "Support apps"), (SLAND, "Search & recommendations"), ("essays.html", "Essays"), ("/stack-audit", "Stack Audit")]
 def ld(o): return '<script type="application/ld+json">' + json.dumps(o) + "</script>"
 PAGES = []
 LOGO = """<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="0.5" y="0.5" width="23" height="23" rx="4" fill="none" stroke="currentColor" stroke-opacity=".35"/><rect x="5" y="6" width="14" height="2" rx="1" fill="currentColor"/><rect x="5" y="11" width="9" height="2" rx="1" fill="currentColor"/><rect x="5" y="16" width="11.5" height="2" rx="1" fill="currentColor" fill-opacity=".55"/></svg>"""
-FONTS = '<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Inter:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap">'
+FONTS = '<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap">'
 # ---- Analytics: Umami Cloud (cookieless, no banner). Paste the Website ID from cloud.umami.is after sign-up.
 # Empty = no analytics snippet is emitted, so the build output is unchanged.
 UMAMI_ID = "ef83573c-dc05-416b-8ade-a59229995cc7"
@@ -97,13 +98,13 @@ def page(fn, title, desc, body, head=""):
     hero, rest = _eb(hero), _eb(rest)
     (O / fn).write_text(f"""<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="google-site-verification" content="JHZv0niTmEJr6Eywzr3X6kB2OFSl9WHrn6igGEJn2Qw" />
 <title>{e(title)}</title><meta name="description" content="{e(desc)}"><link rel="canonical" href="{url}">
-<meta property="og:type" content="website"><meta property="og:site_name" content="Stillprice"><meta property="og:title" content="{e(title)}"><meta property="og:description" content="{e(desc)}"><meta property="og:url" content="{url}"><meta name="twitter:card" content="summary">
+<meta property="og:type" content="website"><meta property="og:site_name" content="Stillprice"><meta property="og:title" content="{e(title)}"><meta property="og:description" content="{e(desc)}"><meta property="og:url" content="{url}"><meta property="og:image" content="https://stillprice.com/og-default.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="What Shopify AI apps really cost. Stillprice."><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://stillprice.com/og-default.jpg">
 <meta name="theme-color" content="#0A0A0A"><link rel="icon" href="favicon.svg" type="image/svg+xml">
-{FONTS}<link rel="stylesheet" href="style.css">{head}{ANALYTICS}</head><body>
-<header class="top"><div class="wrap"><a class="logo" href="index.html" aria-label="Stillprice home"><span>Stillprice</span></a><nav class="main" aria-label="Main">{nav}</nav><a class="btn light sm" href="{'#newsletter' if news else 'index.html#newsletter'}">Weekly email</a></div></header>
+{FONTS}<link rel="stylesheet" href="style.css">{head}<script defer src="table-sizes.js"></script>{ANALYTICS}</head><body>
+<header class="top"><div class="wrap"><a class="logo" href="index.html" aria-label="Stillprice home"><span>Stillprice</span></a><nav class="main" aria-label="Main">{nav}</nav><a class="btn light sm" href="{'#newsletter' if news else 'index.html#newsletter'}">Subscribe</a></div></header>
 {hero}<main class="wrap">{rest}</main>{_eb(NEWS) if news else ""}
 <footer class="site"><div class="wrap"><div><a class="logo" href="index.html"><span>Stillprice</span></a><p>Stillprice is independent and not affiliated with Shopify or any app listed. Prices are in USD, checked by hand on the date shown, and can change at any time. Always confirm on the vendor's site.</p></div>
-<div class="links"><a href="principles.html">Our principles</a><a href="price-moves.html">Price moves</a><a href="methodology.html">How we calculate</a><a href="disclosure.html">Affiliate disclosure</a><a href="changelog.html">Change log</a><a href="free-calculator.html">Free cost calculator</a><a href="https://stillprice.substack.com/subscribe">Weekly email signup</a><a href="advertise.html">Advertise / get listed</a><a href="mailto:{S['contact']}?subject=Stillprice%20correction">Report a wrong price</a></div>
+<div class="links"><a href="gorgias-alternatives.html">Gorgias alternatives</a><a href="principles.html">Our principles</a><a href="price-moves.html">Price moves</a><a href="methodology.html">How we calculate</a><a href="disclosure.html">Affiliate disclosure</a><a href="changelog.html">Change log</a><a href="free-calculator.html">Free cost calculator</a><a href="https://stillprice.substack.com/subscribe">Weekly email signup</a><a href="advertise.html">Advertise / get listed</a><a href="mailto:{S['contact']}?subject=Stillprice%20correction">Report a wrong price</a></div>
 <div class="base"><span>Prices checked {S['updated']}</span><a href="#">Back to top ↑</a></div></div></footer></body></html>""")
 
 # Newsletter: Substack signup (stillprice.substack.com) inside the cream .news .embed card.
@@ -115,11 +116,16 @@ sizes_html = '<div class="sizes">' + "".join(f"<span><b>{s['label']}</b>: {s['co
 def flag(a): return f'<span class="tag free">Free option overlaps</span>' if a.get("free_alt") and a["model"] != "free" else ('<span class="tag free">Free</span>' if a["model"] == "free" else "")
 def conf(a): return '<span class="tag">Prices confirmed</span>' if not a["unconfirmed"] else '<span class="tag warn">Partly confirmed</span>'
 
+def size_controls():
+    return ("<div class='size-compare' data-selected-size='medium'><div class='size-switch' role='group' aria-label='Store size'>"
+            + "".join(f"<button type='button' data-size-select='{name.lower()}' aria-pressed='{str(name == 'Medium').lower()}'>{name}</button>" for name in ("Small", "Medium", "Large"))
+            + "</div><p class='size-note'>Estimated monthly cost. Rows sorted by medium store.</p>")
+
 def table(apps):
     rows = "".join(f"<tr><td><a href='{x['slug']}-pricing.html'><b>{e(x['name'])}</b></a><br><span class=muted>{e(x['type'])}</span><br>{flag(x)}</td><td>{e(x['ai_short'])}</td>"
-                   + "".join(f"<td class=n data-l='{SIZES[k]['label'].split()[0]}'>{cell(o, colmax(apps, k), money(o))}<span class=muted style='font-weight:400'>{e(o['plan'])}</span></td>" for k, o in enumerate(x["est"])) + f"<td class='muted ck'>{x['checked']}</td></tr>" for x in apps)
-    return ("<p class=scroll-hint>Swipe sideways to see every store size →</p><div class=tw><table class=cmp><thead><tr><th>App</th><th>How AI is billed</th>" + "".join(f"<th>{s['label']}<br><span style='font-weight:400'>{s['conv']:,} conv/mo</span></th>" for s in SIZES)
-            + f"<th>Checked</th></tr></thead><tbody>{rows}</tbody></table></div>")
+                   + "".join(f"<td class=n data-size='{SIZES[k]['label'].split()[0].lower()}' data-l='{SIZES[k]['label'].split()[0]}'>{cell(o, colmax(apps, k), money(o))}<span class=muted style='font-weight:400'>{e(o['plan'])}</span></td>" for k, o in enumerate(x["est"])) + f"<td class='muted ck'>{x['checked']}</td></tr>" for x in apps)
+    return (size_controls() + "<div class=tw><table class=cmp><thead><tr><th>App</th><th>How AI is billed</th>" + "".join(f"<th data-size='{s['label'].split()[0].lower()}'>{s['label']}<br><span style='font-weight:400'>{s['conv']:,} conv/mo</span></th>" for s in SIZES)
+            + f"<th>Checked</th></tr></thead><tbody>{rows}</tbody></table></div></div>")
 
 def sortkey(a):
     t = a["est"][1]["total"]; return (t is None, t if t is not None else 0)
@@ -142,15 +148,15 @@ def ssort(a):
 sordered = sorted(SA, key=ssort)
 def stable(apps):
     rows = "".join(f"<tr><td><a href='{x['slug']}-pricing.html'><b>{e(x['name'])}</b></a><br><span class=muted>{e(x['type'])}</span><br>{sflag(x)}</td><td>{e(x['ai_short'])}<br><span class=muted>Billed on: {e(x['unit'])}</span></td>"
-                   + "".join(f"<td class=n data-l='{SSIZES[k]['label'].split()[0]}'>{cell(o, colmax(apps, k), smoney(o))}<span class=muted style='font-weight:400'>{e(o['plan'])}</span></td>" for k, o in enumerate(x["est"])) + f"<td class='muted ck'>{x['checked']}</td></tr>" for x in apps)
-    return ("<p class=scroll-hint>Swipe sideways to see every store size →</p><div class=tw><table class=cmp><thead><tr><th>App</th><th>How it's billed</th>" + "".join(f"<th>{s['label']}<br><span style='font-weight:400'>{s['products']:,} products · {s['orders']:,} orders</span></th>" for s in SSIZES)
-            + f"<th>Checked</th></tr></thead><tbody>{rows}</tbody></table></div>")
+                   + "".join(f"<td class=n data-size='{SSIZES[k]['label'].split()[0].lower()}' data-l='{SSIZES[k]['label'].split()[0]}'>{cell(o, colmax(apps, k), smoney(o))}<span class=muted style='font-weight:400'>{e(o['plan'])}</span></td>" for k, o in enumerate(x["est"])) + f"<td class='muted ck'>{x['checked']}</td></tr>" for x in apps)
+    return (size_controls() + "<div class=tw><table class=cmp><thead><tr><th>App</th><th>How it's billed</th>" + "".join(f"<th data-size='{s['label'].split()[0].lower()}'>{s['label']}<br><span style='font-weight:400'>{s['products']:,} products · {s['orders']:,} orders</span></th>" for s in SSIZES)
+            + f"<th>Checked</th></tr></thead><tbody>{rows}</tbody></table></div></div>")
 SCOMPS = [("searchanise", "boost-ai-search"), ("rebuy", "limespot"), ("doofinder", "algolia"), ("doofinder", "searchanise"), ("searchanise", "fast-simon"), ("searchanise", "shopify-search-discovery")]
 SALTS = ["searchanise", "klevu", "boost-ai-search"]
 def sshort(a): return {"shopify-search-discovery": "Shopify Search & Discovery", "searchanise": "Searchanise", "boost-ai-search": "Boost", "fast-simon": "Fast Simon", "wiser": "Wiser", "limespot": "LimeSpot", "rebuy": "Rebuy", "klevu": "Klevu", "nosto": "Nosto"}.get(a["slug"], a["name"])
 scomp_links = "".join(f"<li><a href='{cslug(x,y)}'>{e(sshort(SBY[x]))} vs {e(sshort(SBY[y]))} pricing</a></li>" for x, y in SCOMPS) + "".join(f"<li><a href='{x}-alternatives.html'>{e(sshort(SBY[x]))} alternatives by real cost</a></li>" for x in SALTS)
-cats_html = (f"<div class='grid cats'><a class=card href='#support'><span class=idx>01 — Category</span><span class=go>→</span><b>AI customer support apps</b><p class=muted>{len(A)} helpdesks and AI agents (Gorgias, Tidio, Intercom Fin, Zendesk…) priced by conversations and AI resolutions.</p></a>"
-             f"<a class=card href='{SLAND}'><span class=idx>02 — Category</span><span class=go>→</span><b>AI search & recommendation apps</b><p class=muted>{len(SA)} search, filter and recommendation apps (Searchanise, Boost, Doofinder, Rebuy, LimeSpot…) priced by products, orders, revenue or searches.</p></a></div>")
+cats_html = (f"<div class='grid cats'><a class=card href='{SUPPORT}'><span class=idx>01 · Category</span><span class=go>→</span><b>AI customer support apps</b><p class=muted>{len(A)} helpdesks and AI agents (Gorgias, Tidio, Intercom Fin, Zendesk…) priced by conversations and AI resolutions.</p></a>"
+             f"<a class=card href='{SLAND}'><span class=idx>02 · Category</span><span class=go>→</span><b>AI search & recommendation apps</b><p class=muted>{len(SA)} search, filter and recommendation apps (Searchanise, Boost, Doofinder, Rebuy, LimeSpot…) priced by products, orders, revenue or searches.</p></a></div>")
 
 # ---- essays (data/essays.json); the homepage features the newest published one
 ESS = json.load(open(R / "data/essays.json")); ES = sorted(ESS["essays"], key=lambda x: x["iso"], reverse=True); FE = ES[0]
@@ -159,25 +165,30 @@ featured_html = (f"<div class=box style='margin-top:0'><p class=eyebrow>( Essay 
   f"<p class=lead style='margin:.4em 0'>{e(FE['thesis'])}</p><p class=muted>{e(FE['dek'])}</p>"
   f"<p style='margin:0'><a class='btn' href='{efn(FE)}'>Read the essay <span class=arr>→</span></a> <a href='essays.html'>All essays</a></p></div>")
 # ---- home
-HL = [BY[k] for k in ["shopify-inbox", "chatty", "zipchat", "hubspot-service-hub", "intercom-fin", "gorgias", "zendesk"] if k in BY and BY[k]["est"][1]["total"] is not None]
+HL = sorted([BY[k] for k in ["shopify-inbox", "aide", "helpcenter", "chatty", "zipchat", "gorgias", "zendesk"] if k in BY and BY[k]["est"][1]["total"] is not None], key=sortkey)
 _hmx = max(x["est"][1]["total"] for x in HL) or 1
 hero_ledger = (f"<aside class=ledger aria-label='Sample: medium store monthly cost'><header><span>{SIZES[1]['label']} · {SIZES[1]['conv']:,} conversations/mo</span><span>Est. / mo</span></header><ol>"
   + "".join(f"<li><span>{i+1:02d}</span>{e(short(x))}<b>{money(x['est'][1])}</b><i style='--w:{max(2, round(x['est'][1]['total'] / _hmx * 100))}%'></i></li>" for i, x in enumerate(HL))
-  + f"</ol><footer>AI resolves {int(RATE*100)}% of conversations. <a href='#support'>See all {len(A)} support apps →</a></footer></aside>")
+  + f"</ol><footer>AI resolves {int(RATE*100)}% of conversations. <a href='{SUPPORT}'>See all {len(A)} support apps →</a></footer></aside>")
 comp_links = "".join(f"<li><a href='{cslug(x,y)}'>{e(short(BY[x]))} vs {e(short(BY[y]))} pricing</a></li>" for x, y in COMPS)
 page("index.html", "Stillprice: What Shopify AI Apps Really Cost (Support, Search & Recommendations, 2026)",
  f"Real monthly cost of {len(A)} AI support apps (Gorgias, Tidio Lyro, Intercom Fin, Zendesk…) and {len(SA)} AI search & recommendation apps (Searchanise, Boost, Doofinder, Rebuy, LimeSpot…) for Shopify at three store sizes, with the math and dated sources.",
  f"<section class='hero home'><div class=wrap><div><p class=eyebrow>( Shopify AI app pricing · checked {S['updated']} )</p><h1>What Shopify AI apps <em>really cost</em></h1><p class=lead>AI apps bill per resolution, per conversation, per search, per order or by your revenue, so the sticker price rarely matches the invoice. We read every official pricing page by hand and show the estimated monthly bill at three store sizes, with the math.</p>"
- f"<p style='margin:0'><a class='btn light' href='#support'>Compare support apps <span class=arr>→</span></a><a class='btn ghost' href='{SLAND}'>Search & recommendation apps</a></p></div>{hero_ledger}</div>"
+ f"<p style='margin:0'><a class='btn light' href='{SUPPORT}'>Compare support apps <span class=arr>→</span></a><a class='btn ghost' href='{SLAND}'>Search & recommendation apps</a></p></div>{hero_ledger}</div>"
  f"<div class=wrap><div class=stats><div><b>{len(A)+len(SA)}</b><span>Apps tracked</span></div><div><b>2</b><span>Categories</span></div><div><b>3</b><span>Store sizes</span></div><div><b>{S['updated']}</b><span>Last checked</span></div></div></div>"
  f"<div class=ticker><div class=wrap><span>Official pricing pages only</span><span>Read by hand</span><span>Every price dated</span><span>Math shown</span><span>Not public = we don't guess</span></div></div></section>{HERO_END}{featured_html}{cats_html}"
- f"<h2 id=support>AI customer support apps</h2>{sizes_html}<p class=muted>Prices checked {S['updated']}. Monthly-billing prices unless noted. Sorted by medium-store cost. Click an app to see the full plan list and math.</p>{table(ordered)}"
+ f"{NEWS}",
+ head=ld({"@context": "https://schema.org", "@type": "WebSite", "name": "Stillprice", "url": S["base_url"] + "/"}))
+
+# ---- support category landing
+page(SUPPORT, "Shopify AI Support Apps: Real Monthly Cost Compared (2026) | Stillprice",
+ f"Compare {len(A)} Shopify AI support apps at three store sizes, with estimated monthly costs, dated sources and the math.",
+ f"<h1>What Shopify AI support apps <em>really cost</em></h1><p class=lead>Compare the monthly bill for the same store, using official pricing and the assumptions below.</p>{HERO_END}"
+ f"{sizes_html}<p class=muted>Prices checked {S['updated']}. Monthly-billing prices unless noted. Sorted by medium-store cost. Click an app to see the full plan list and math.</p>{table(ordered)}"
  f"<div class=callout><b>The free option first.</b> <a href='shopify-inbox-pricing.html'>Shopify Inbox</a> is free and now includes an AI agent trained on your catalog and policies. If you only need storefront chat, start there. Paid apps make sense when you need email/social ticketing, order actions, or higher automation.</div>"
  f"<h2>Support pricing comparisons</h2><ul>{comp_links}<li><a href='gorgias-alternatives.html'>Gorgias alternatives by real cost</a></li></ul>"
  f"<h2>Why the support bill surprises people</h2><div class=grid><div class=card><b>Per-resolution billing</b><p class=muted>Gorgias, Zendesk, Intercom Fin, HubSpot, Re:amaze and Siena charge for each conversation the AI closes. Better automation means a bigger AI line on the bill.</p></div><div class=card><b>Per-conversation or per-reply billing</b><p class=muted>Tidio Lyro, Chatty, Richpanel, Freshdesk and Zipchat count conversations (or messages) the AI touches, resolved or not.</p></div><div class=card><b>Seats still matter</b><p class=muted>Intercom, Zendesk, HubSpot, Re:amaze, Freshdesk and Richpanel also charge per human agent seat, and HubSpot Professional adds a one-time onboarding fee.</p></div></div>"
- f"<h2 id=search>AI search & recommendation apps</h2>{ssizes_html}<p class=muted>Prices checked {S['updated']}. Sorted by medium-store cost. <a href='{SLAND}'>See the full search & recommendations comparison</a>.</p>{stable(sordered)}"
- f"<h2>Search & recommendation comparisons</h2><ul>{scomp_links}</ul>{NEWS}",
- head=ld({"@context": "https://schema.org", "@type": "WebSite", "name": "Stillprice", "url": S["base_url"] + "/"}))
+ f"{NEWS}")
 
 # ---- app pages
 def plans_table(a):
@@ -443,3 +454,8 @@ _audit_path.write_text(_audit)
 (O / "robots.txt").write_text(f"User-agent: *\nAllow: /\nSitemap: {S['base_url']}/sitemap.xml\nSitemap: {S['base_url']}/sitemap.txt\n")
 (O / ".nojekyll").write_text("")
 print("built", len(PAGES), "pages")
+
+# Shared design assets are sources, not disposable generated output.
+import shutil
+for asset in ("table-sizes.js", "og-default.jpg"):
+    shutil.copyfile(R / "assets" / asset, O / asset)
