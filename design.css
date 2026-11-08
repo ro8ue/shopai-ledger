@@ -338,3 +338,26 @@ a:focus-visible,button:focus-visible,.calc input:focus-visible,.cform input:focu
 .size-compare[data-selected-size=large] [data-size]:not([data-size=large]){display:none}
 .size-compare td.n{font-variant-numeric:tabular-nums}
 @media(max-width:640px){.size-compare .cmp tr{grid-template-columns:1fr}.size-compare .cmp td.n{padding:0}.size-switch{display:flex}.size-switch button{flex:1}}
+
+/* Textless statue background preview, scoped to the homepage only. */
+.hero.home{
+  background-color:var(--bg);
+  background-image:
+    linear-gradient(0deg,#0A0A0A 0%,rgba(10,10,10,.92) 12%,rgba(10,10,10,0) 42%),
+    linear-gradient(90deg,#0A0A0A 0%,rgba(10,10,10,.98) 27%,rgba(10,10,10,.86) 47%,rgba(10,10,10,.4) 70%,rgba(10,10,10,.12) 100%),
+    url("hero-statue.jpg");
+  background-position:center,right center,right center;
+  background-size:cover;
+  background-repeat:no-repeat;
+}
+.hero.home .ledger{background:var(--surf)}
+@media(max-width:760px){
+  .hero.home{
+    background-image:
+      linear-gradient(0deg,#0A0A0A 0%,#0A0A0A 52%,rgba(10,10,10,.72) 80%,rgba(10,10,10,.5) 100%),
+      linear-gradient(90deg,#0A0A0A 0%,rgba(10,10,10,.95) 30%,rgba(10,10,10,.45) 100%),
+      url("hero-statue.jpg");
+    background-size:cover,cover,auto 780px;
+    background-position:center,center,right -140px;
+  }
+}

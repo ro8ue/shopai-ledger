@@ -457,5 +457,5 @@ print("built", len(PAGES), "pages")
 
 # Shared design assets are sources, not disposable generated output.
 import shutil
-for asset in ("table-sizes.js", "og-default.jpg"):
+for asset in ("table-sizes.js", "og-default.jpg", "hero-statue.jpg"):
     shutil.copyfile(R / "assets" / asset, O / asset)
