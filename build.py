@@ -23,7 +23,7 @@ CSS = (R / "design.css").read_text()  # edit design.css, not style.css (style.cs
 import re
 HERO_END = "<!--/hero-->"
 
-NAV = [("index.html#support", "Support apps"), (SLAND, "Search & recommendations"), ("gorgias-alternatives.html", "Gorgias alternatives"), ("/stack-audit", "Stack Audit"), ("changelog.html", "Change log"), ("price-moves.html", "Price moves"), ("principles.html", "Principles"), ("methodology.html", "How we calculate"), ("advertise.html", "Advertise")]
+NAV = [("index.html#support", "Support apps"), (SLAND, "Search & recommendations"), ("gorgias-alternatives.html", "Gorgias alternatives"), ("/stack-audit", "Stack Audit"), ("changelog.html", "Change log"), ("essays.html", "Essays"), ("price-moves.html", "Price moves"), ("principles.html", "Principles"), ("methodology.html", "How we calculate"), ("advertise.html", "Advertise")]
 def ld(o): return '<script type="application/ld+json">' + json.dumps(o) + "</script>"
 PAGES = []
 LOGO = """<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="0.5" y="0.5" width="23" height="23" rx="4" fill="none" stroke="currentColor" stroke-opacity=".35"/><rect x="5" y="6" width="14" height="2" rx="1" fill="currentColor"/><rect x="5" y="11" width="9" height="2" rx="1" fill="currentColor"/><rect x="5" y="16" width="11.5" height="2" rx="1" fill="currentColor" fill-opacity=".55"/></svg>"""
@@ -152,6 +152,12 @@ scomp_links = "".join(f"<li><a href='{cslug(x,y)}'>{e(sshort(SBY[x]))} vs {e(ssh
 cats_html = (f"<div class='grid cats'><a class=card href='#support'><span class=idx>01 — Category</span><span class=go>→</span><b>AI customer support apps</b><p class=muted>{len(A)} helpdesks and AI agents (Gorgias, Tidio, Intercom Fin, Zendesk…) priced by conversations and AI resolutions.</p></a>"
              f"<a class=card href='{SLAND}'><span class=idx>02 — Category</span><span class=go>→</span><b>AI search & recommendation apps</b><p class=muted>{len(SA)} search, filter and recommendation apps (Searchanise, Boost, Doofinder, Rebuy, LimeSpot…) priced by products, orders, revenue or searches.</p></a></div>")
 
+# ---- essays (data/essays.json); the homepage features the newest published one
+ESS = json.load(open(R / "data/essays.json")); ES = sorted(ESS["essays"], key=lambda x: x["iso"], reverse=True); FE = ES[0]
+def efn(x): return f"essays-{x['slug']}.html"
+featured_html = (f"<div class=box style='margin-top:0'><p class=eyebrow>( Essay · {e(FE['date'])} )</p><h2 style='margin-top:0'><a href='{efn(FE)}'>{e(FE['title'])}</a></h2>"
+  f"<p class=lead style='margin:.4em 0'>{e(FE['thesis'])}</p><p class=muted>{e(FE['dek'])}</p>"
+  f"<p style='margin:0'><a class='btn' href='{efn(FE)}'>Read the essay <span class=arr>→</span></a> <a href='essays.html'>All essays</a></p></div>")
 # ---- home
 HL = [BY[k] for k in ["shopify-inbox", "chatty", "zipchat", "hubspot-service-hub", "intercom-fin", "gorgias", "zendesk"] if k in BY and BY[k]["est"][1]["total"] is not None]
 _hmx = max(x["est"][1]["total"] for x in HL) or 1
@@ -164,7 +170,7 @@ page("index.html", "Stillprice: What Shopify AI Apps Really Cost (Support, Searc
  f"<section class='hero home'><div class=wrap><div><p class=eyebrow>( Shopify AI app pricing · checked {S['updated']} )</p><h1>What Shopify AI apps <em>really cost</em></h1><p class=lead>AI apps bill per resolution, per conversation, per search, per order or by your revenue, so the sticker price rarely matches the invoice. We read every official pricing page by hand and show the estimated monthly bill at three store sizes, with the math.</p>"
  f"<p style='margin:0'><a class='btn light' href='#support'>Compare support apps <span class=arr>→</span></a><a class='btn ghost' href='{SLAND}'>Search & recommendation apps</a></p></div>{hero_ledger}</div>"
  f"<div class=wrap><div class=stats><div><b>{len(A)+len(SA)}</b><span>Apps tracked</span></div><div><b>2</b><span>Categories</span></div><div><b>3</b><span>Store sizes</span></div><div><b>{S['updated']}</b><span>Last checked</span></div></div></div>"
- f"<div class=ticker><div class=wrap><span>Official pricing pages only</span><span>Read by hand</span><span>Every price dated</span><span>Math shown</span><span>Not public = we don't guess</span></div></div></section>{HERO_END}{cats_html}"
+ f"<div class=ticker><div class=wrap><span>Official pricing pages only</span><span>Read by hand</span><span>Every price dated</span><span>Math shown</span><span>Not public = we don't guess</span></div></div></section>{HERO_END}{featured_html}{cats_html}"
  f"<h2 id=support>AI customer support apps</h2>{sizes_html}<p class=muted>Prices checked {S['updated']}. Monthly-billing prices unless noted. Sorted by medium-store cost. Click an app to see the full plan list and math.</p>{table(ordered)}"
  f"<div class=callout><b>The free option first.</b> <a href='shopify-inbox-pricing.html'>Shopify Inbox</a> is free and now includes an AI agent trained on your catalog and policies. If you only need storefront chat, start there. Paid apps make sense when you need email/social ticketing, order actions, or higher automation.</div>"
  f"<h2>Support pricing comparisons</h2><ul>{comp_links}<li><a href='gorgias-alternatives.html'>Gorgias alternatives by real cost</a></li></ul>"
@@ -311,6 +317,24 @@ page("changelog.html", "Shopify AI App Price Change Log | Stillprice", "A dated 
  "<h1>Price change log</h1><p class=lead>Every pricing or plan change we spot, dated. We re-check every app's official pricing page weekly.</p><!--/hero-->"
  + "".join(f"<div class=box><b>{e(c['date'])}</b>: {e(c['title'])}<ul>" + "".join(f"<li>{e(i)}</li>" for i in c["items"]) + "</ul></div>" for c in CL) + NEWS)
 
+
+# ---- essays pages
+for x in ES:
+    secs = "".join(f"<h2>{e(h)}</h2>" + "".join(f"<p>{t}</p>" for t in ps) for h, ps in x["sections"])
+    rel = "".join(f"<li><a href='{u}'>{e(t)}</a></li>" for u, t in x["related"])
+    page(efn(x), f"{x['title']} | Stillprice Essays", x["dek"],
+      f"<p class=eyebrow>( {e(x['kind'])} · {e(x['date'])} )</p><h1>{e(x['title'])}</h1><p class=lead>{e(x['thesis'])}</p><p class=muted>{e(x['dek'])}</p>{HERO_END}"
+      f"<p class=crumb><a href='essays.html'>Essays</a> / {e(x['title'])}</p>{secs}"
+      f"<h2>The numbers behind this essay</h2><ul>{rel}</ul>"
+      f"<div class=callout><b>Prices checked {e(x['checked'])}</b> on official pricing pages, monthly billing. Prices change, so check the linked pages for the latest date. <b>Conflict:</b> {e(x['conflict'])} See our <a href='principles.html'>principles</a> and <a href='disclosure.html'>disclosure</a>.</div>"
+      f"<p class=muted>First sent as an email. <a href='{x['substack']}' rel='noopener'>Read it on Substack</a>.</p>{NEWS}",
+      head=ld({"@context": "https://schema.org", "@type": "Article", "headline": x["title"], "datePublished": x["iso"], "publisher": {"@type": "Organization", "name": "Stillprice"}, "url": S["base_url"] + "/" + efn(x)[:-5]}))
+ess_list = "".join(f"<a class=card href='{efn(x)}'><span class=idx>{e(x['kind'])} · {e(x['date'])}</span><span class=go>→</span><b>{e(x['title'])}</b><p class=muted>{e(x["thesis"])}</p></a>" for x in ES)
+iss_list = "".join(f"<li><b>{e(i['date'])}:</b> <a href='{i['substack']}' rel='noopener'>{e(i['title'])}</a>. {e(i['dek'])} On the site: <a href='{i['site'][0]}'>{e(i['site'][1])}</a>.</li>" for i in ESS["issues"])
+page("essays.html", "Essays: What Shopify AI Apps Really Cost, Argued From the Data | Stillprice",
+  "Thesis-driven essays on Shopify AI app pricing, each built on hand-checked official prices and the math on Stillprice.",
+  f"<p class=eyebrow>( Essays )</p><h1>Essays: <em>the argument, then the proof</em></h1><p class=lead>Each essay makes one claim about what Shopify AI apps really cost, then shows the dated prices and math behind it. The tables on this site are the evidence.</p>{HERO_END}"
+  f"<h2>Essays</h2><div class='grid cats'>{ess_list}</div><h2>Earlier issues of The Ledger</h2><ul>{iss_list}</ul>{NEWS}")
 
 # ---- principles (manifesto)
 PRIN = """<p class=eyebrow>( Principles )</p><h1>What we believe: <em>the real bill, shown plainly</em></h1><p class=lead>Pricing pages are built to sell. We are built to show you what you would actually pay.</p><!--/hero-->
