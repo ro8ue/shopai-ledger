@@ -145,8 +145,8 @@ def stable(apps):
                    + "".join(f"<td class=n data-l='{SSIZES[k]['label'].split()[0]}'>{cell(o, colmax(apps, k), smoney(o))}<span class=muted style='font-weight:400'>{e(o['plan'])}</span></td>" for k, o in enumerate(x["est"])) + f"<td class='muted ck'>{x['checked']}</td></tr>" for x in apps)
     return ("<p class=scroll-hint>Swipe sideways to see every store size →</p><div class=tw><table class=cmp><thead><tr><th>App</th><th>How it's billed</th>" + "".join(f"<th>{s['label']}<br><span style='font-weight:400'>{s['products']:,} products · {s['orders']:,} orders</span></th>" for s in SSIZES)
             + f"<th>Checked</th></tr></thead><tbody>{rows}</tbody></table></div>")
-SCOMPS = [("searchanise", "boost-ai-search"), ("rebuy", "limespot"), ("doofinder", "algolia"), ("doofinder", "searchanise")]
-SALTS = ["klevu", "boost-ai-search"]
+SCOMPS = [("searchanise", "boost-ai-search"), ("rebuy", "limespot"), ("doofinder", "algolia"), ("doofinder", "searchanise"), ("searchanise", "fast-simon"), ("searchanise", "shopify-search-discovery")]
+SALTS = ["searchanise", "klevu", "boost-ai-search"]
 def sshort(a): return {"shopify-search-discovery": "Shopify Search & Discovery", "searchanise": "Searchanise", "boost-ai-search": "Boost", "fast-simon": "Fast Simon", "wiser": "Wiser", "limespot": "LimeSpot", "rebuy": "Rebuy", "klevu": "Klevu", "nosto": "Nosto"}.get(a["slug"], a["name"])
 scomp_links = "".join(f"<li><a href='{cslug(x,y)}'>{e(sshort(SBY[x]))} vs {e(sshort(SBY[y]))} pricing</a></li>" for x, y in SCOMPS) + "".join(f"<li><a href='{x}-alternatives.html'>{e(sshort(SBY[x]))} alternatives by real cost</a></li>" for x in SALTS)
 cats_html = (f"<div class='grid cats'><a class=card href='#support'><span class=idx>01 — Category</span><span class=go>→</span><b>AI customer support apps</b><p class=muted>{len(A)} helpdesks and AI agents (Gorgias, Tidio, Intercom Fin, Zendesk…) priced by conversations and AI resolutions.</p></a>"
@@ -357,6 +357,7 @@ page("principles.html", "Our Principles: How Stillprice Shows the Real Cost of S
 
 # ---- price moves (real changes and vendor replies, from the changelog in data/apps.json)
 MOVES = [
+ dict(date="2026-11-08", app="Rebuy", kind="Price change", src=("Rebuy pricing page", "https://www.rebuyengine.com/pricing"), cl="2026-11-08", items=[0, 1, 2]),
  dict(date="2026-10-26", app="Helpcenter (SB Helpdesk)", kind="Price change", src=("Shopify App Store listing", "https://apps.shopify.com/helpcenter"), cl="2026-10-26", items=[0, 1]),
  dict(date="2026-10-26", app="Fast Simon", kind="Price change", src=("Shopify App Store listing", "https://apps.shopify.com/instant-search"), cl="2026-10-26", items=[2]),
  dict(date="2026-10-19", app="LimeSpot", kind="Vendor reply", src=("LimeSpot Shopify pricing page", "https://limespot.com/shopify"), cl="2026-10-19", title="LimeSpot", items=None),

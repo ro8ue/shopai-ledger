@@ -2,7 +2,7 @@
   "site": {
     "name": "Stillprice",
     "base_url": "https://stillprice.com",
-    "updated": "2026-10-26",
+    "updated": "2026-11-08",
     "contact": "alinkewu@gmail.com",
     "sizes": [
       {
@@ -112,7 +112,7 @@
           "https://www.gorgias.com/pricing"
         ]
       ],
-      "checked": "2026-10-26",
+      "checked": "2026-11-08",
       "affiliate_url": "https://partner.gorgias.com/7bk6ikez45x3",
       "ai_short": "$1.00 per automated interaction (monthly), plus ticket fees"
     },
@@ -156,9 +156,9 @@
         },
         {
           "name": "Plus",
-          "monthly": null,
+          "monthly": 300,
           "annual": null,
-          "includes": "Custom pricing"
+          "includes": "From $300/mo plus separate AI and human conversation charges; larger quotas custom"
         }
       ],
       "params": {
@@ -179,7 +179,7 @@
         "Lyro tiers above 200 conversations/mo",
         "Customer Service tiers above 250 conversations/mo"
       ],
-      "notes": "The annual prices ($24.17, $49.17, $32.50) are monthly equivalents of yearly billing. The monthly prices are from Tidio's Shopify App Store listing.",
+      "notes": "The annual prices ($24.17, $49.17, $32.50) are monthly equivalents of yearly billing. The monthly prices are from Tidio's Shopify App Store listing. On 8 Nov 2026 Tidio's own pricing page listed Lyro as starting at $32.50/mo from 50 Lyro conversations, while the Shopify listing still said Lyro is $39/mo for up to 200 conversations. We still use the Shopify monthly figures for the estimate. Plus is listed from $300/mo plus separate usage.",
       "sources": [
         [
           "Tidio pricing page",
@@ -190,7 +190,7 @@
           "https://apps.shopify.com/tidio-chat"
         ]
       ],
-      "checked": "2026-10-26",
+      "checked": "2026-11-08",
       "affiliate_url": null,
       "ai_short": "Per Lyro conversation ($39 for 200), human chats billed separately"
     },
@@ -247,7 +247,7 @@
           "https://apps.shopify.com/intercom"
         ]
       ],
-      "checked": "2026-10-26",
+      "checked": "2026-11-08",
       "affiliate_url": null,
       "ai_short": "$0.99 per Fin outcome, plus per-seat fee"
     },
@@ -393,7 +393,7 @@
           "https://apps.shopify.com/inbox"
         ]
       ],
-      "checked": "2026-10-26",
+      "checked": "2026-11-08",
       "affiliate_url": null,
       "ai_short": "Free"
     },
@@ -443,9 +443,9 @@
           "https://www.richpanel.com/pricing"
         ]
       ],
-      "checked": "2026-10-26",
+      "checked": "2026-11-08",
       "affiliate_url": null,
-      "ai_short": "Token meter, ~$0.20\u20130.24 per AI conversation, $200/mo minimum, plus seats"
+      "ai_short": "Token meter, ~$0.20–0.24 per AI conversation, $200/mo minimum, plus seats"
     },
     {
       "slug": "reamaze",
@@ -477,7 +477,7 @@
           "name": "Starter",
           "monthly": 59,
           "annual": null,
-          "includes": "Flat rate, unlimited team members, 500 responded conversations/mo. No AI Agent (no AI resolutions)"
+          "includes": "Flat rate, unlimited team members, 500 responded conversations/mo, then $15 per 100 extra. No AI Agent (no AI resolutions)"
         }
       ],
       "params": {
@@ -505,7 +505,7 @@
           "https://www.reamaze.com/pricing"
         ]
       ],
-      "checked": "2026-10-26",
+      "checked": "2026-11-08",
       "affiliate_url": null,
       "ai_short": "$0.85 per resolution after small per-user allowance, plus seats"
     },
@@ -596,6 +596,12 @@
           "monthly": null,
           "annual": 960,
           "includes": "14,000 replies (~6,000 conversations)/mo"
+        },
+        {
+          "name": "Unlimited",
+          "monthly": 2100,
+          "annual": null,
+          "includes": "Quoted from $2,100/mo, locked for 12 months, unlimited replies; book a demo"
         }
       ],
       "params": {
@@ -636,7 +642,7 @@
           "https://apps.shopify.com/zipchat"
         ]
       ],
-      "checked": "2026-10-26",
+      "checked": "2026-11-08",
       "affiliate_url": null,
       "ai_short": "Per AI reply (plan allowances; $49 per 250 extra)"
     },
@@ -680,7 +686,7 @@
           "https://www.siena.cx/pricing"
         ]
       ],
-      "checked": "2026-10-26",
+      "checked": "2026-11-08",
       "affiliate_url": null,
       "ai_short": "$0.90 per automated ticket + $750/mo platform fee"
     },
@@ -749,7 +755,7 @@
           "https://apps.shopify.com/chatty"
         ]
       ],
-      "checked": "2026-10-26",
+      "checked": "2026-11-08",
       "affiliate_url": null,
       "ai_short": "Per AI conversation (plan allowances; $0.40 extra)"
     },
@@ -820,7 +826,7 @@
           "https://apps.shopify.com/helpcenter"
         ]
       ],
-      "checked": "2026-10-26",
+      "checked": "2026-11-08",
       "affiliate_url": null,
       "ai_short": "No AI agent fee; priced per ticket (AI FAQs)"
     },
@@ -855,6 +861,12 @@
           "monthly": 499,
           "annual": 399,
           "includes": "15,000 AI replies/mo, then $0.07 each up to $1,000/mo ($4,788/yr billed annually)"
+        },
+        {
+          "name": "Enterprise",
+          "monthly": null,
+          "annual": null,
+          "includes": "Custom quote for 50,000+ AI replies/mo"
         }
       ],
       "params": {
@@ -901,18 +913,28 @@
           "https://aide.app/pricing"
         ]
       ],
-      "checked": "2026-11-07",
+      "checked": "2026-11-08",
       "affiliate_url": null,
       "ai_short": "Per AI reply (allowances, then paid extras up to a cap)"
     }
   ],
   "changelog": [
     {
+      "date": "2026-11-08",
+      "title": "Weekly re-check: Rebuy changed prices",
+      "items": [
+        "Rebuy's official pricing page now publishes a monthly price table by order volume. Search & Collections, the search package we estimate, is $35 at up to 500 orders (our small store, 200 orders), $69 at 1,000 orders (medium) and $264 at 4,000 orders (large). We previously marked all three sizes as not public.",
+        "The same table lists Cart & Merchandising at $45/$89/$344, Checkout & Post-Purchase at $25/$49/$184 and Flows & A/B Testing at $35/$69/$264 for those same order volumes. 10,000+ orders is talk to sales. Bundle discounts remain 10% for two packages, 20% for three and 30% for four. We no longer list Platform One at $534/mo or Premium Support at $499/mo; those figures are not on the public page we read.",
+        "Source: https://www.rebuyengine.com/pricing (Monthly price by order volume). Prices are per package, billed monthly, before discounts.",
+        "Re-read the official pricing pages and Shopify App Store listings we could load for the other support and search apps. No other sample-store estimates changed. HubSpot's Starter monthly seat price and LimeSpot's full slider tiers could not be fully re-verified from the text we captured, so those two apps keep their 26 Oct check dates. Zendesk.com, Freshdesk's vendor pricing page, Athos/Klevu and Nosto's vendor pricing pages were blocked from this check, so they also keep their prior check dates."
+      ]
+    },
+    {
       "date": "2026-11-07",
       "title": "Aide paid plans bill extra replies instead of pausing at the allowance",
       "items": [
         "Aide's public pricing page now describes paid overages: Starter $0.15 per extra reply up to $110 a month, Pro $0.10 up to $350, Scale $0.07 up to $1,000. Free still pauses at 150 AI replies.",
-        "The calculator no longer jumps to the next plan as soon as the included replies run out. A store using 1,400 AI replies on Starter is $39 plus 400 \u00d7 $0.15 = $99, not Pro at $149.",
+        "The calculator no longer jumps to the next plan as soon as the included replies run out. A store using 1,400 AI replies on Starter is $39 plus 400 × $0.15 = $99, not Pro at $149.",
         "Sample store estimates, assuming one AI reply per conversation: small $39, medium $39, large $149. Checked on aide.app/pricing."
       ]
     },

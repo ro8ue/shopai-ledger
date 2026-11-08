@@ -54,7 +54,7 @@
       "pricing_url": "https://apps.shopify.com/search-and-discovery",
       "shopify_url": "https://apps.shopify.com/search-and-discovery",
       "unconfirmed": [],
-      "notes": "Rated 2.6/5 (511 reviews) on the Shopify App Store when checked. Merchants with big catalogs or heavy merchandising needs often outgrow it, which is why the paid apps below exist.",
+      "notes": "Rated 2.6/5 (515 reviews) on the Shopify App Store when checked. Merchants with big catalogs or heavy merchandising needs often outgrow it, which is why the paid apps below exist.",
       "sources": [
         [
           "Shopify App Store listing",
@@ -65,7 +65,7 @@
           "https://help.shopify.com/en/manual/online-store/storefront-search/search-and-discovery-modify-search"
         ]
       ],
-      "checked": "2026-10-26",
+      "checked": "2026-11-08",
       "affiliate_url": "",
       "unit": "Free"
     },
@@ -125,6 +125,12 @@
           "monthly": null,
           "annual": null,
           "includes": "Up to 2,000,000 products; custom quote"
+        },
+        {
+          "name": "Basic for Plus",
+          "monthly": 49,
+          "annual": 41,
+          "includes": "Shopify Plus stores; up to 1,500 products ($492/year)"
         }
       ],
       "params": {
@@ -171,7 +177,7 @@
       "pricing_url": "https://searchanise.io/pricing/",
       "shopify_url": "https://apps.shopify.com/searchanise",
       "unconfirmed": [],
-      "notes": "Annual billing saves up to 17% (e.g. Essential $396/yr = $33/mo).",
+      "notes": "Annual billing saves up to 17% (e.g. Essential $396/yr = $33/mo). The Shopify listing also shows Basic for Plus at $49/mo or $492/year, up to 1,500 products. We keep that separate from standard-store Basic at $19.",
       "sources": [
         [
           "Searchanise Shopify pricing",
@@ -182,7 +188,7 @@
           "https://apps.shopify.com/searchanise"
         ]
       ],
-      "checked": "2026-10-26",
+      "checked": "2026-11-08",
       "affiliate_url": "https://searchanise.io/affiliate-program/get/?fpr=ali-922346",
       "unit": "Products"
     },
@@ -255,7 +261,7 @@
           "https://support.boostcommerce.net/en/articles/12545618-gmv-based-pricing-plan-overview"
         ]
       ],
-      "checked": "2026-10-26",
+      "checked": "2026-11-08",
       "affiliate_url": "",
       "unit": "Monthly GMV"
     },
@@ -341,7 +347,7 @@
           "https://www.fastsimon.com/pricing/"
         ]
       ],
-      "checked": "2026-10-26",
+      "checked": "2026-11-08",
       "affiliate_url": "",
       "unit": "Sessions"
     },
@@ -416,7 +422,7 @@
           "https://www.doofinder.com/en/pricing"
         ]
       ],
-      "checked": "2026-10-26",
+      "checked": "2026-11-08",
       "affiliate_url": "",
       "unit": "Requests"
     },
@@ -473,7 +479,7 @@
           "https://www.algolia.com/pricing"
         ]
       ],
-      "checked": "2026-10-26",
+      "checked": "2026-11-08",
       "affiliate_url": "",
       "unit": "Search requests"
     },
@@ -581,7 +587,7 @@
           "https://apps.shopify.com/recommended-products-wiser"
         ]
       ],
-      "checked": "2026-10-26",
+      "checked": "2026-11-08",
       "affiliate_url": "",
       "unit": "Orders"
     },
@@ -776,10 +782,10 @@
       "slug": "rebuy",
       "name": "Rebuy Personalization Engine",
       "type": "AI personalization, smart cart, search & upsells",
-      "model": "quote",
-      "summary": "Popular personalization suite (smart cart, upsells, bundles, Smart Search) sold as à-la-carte packages, each priced by your monthly Shopify orders, or as the all-in-one Platform One.",
-      "ai_billing": "Each package (Cart & Merchandising, Checkout & Post Purchase, Search & Collections, Flows & A/B Testing) is priced by orders per month, from $25/mo for one package. Bundling saves 10% on two, 20% on three and 30% on four. Premium support is $499/mo. Rebuy bills on a 30-day cycle based on the previous 30 days' orders.",
-      "ai_short": "Per package, priced by monthly orders (from $25)",
+      "model": "tiered",
+      "summary": "Popular personalization suite (smart cart, upsells, bundles, Smart Search) sold as a-la-carte packages, each priced by your monthly Shopify orders.",
+      "ai_billing": "Each package (Cart & Merchandising, Checkout & Post-Purchase, Search & Collections, Flows & A/B Testing) is priced by orders per month. The public table starts at $25/mo for Checkout & Post-Purchase and $35/mo for Search & Collections, both at up to 500 orders. Bundling saves 10% on two packages, 20% on three and 30% on four. Rebuy bills on a 30-day cycle based on the previous 30 days' orders.",
+      "ai_short": "Search & Collections package, billed by monthly orders",
       "plans": [
         {
           "name": "Rebuy Monetize",
@@ -788,56 +794,98 @@
           "includes": "Free; pays you for post-purchase partner offers"
         },
         {
-          "name": "Build your own (per package)",
+          "name": "Checkout & Post-Purchase",
           "monthly": 25,
           "annual": null,
-          "includes": "From $25/mo per package; per-order tiers not public"
+          "includes": "From $25/mo at up to 500 orders; $49 at 1,000; $184 at 4,000; talk to sales at 10,000+"
         },
         {
-          "name": "Platform One",
-          "monthly": 534,
+          "name": "Search & Collections",
+          "monthly": 35,
           "annual": null,
-          "includes": "All packages; Rebuy's page shows $534/mo billed monthly (order volume for that figure not stated)"
+          "includes": "From $35/mo at up to 500 orders; $69 at 1,000; $264 at 4,000. This is the package we estimate."
         },
         {
-          "name": "Premium Support",
-          "monthly": 499,
+          "name": "Flows & A/B Testing",
+          "monthly": 35,
           "annual": null,
-          "includes": "Add-on"
+          "includes": "Same published order tiers as Search & Collections"
+        },
+        {
+          "name": "Cart & Merchandising",
+          "monthly": 45,
+          "annual": null,
+          "includes": "From $45/mo at up to 500 orders; $89 at 1,000; $344 at 4,000"
         }
       ],
       "params": {
-        "msgs": [
-          "Rebuy prices each package by orders per month but doesn't publish the order tiers. Lowest published price: $25/mo for one package.",
-          "Order-based tiers not public. Talk to Rebuy's sales team or check the in-app estimate.",
-          "Order-based tiers not public. Platform One is shown at $534/mo, but the order volume behind that figure isn't stated."
-        ],
+        "metric": "orders",
         "plans": [
-          "From $25/mo per package",
-          "Not public",
-          "Not public"
-        ],
-        "totals": [
-          null,
-          null,
-          null
+          [
+            "Search & Collections",
+            35,
+            500
+          ],
+          [
+            "Search & Collections",
+            51.75,
+            750
+          ],
+          [
+            "Search & Collections",
+            69,
+            1000
+          ],
+          [
+            "Search & Collections",
+            102,
+            1500
+          ],
+          [
+            "Search & Collections",
+            136,
+            2000
+          ],
+          [
+            "Search & Collections",
+            201,
+            3000
+          ],
+          [
+            "Search & Collections",
+            264,
+            4000
+          ],
+          [
+            "Search & Collections",
+            325,
+            5000
+          ],
+          [
+            "Search & Collections",
+            465,
+            7500
+          ]
         ]
       },
       "free_alt": "Shopify Search & Discovery (free) adds basic related-product recommendations.",
       "pricing_url": "https://www.rebuyengine.com/pricing",
       "shopify_url": "https://apps.shopify.com/rebuy",
       "unconfirmed": [
-        "Order-based package tiers are not public (the page shows placeholders until you pick a volume)",
         "When we checked from our location, the Shopify App Store page showed 'not currently available'. It may be regional; check the listing yourself"
       ],
-      "notes": "Existing customers aren't automatically moved to package pricing.",
+      "notes": "We estimate Search & Collections, the search package, from the public order-volume table on Rebuy's pricing page. Other packages have different prices (Checkout & Post-Purchase is the cheapest starting package, from $25). Do not interpolate between published rows. 10,000+ orders is talk to sales. Annual billing is advertised as 10% off, but we did not see per-tier annual figures so estimates use monthly list prices. Existing customers are not automatically moved to package pricing. Platform One at $534/mo and Premium Support at $499/mo, which we previously listed, are not on the public page we read on 8 Nov 2026.",
       "sources": [
         [
           "Rebuy pricing page",
           "https://www.rebuyengine.com/pricing"
+        ],
+        [
+          "Rebuy on Shopify App Store",
+          "https://apps.shopify.com/rebuy"
         ]
       ],
-      "checked": "2026-10-26",
+      "checked": "2026-11-08",
       "affiliate_url": "",
       "unit": "Orders"
     },
