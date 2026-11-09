@@ -32,7 +32,7 @@
       "name": "Gorgias",
       "type": "Helpdesk + AI agent",
       "model": "gorgias",
-      "summary": "An ecommerce helpdesk billed by ticket volume, not seats. Every plan includes an AI Agent that bills per use.",
+      "summary": "An ecommerce helpdesk billed by ticket volume, not seats. You can add an AI Agent to any plan, and interactions past its allowance bill per use.",
       "ai_billing": "Each plan card adds an AI Agent block with a set number of automated interactions, priced at $1.00 each on a monthly contract or $0.90 on annual. On Pro monthly, that is $360 for the helpdesk plus $190 for the AI Agent, $550 in all. Past the included interactions, every plan card charges $1.50 each. Each automated interaction also counts as a helpdesk ticket.",
       "plans": [
         {
@@ -932,7 +932,7 @@
       "date": "2026-11-09",
       "title": "Weekly re-check: no price changes",
       "items": [
-        "Re-read the official pricing pages and Shopify App Store listings for every support and search app we track. No plan prices, usage rates or sample-store estimates changed since 8 Nov.",
+        "Re-read the official pricing pages and Shopify App Store listings for every support and search app we track. No plan prices or usage rates changed since 8 Nov. The only sample-store estimates that moved are Gorgias's, after the methodology correction above.",
         "Zendesk, Freshdesk, Athos (Klevu/Searchspring) and Nosto loaded this week and still match what we list: Zendesk and Freshdesk prices unchanged, Athos and Nosto still quote only. Richpanel (monthly $119 per seat, $0.60 per credit) and LimeSpot (Turbo and Max slider tiers) were re-read and unchanged.",
         "HubSpot's pricing page would not load its price table again, so its seat prices keep the 26 Oct check date. HubSpot's own Customer Agent page still says $0.50 per resolution."
       ]
@@ -1016,6 +1016,7 @@
         "Recorded official prices for Gorgias, Tidio (Lyro), Intercom Fin, Zendesk, HubSpot Service Hub, Shopify Inbox, Richpanel, Re:amaze, Freshdesk, Zipchat, Siena AI, Chatty and Helpcenter.",
         "Noted: Zendesk's Shopify App Store listing still shows Suite Growth ($89/agent) and Suite Enterprise ($150/agent), which weren't on zendesk.com/pricing on this date.",
         "Noted: Gorgias's pricing page markup contains two price sets. We use the detailed plan data (Basic $60, Pro $360, Advanced $900 monthly).",
+        "Update, 9 Nov 2026: the second set is the annual price for Helpdesk plus AI Agent (Basic $77, Pro $471, Advanced $1,227). Our estimates now use the monthly Helpdesk plus AI Agent cards.",
         "Noted: Intercom's Shopify listing shows monthly seat prices ($39/$99/$139) and intercom.com shows annual ($29/$85/$132)."
       ]
     }
