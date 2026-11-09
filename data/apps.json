@@ -33,31 +33,31 @@
       "type": "Helpdesk + AI agent",
       "model": "gorgias",
       "summary": "An ecommerce helpdesk billed by ticket volume, not seats. Every plan includes an AI Agent that bills per use.",
-      "ai_billing": "Each automated interaction costs $1.00 on a monthly contract or $0.90 on annual. It also counts as a helpdesk ticket. Gorgias's page also lists $1.50 per interaction for overage above a plan's included allowance.",
+      "ai_billing": "Past the included automated interactions, Gorgias bills $1.50 per interaction on every plan card. The included AI Agent block itself is priced at $1.00 each on monthly contracts ($0.90 annual), shown as a separate line on the card (Pro monthly is Helpdesk $360 + AI Agent $190 = $550). Each automated interaction also counts as a helpdesk ticket.",
       "plans": [
         {
           "name": "Starter",
-          "monthly": 10,
+          "monthly": 40,
           "annual": null,
-          "includes": "50 tickets/mo, 30 AI interactions; $0.40/extra ticket; monthly billing only"
+          "includes": "Helpdesk $10 + AI Agent $30; 50 tickets/mo, 30 AI interactions; $0.40/extra ticket; $1.50/AI past limit; monthly billing only"
         },
         {
           "name": "Basic",
-          "monthly": 60,
-          "annual": 50,
-          "includes": "300 tickets/mo, 30 AI interactions; $0.40/extra ticket"
+          "monthly": 90,
+          "annual": 77,
+          "includes": "Helpdesk $60/$50 + AI Agent $30/$27; 300 tickets/mo, 30 AI interactions; $0.40/extra ticket; $1.50/AI past limit"
         },
         {
           "name": "Pro",
-          "monthly": 360,
-          "annual": 300,
-          "includes": "2,000 tickets/mo, 190 AI interactions; $0.36/extra ticket"
+          "monthly": 550,
+          "annual": 471,
+          "includes": "Helpdesk $360/$300 + AI Agent $190/$171; 2,000 tickets/mo, 190 AI interactions; $0.36/extra ticket; $1.50/AI past limit"
         },
         {
           "name": "Advanced",
-          "monthly": 900,
-          "annual": 750,
-          "includes": "5,000 tickets/mo, 530 AI interactions; $0.36/extra ticket (sold via demo)"
+          "monthly": 1430,
+          "annual": 1227,
+          "includes": "Helpdesk $900/$750 + AI Agent $530/$477; 5,000 tickets/mo, 530 AI interactions; $0.36/extra ticket; $1.50/AI past limit (sold via demo)"
         },
         {
           "name": "Enterprise",
@@ -70,34 +70,34 @@
         "plans": [
           [
             "Starter",
-            10,
+            40,
             50,
             0.4,
             30
           ],
           [
             "Basic",
-            60,
+            90,
             300,
             0.4,
             30
           ],
           [
             "Pro",
-            360,
+            550,
             2000,
             0.36,
             190
           ],
           [
             "Advanced",
-            900,
+            1430,
             5000,
             0.36,
             530
           ]
         ],
-        "ai_unit": 1.0,
+        "ai_unit": 1.5,
         "ai_overage_note": 1.5
       },
       "free_alt": "Shopify Inbox covers storefront chat and a basic AI agent for free. It does not do email ticketing.",
@@ -105,7 +105,7 @@
       "site_url": "https://www.gorgias.com/",
       "shopify_url": "https://apps.shopify.com/helpdesk",
       "unconfirmed": [],
-      "notes": "The code behind Gorgias's pricing page also contains a second, higher price set (Basic $77, Pro $471, Advanced $1,227). We used the detailed plan data on the same page (tickets, overage, AI allowance). Check your quote on gorgias.com.",
+      "notes": "Estimates use Gorgias's monthly plan cards with AI Agent added (Starter $40, Basic $90, Pro $550, Advanced $1,430) and $1.50 per interaction past the included allowance. The FAQ rate of $1.00 monthly / $0.90 annual is the price of the included AI Agent block, not the overage. Annual cards are Basic $77, Pro $471, Advanced $1,227. Check your quote on gorgias.com.",
       "sources": [
         [
           "Gorgias pricing page",
@@ -114,7 +114,7 @@
       ],
       "checked": "2026-11-09",
       "affiliate_url": "https://partner.gorgias.com/7bk6ikez45x3",
-      "ai_short": "$1.00 per automated interaction (monthly), plus ticket fees"
+      "ai_short": "$1.50 per automated interaction past the included allowance (monthly), plus helpdesk and AI Agent fees"
     },
     {
       "slug": "tidio",
@@ -919,6 +919,15 @@
     }
   ],
   "changelog": [
+    {
+      "date": "2026-11-09",
+      "title": "Methodology correction: Gorgias estimates now match the plan cards",
+      "items": [
+        "Gorgias's pricing page shows Helpdesk + AI Agent on every plan. The monthly cards are Starter $40, Basic $90, Pro $550 and Advanced $1,430, and past the included automated interactions the cards bill $1.50 each. We previously treated the helpdesk-only prices ($10 / $60 / $360 / $900) as the plan base and billed AI extras at $1.00, which understated the bill.",
+        "New estimates (monthly, AI resolves 50%): small store $195 (was $130), medium $1,015 (was $670), large $3,635 (was $2,370). A medium store at twice the volume is $1,765 (was $1,170). The FAQ rates of $1.00 monthly / $0.90 annual are the included AI Agent block, not the overage.",
+        "This is a methodology correction to match Gorgias's own plan cards, not a vendor price change. Checked on gorgias.com/pricing on 9 Nov 2026."
+      ]
+    },
     {
       "date": "2026-11-09",
       "title": "Weekly re-check: no price changes",

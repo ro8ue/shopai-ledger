@@ -61,11 +61,11 @@ ANALYTICS = "" if not UMAMI_ID else (
 VERDICTS = {
  "gorgias-pricing.html": dict(app="Gorgias", aff=True,
   suits="Stores that live in email and social tickets and want orders, returns and refunds handled in one helpdesk. Gorgias bills by tickets, not seats, so a big team on modest volume does fine.",
-  over="Small and medium stores that mostly need chat. On our numbers a medium store pays about $670 a month on Pro. Chatty costs $199 and Zipchat $300 at the same volume. Nearly half the Gorgias bill, $310, is AI: 500 AI interactions, minus the 190 included, at $1.00 each.",
-  gotchas=["Every AI interaction also counts as a helpdesk ticket, so automation eats into your ticket allowance too.","The pricing page lists $1.50 per interaction above a plan's included allowance.","The code behind that page carries a second, higher price set (Basic $77, Pro $471, Advanced $1,227). Get your quote in writing.","Advanced ($900 a month) is sold through a demo. You cannot just click to buy it."],
+  over="Small and medium stores that mostly need chat. On our numbers a medium store pays about $1,015 a month on Pro. Chatty costs $199 and Zipchat $300 at the same volume. Of the Gorgias bill, $465 is AI overage: 500 AI interactions, minus the 190 included, at $1.50 each. The Pro card itself is $550 (Helpdesk $360 + AI Agent $190).",
+  gotchas=["Every AI interaction also counts as a helpdesk ticket, so automation eats into your ticket allowance too.","Past the included allowance the plan cards charge $1.50 per automated interaction. The FAQ rates of $1.00 monthly and $0.90 annual are the price of the included AI Agent block, not the overage.","Annual cards with AI Agent are Basic $77, Pro $471 and Advanced $1,227. Get your quote in writing.","Advanced ($1,430 a month with AI Agent) is sold through a demo. You cannot just click to buy it."],
   bottom="Good product, often poor value at or below about 1,000 conversations a month. We earn a commission if you sign up through our link. That does not change this verdict."),
  "gorgias-alternatives.html": dict(app="Gorgias alternatives", aff=False,
-  suits="If you need a real helpdesk, Re:amaze, HubSpot and Intercom Fin land between $420 and $575 a month for our medium store, below Gorgias at $670. If you only need chat with AI, Chatty ($199) and Zipchat ($300) cost far less.",
+  suits="If you need a real helpdesk, Re:amaze, HubSpot and Intercom Fin land between $420 and $575 a month for our medium store, below Gorgias at $1,015. If you only need chat with AI, Chatty ($199) and Zipchat ($300) cost far less.",
   over="Anyone paying for a full helpdesk when Shopify Inbox would do. Inbox is free and now has an AI agent. Zendesk is the priciest on our numbers at about $1,118 for a medium store and $4,295 for a large one.",
   gotchas=["Seat based tools (Intercom, Zendesk, HubSpot, Re:amaze, Freshdesk, Richpanel) get expensive fast as your team grows.","Chat only tools (Zipchat, Chatty, Shopify Inbox) do not handle email tickets, so they are not a like for like swap.","Tidio's prices above the small store tier are not public, so we cannot rank it there."],
   bottom="Price the job you actually have. Most small stores are buying more helpdesk than they use."),
@@ -411,6 +411,7 @@ page("principles.html", "Our Principles: How Stillprice Shows the Real Cost of S
 
 # ---- price moves (real changes and vendor replies, from the changelog in data/apps.json)
 MOVES = [
+ dict(date="2026-11-09", app="Gorgias", kind="Methodology correction", src=("Gorgias pricing page", "https://www.gorgias.com/pricing"), cl="2026-11-09", title="Methodology correction", items=None),
  dict(date="2026-11-08", app="Rebuy", kind="Price change", src=("Rebuy pricing page", "https://www.rebuyengine.com/pricing"), cl="2026-11-08", items=[0, 1, 2]),
  dict(date="2026-10-26", app="Helpcenter (SB Helpdesk)", kind="Price change", src=("Shopify App Store listing", "https://apps.shopify.com/helpcenter"), cl="2026-10-26", items=[0, 1]),
  dict(date="2026-10-26", app="Fast Simon", kind="Price change", src=("Shopify App Store listing", "https://apps.shopify.com/instant-search"), cl="2026-10-26", items=[2]),
