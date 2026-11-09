@@ -2,3 +2,5 @@ __pycache__/
 *.png
 STATE.md
 outreach/
+.vercel/
+site/.vercel/

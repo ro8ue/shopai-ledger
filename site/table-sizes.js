@@ -1,6 +1,6 @@
 /* Local controls keep every stored price in the document. */
 (() => {
-  const legacy = { '#support': 'shopify-ai-support-apps.html', '#search': 'shopify-ai-search-apps.html' };
+  const legacy = { '#support': '/shopify-ai-support-apps', '#search': '/shopify-ai-search-apps' };
   if ((location.pathname === '/' || location.pathname.endsWith('/index.html')) && legacy[location.hash]) {
     location.replace(legacy[location.hash]);
     return;

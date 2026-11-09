@@ -1,4 +1,4 @@
-import json, html, pathlib
+import json, html, pathlib, re
 from calc import MODELS, m
 R = pathlib.Path(__file__).parent
 O = R / "site"; O.mkdir(exist_ok=True)
@@ -21,11 +21,21 @@ def cell(o, mx, txt):
     return f"{txt}<span class=bar style='--w:{max(0, min(100, round(o['total'] / mx * 100)))}%'></span>"
 
 CSS = (R / "design.css").read_text()  # edit design.css, not style.css (style.css is generated)
-import re
 HERO_END = "<!--/hero-->"
 
 NAV = [(SUPPORT, "Support apps"), (SLAND, "Search & recommendations"), ("essays.html", "Essays"), ("/stack-audit", "Stack Audit")]
-def ld(o): return '<script type="application/ld+json">' + json.dumps(o) + "</script>"
+def ld(*objs): return "".join('<script type="application/ld+json">' + json.dumps(o) + "</script>" for o in objs)
+def curl(fn):  # clean absolute URL for a generated page file name
+    return S["base_url"] + "/" + ("" if fn == "index.html" else fn[:-5] if fn.endswith(".html") else fn)
+# Internal links use clean URLs (vercel.json cleanUrls): 'gorgias-pricing.html#x' -> '/gorgias-pricing#x', 'index.html' -> '/'.
+_INT = re.compile(r"""href=(['"])(?![a-z][a-z0-9+.-]*:|/|#)([a-z0-9][a-z0-9-]*)\.html(#[^'"]*)?\1""")
+def clean_links(h): return _INT.sub(lambda m: f"href={m[1]}/{'' if m[2] == 'index' else m[2]}{m[3] or ''}{m[1]}", h)
+def crumbs(*items):  # BreadcrumbList from (name, page file name) pairs
+    return {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": i + 1, "name": n, "item": curl(f)} for i, (n, f) in enumerate(items)]}
+def webpage(fn, title, desc, modified):
+    return {"@context": "https://schema.org", "@type": "WebPage", "name": title, "description": desc, "url": curl(fn), "dateModified": modified, "inLanguage": "en", "isPartOf": {"@type": "WebSite", "name": "Stillprice", "url": S["base_url"] + "/"}, "publisher": {"@type": "Organization", "name": "Stillprice", "url": S["base_url"] + "/"}}
+def itemlist(name, apps, fn_of):
+    return {"@context": "https://schema.org", "@type": "ItemList", "name": name, "numberOfItems": len(apps), "itemListElement": [{"@type": "ListItem", "position": i + 1, "url": curl(fn_of(a)), "name": a["name"]} for i, a in enumerate(apps)]}
 PAGES = []
 LOGO = """<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="0.5" y="0.5" width="23" height="23" rx="4" fill="none" stroke="currentColor" stroke-opacity=".35"/><rect x="5" y="6" width="14" height="2" rx="1" fill="currentColor"/><rect x="5" y="11" width="9" height="2" rx="1" fill="currentColor"/><rect x="5" y="16" width="11.5" height="2" rx="1" fill="currentColor" fill-opacity=".55"/></svg>"""
 FONTS = '<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap">'
@@ -76,7 +86,7 @@ def verdict(fn):
             "<p class=muted style='font-size:14px'>Opinion, written by a person. Numbers come from the estimates on this site. <a href='principles.html'>Affiliate status never changes a verdict.</a></p></div>")
 def page(fn, title, desc, body, head=""):
     PAGES.append(fn)
-    url = S["base_url"] + "/" + ("" if fn == "index.html" else fn[:-5] if fn.endswith(".html") else fn)
+    url = curl(fn)
     nav = "".join(f'<a href="{h}"' + (' aria-current="page"' if h == fn else "") + f'>{t}</a>' for h, t in NAV)
     news = NEWS in body; body = body.replace(NEWS, "")
     hero, sep, rest = body.partition(HERO_END)
@@ -96,7 +106,7 @@ def page(fn, title, desc, body, head=""):
     rest = re.sub(r"<h2([^>]*)>(.*?)</h2>", _sec, rest)
     _eb=lambda s: re.sub(r'(<p class=\W?eyebrow\W?[^>]*>)\(\s*(.*?)\s*\)(</p>)', r"\1\2\3", s)
     hero, rest = _eb(hero), _eb(rest)
-    (O / fn).write_text(f"""<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="google-site-verification" content="JHZv0niTmEJr6Eywzr3X6kB2OFSl9WHrn6igGEJn2Qw" />
+    (O / fn).write_text(clean_links(f"""<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="google-site-verification" content="JHZv0niTmEJr6Eywzr3X6kB2OFSl9WHrn6igGEJn2Qw" />
 <title>{e(title)}</title><meta name="description" content="{e(desc)}"><link rel="canonical" href="{url}">
 <meta property="og:type" content="website"><meta property="og:site_name" content="Stillprice"><meta property="og:title" content="{e(title)}"><meta property="og:description" content="{e(desc)}"><meta property="og:url" content="{url}"><meta property="og:image" content="https://stillprice.com/og-default.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="What Shopify AI apps really cost. Stillprice."><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://stillprice.com/og-default.jpg">
 <meta name="theme-color" content="#0A0A0A"><link rel="icon" href="favicon.svg" type="image/svg+xml">
@@ -105,7 +115,7 @@ def page(fn, title, desc, body, head=""):
 {hero}<main class="wrap">{rest}</main>{_eb(NEWS) if news else ""}
 <footer class="site"><div class="wrap"><div><a class="logo" href="index.html"><span>Stillprice</span></a><p>Stillprice is independent and not affiliated with Shopify or any app listed. Prices are in USD, checked by hand on the date shown, and can change at any time. Always confirm on the vendor's site.</p></div>
 <div class="links"><a href="gorgias-alternatives.html">Gorgias alternatives</a><a href="principles.html">Our principles</a><a href="price-moves.html">Price moves</a><a href="methodology.html">How we calculate</a><a href="disclosure.html">Affiliate disclosure</a><a href="changelog.html">Change log</a><a href="free-calculator.html">Free cost calculator</a><a href="https://stillprice.substack.com/subscribe">Weekly email signup</a><a href="advertise.html">Advertise / get listed</a><a href="mailto:{S['contact']}?subject=Stillprice%20correction">Report a wrong price</a></div>
-<div class="base"><span>Prices checked {S['updated']}</span><a href="#">Back to top ↑</a></div></div></footer></body></html>""")
+<div class="base"><span>Prices checked {S['updated']}</span><a href="#">Back to top ↑</a></div></div></footer></body></html>"""))
 
 # Newsletter: Substack signup (stillprice.substack.com) inside the cream .news .embed card.
 NEWS = """<section class="news" id="newsletter"><div class="wrap"><div><p class="eyebrow">( The Ledger )</p><h2>The Ledger, every Monday</h2>
@@ -188,11 +198,12 @@ page(SUPPORT, "Shopify AI Support Apps: Real Monthly Cost Compared (2026) | Stil
  f"<div class=callout><b>The free option first.</b> <a href='shopify-inbox-pricing.html'>Shopify Inbox</a> is free and now includes an AI agent trained on your catalog and policies. If you only need storefront chat, start there. Paid apps make sense when you need email/social ticketing, order actions, or higher automation.</div>"
  f"<h2>Support pricing comparisons</h2><ul>{comp_links}<li><a href='gorgias-alternatives.html'>Gorgias alternatives by real cost</a></li></ul>"
  f"<h2>Why the support bill surprises people</h2><div class=grid><div class=card><b>Per-resolution billing</b><p class=muted>Gorgias, Zendesk, Intercom Fin, HubSpot, Re:amaze and Siena charge for each conversation the AI closes. Better automation means a bigger AI line on the bill.</p></div><div class=card><b>Per-conversation or per-reply billing</b><p class=muted>Tidio Lyro, Chatty, Richpanel, Freshdesk and Zipchat count conversations (or messages) the AI touches, resolved or not.</p></div><div class=card><b>Seats still matter</b><p class=muted>Intercom, Zendesk, HubSpot, Re:amaze, Freshdesk and Richpanel also charge per human agent seat, and HubSpot Professional adds a one-time onboarding fee.</p></div></div>"
- f"{NEWS}")
+ f"{NEWS}",
+ head=ld(itemlist("Shopify AI customer support apps", ordered, lambda a: f"{a['slug']}-pricing.html"), crumbs(("Stillprice", "index.html"), ("Support apps", SUPPORT))))
 
 # ---- app pages
 def plans_table(a):
-    rows = "".join(f"<tr><td><b>{e(p['name'])}</b></td><td class=n data-l='Monthly'>{m(p['monthly']) if p['monthly'] is not None else '—'}</td><td class=n data-l='Annual /mo'>{m(p['annual']) if p['annual'] is not None else '—'}</td><td>{e(p['includes'])}</td></tr>" for p in a["plans"])
+    rows = "".join(f"<tr><td><b>{e(p['name'])}</b></td><td class=n data-l='Monthly'>{m(p['monthly']) if p['monthly'] is not None else 'n/a'}</td><td class=n data-l='Annual /mo'>{m(p['annual']) if p['annual'] is not None else 'n/a'}</td><td>{e(p['includes'])}</td></tr>" for p in a["plans"])
     return f"<div class=tw><table class=plans><thead><tr><th>Plan</th><th>Monthly billing</th><th>Annual (per mo)</th><th>What's included</th></tr></thead><tbody>{rows}</tbody></table></div>"
 def est_block(a):
     out = ""
@@ -237,20 +248,24 @@ for x, y in COMPS:
     rows = "".join(f"<tr><th>{lab}</th><td>{fa_}</td><td>{fb}</td></tr>" for lab, fa_, fb in [
         ("Type", e(a["type"]), e(b["type"])), ("How AI is billed", e(a["ai_billing"]), e(b["ai_billing"])),
         *[(f"{s['label']} ({s['conv']:,} conv)", f"<b>{money(oa)}</b><br><span class=muted>{e(oa['plan'])}</span>", f"<b>{money(ob)}</b><br><span class=muted>{e(ob['plan'])}</span>") for s, oa, ob in zip(SIZES, a["est"], b["est"])],
-        ("Free Shopify alternative", e(a.get("free_alt") or "—"), e(b.get("free_alt") or "—")), ("Checked", a["checked"], b["checked"]),
+        ("Free Shopify alternative", e(a.get("free_alt") or "n/a"), e(b.get("free_alt") or "n/a")), ("Checked", a["checked"], b["checked"]),
         ("Details", f"<a href='{x}-pricing.html'>{e(na)} pricing & math</a>", f"<a href='{y}-pricing.html'>{e(nb)} pricing & math</a>")])
-    page(cslug(x, y), f"{na} vs {nb} Pricing 2026: Which Costs Less for a Shopify Store? | Stillprice",
-     f"{na} vs {nb}: how each bills for AI, and the estimated monthly cost for small, medium and large Shopify stores side by side. Prices checked {S['updated']}.",
+    _t = f"{na} vs {nb} Pricing 2026: Which Costs Less for a Shopify Store? | Stillprice"
+    _d = f"{na} vs {nb}: how each bills for AI, and the estimated monthly cost for small, medium and large Shopify stores side by side. Prices checked {S['updated']}."
+    page(cslug(x, y), _t, _d,
      f"<h1>{e(na)} vs {e(nb)} pricing</h1><p class=lead>How {e(na)} and {e(nb)} bill for AI, and what each would cost the same Shopify store, using official prices checked {S['updated']}.</p>{HERO_END}<div class=box><b>Short answer:</b><ul>{''.join(lines)}</ul>Try your own numbers in the <a href='free-calculator.html'>free calculator</a>, or see <a href='gorgias-alternatives.html'>every support app by real cost</a>.</div>{sizes_html}"
      f"<div class=tw><table class=vs><thead><tr><th></th><th>{e(na)}</th><th>{e(nb)}</th></tr></thead><tbody>{rows}</tbody></table></div><h2>Bottom line on cost</h2><ul>{''.join(lines)}</ul>" + vs_btns({**a, "_n": na}, {**b, "_n": nb}) +
-     "<p class=muted>Cost is only one factor. Features, channels, integrations and AI quality differ, and your real volume and resolution rate will move these numbers. See the full math on each app's page.</p>" + NEWS)
+     "<p class=muted>Cost is only one factor. Features, channels, integrations and AI quality differ, and your real volume and resolution rate will move these numbers. See the full math on each app's page.</p>" + NEWS,
+     head=ld(webpage(cslug(x, y), _t, _d, S["updated"]), crumbs(("Stillprice", "index.html"), ("Support apps", SUPPORT), (f"{na} vs {nb} pricing", cslug(x, y)))))
 
 # ---- Gorgias alternatives
 alts = [o for o in ordered if o["slug"] != "gorgias"]
-page("gorgias-alternatives.html", "Gorgias Alternatives 2026: Real Monthly Cost of 12 AI Support Apps for Shopify | Stillprice",
- "Gorgias alternatives for Shopify compared on real monthly cost at three store sizes: Tidio, Intercom Fin, Zendesk, HubSpot, Richpanel, Re:amaze, Freshdesk, Zipchat, Chatty and Shopify Inbox.",
+_t = "Gorgias Alternatives 2026: Real Monthly Cost of 12 AI Support Apps for Shopify | Stillprice"
+_d = "Gorgias alternatives for Shopify compared on real monthly cost at three store sizes: Tidio, Intercom Fin, Zendesk, HubSpot, Richpanel, Re:amaze, Freshdesk, Zipchat, Chatty and Shopify Inbox."
+page("gorgias-alternatives.html", _t, _d,
  f"<h1>Gorgias alternatives, compared on real cost</h1><p class=lead>For reference, Gorgias comes out at about <b>{money(BY['gorgias']['est'][0])}</b> (small), <b>{money(BY['gorgias']['est'][1])}</b> (medium) and <b>{money(BY['gorgias']['est'][2])}</b> (large) a month on our assumptions (<a href='gorgias-pricing.html'>see the math</a>). Here's how the alternatives price out for the same store.</p>{HERO_END}"
- f"{sizes_html}{table(alts)}<p class=muted>Some of these are full helpdesks, and others (Zipchat, Chatty, Shopify Inbox) are chat/AI layers only. Compare like with like. <a href='methodology.html'>How we calculate</a>.</p>{NEWS}")
+ f"{sizes_html}{table(alts)}<p class=muted>Some of these are full helpdesks, and others (Zipchat, Chatty, Shopify Inbox) are chat/AI layers only. Compare like with like. <a href='methodology.html'>How we calculate</a>.</p>{NEWS}",
+ head=ld(webpage("gorgias-alternatives.html", _t, _d, S["updated"]), crumbs(("Stillprice", "index.html"), ("Support apps", SUPPORT), ("Gorgias alternatives", "gorgias-alternatives.html"))))
 
 # ---- search & recommendations: category landing
 page(SLAND, "Shopify AI Search & Product Recommendation Apps: Real Monthly Cost Compared (2026) | Stillprice",
@@ -262,11 +277,11 @@ page(SLAND, "Shopify AI Search & Product Recommendation Apps: Real Monthly Cost 
  "<h2>What each app bills on</h2><div class=grid><div class=card><b>Product count</b><p class=muted>Searchanise: flat price by catalog size, unlimited searches.</p></div><div class=card><b>Sessions or search requests</b><p class=muted>Fast Simon counts store sessions. Doofinder and Algolia count search requests, which with search-as-you-type means keystrokes, so traffic spikes can push you up a plan.</p></div>"
  "<div class=card><b>Orders or revenue</b><p class=muted>Wiser, LimeSpot Turbo and Rebuy price by monthly orders. Boost (GMV) and LimeSpot Max price by revenue, so the bill grows as you sell more.</p></div><div class=card><b>Quote only</b><p class=muted>Klevu/Searchspring (Athos Commerce) and Nosto don't publish prices and sell annual plans.</p></div></div>"
  f"<p class=muted>Not all of these do the same job: Wiser, LimeSpot and Rebuy are mainly recommendation/upsell tools, while Searchanise, Boost, Fast Simon, Doofinder and Algolia are mainly search & filter tools. <a href='methodology.html#search'>How we calculate</a>.</p>{NEWS}",
- head=ld({"@context": "https://schema.org", "@type": "ItemList", "name": "Shopify AI search & recommendation apps", "itemListElement": [{"@type": "ListItem", "position": i + 1, "url": f"{S['base_url']}/{a['slug']}-pricing.html", "name": a["name"]} for i, a in enumerate(sordered)]}))
+ head=ld(itemlist("Shopify AI search & recommendation apps", sordered, lambda a: f"{a['slug']}-pricing.html"), crumbs(("Stillprice", "index.html"), ("Search & recommendations", SLAND))))
 
 # ---- search app pages
 def splans_table(a):
-    rows = "".join(f"<tr><td><b>{e(p['name'])}</b></td><td class=n data-l='Monthly'>{m(p['monthly']) if p['monthly'] is not None else '—'}</td><td class=n data-l='Annual /mo'>{m(p['annual']) if p['annual'] is not None else '—'}</td><td>{e(p['includes'])}</td></tr>" for p in a["plans"])
+    rows = "".join(f"<tr><td><b>{e(p['name'])}</b></td><td class=n data-l='Monthly'>{m(p['monthly']) if p['monthly'] is not None else 'n/a'}</td><td class=n data-l='Annual /mo'>{m(p['annual']) if p['annual'] is not None else 'n/a'}</td><td>{e(p['includes'])}</td></tr>" for p in a["plans"])
     return f"<div class=tw><table class=plans><thead><tr><th>Plan</th><th>Monthly billing</th><th>Annual (per mo)</th><th>What's included</th></tr></thead><tbody>{rows}</tbody></table></div>"
 def sest_block(a):
     out = ""
@@ -307,20 +322,24 @@ for x, y in SCOMPS:
         *[(f"{s['label']}", f"<b>{smoney(oa)}</b><br><span class=muted>{e(oa['plan'])}</span>", f"<b>{smoney(ob)}</b><br><span class=muted>{e(ob['plan'])}</span>") for s, oa, ob in zip(SSIZES, a["est"], b["est"])],
         ("Free Shopify alternative", e(a["free_alt"]), e(b["free_alt"])), ("Checked", a["checked"], b["checked"]),
         ("Details", f"<a href='{x}-pricing.html'>{e(na)} pricing & math</a>", f"<a href='{y}-pricing.html'>{e(nb)} pricing & math</a>")])
-    page(cslug(x, y), f"{na} vs {nb} Pricing (2026): Real Monthly Cost for Shopify Stores | Stillprice",
-     f"{na} vs {nb}: what each bills on, and the estimated monthly cost for small, medium and large Shopify stores side by side. Prices checked {S['updated']}.",
+    _t = f"{na} vs {nb} Pricing (2026): Real Monthly Cost for Shopify Stores | Stillprice"
+    _d = f"{na} vs {nb}: what each bills on, and the estimated monthly cost for small, medium and large Shopify stores side by side. Prices checked {S['updated']}."
+    page(cslug(x, y), _t, _d,
      f"<p class=crumb><a href='{SLAND}'>Search & recommendations</a> › Comparison</p><h1>{e(na)} vs {e(nb)} pricing</h1><p class=lead>{e(na)} bills on {e(a['unit'].lower())}; {e(nb)} bills on {e(b['unit'].lower())}. Here's what each would cost the same Shopify store, using official prices checked {S['updated']}.</p>{HERO_END}{ssizes_html}"
      f"<div class=tw><table class=vs><thead><tr><th></th><th>{e(na)}</th><th>{e(nb)}</th></tr></thead><tbody>{rows}</tbody></table></div><h2>Bottom line on cost</h2><ul>{''.join(lines)}</ul>" + vs_btns({**a, "_n": na}, {**b, "_n": nb}) +
-     "<p class=muted>Cost is only one factor. Features, merchandising controls, AI quality and integrations differ, and your real catalog, traffic and orders will move these numbers. See the full math on each app's page.</p>" + NEWS)
+     "<p class=muted>Cost is only one factor. Features, merchandising controls, AI quality and integrations differ, and your real catalog, traffic and orders will move these numbers. See the full math on each app's page.</p>" + NEWS,
+     head=ld(webpage(cslug(x, y), _t, _d, S["updated"]), crumbs(("Stillprice", "index.html"), ("Search & recommendations", SLAND), (f"{na} vs {nb} pricing", cslug(x, y)))))
 
 # ---- search alternatives pages
 for x in SALTS:
     a = SBY[x]; na = sshort(a); alts = [o for o in sordered if o["slug"] != x]
     ref = " / ".join(f"<b>{smoney(o)}</b> ({s['label'].split()[0].lower()})" for s, o in zip(SSIZES, a["est"]))
-    page(f"{x}-alternatives.html", f"{na} Alternatives 2026: Real Monthly Cost of {len(alts)} Shopify AI Search & Recommendation Apps | Stillprice",
-     f"{na} alternatives for Shopify compared on real monthly cost at three store sizes: Searchanise, Fast Simon, Doofinder, Algolia, Wiser, LimeSpot, Rebuy, Nosto and the free Shopify Search & Discovery.",
+    _t = f"{na} Alternatives 2026: Real Monthly Cost of {len(alts)} Shopify AI Search & Recommendation Apps | Stillprice"
+    _d = f"{na} alternatives for Shopify compared on real monthly cost at three store sizes: Searchanise, Fast Simon, Doofinder, Algolia, Wiser, LimeSpot, Rebuy, Nosto and the free Shopify Search & Discovery."
+    page(f"{x}-alternatives.html", _t, _d,
      f"<p class=crumb><a href='{SLAND}'>Search & recommendations</a> › Alternatives</p><h1>{e(na)} alternatives, compared on real cost</h1><p class=lead>For reference, {e(na)} comes out at {ref} on our assumptions (<a href='{x}-pricing.html'>see the math</a>). Here's how the alternatives price out for the same store.</p>{HERO_END}"
-     f"{ssizes_html}{stable(alts)}<p class=muted>Some of these are search & filter apps, and others (Wiser, LimeSpot, Rebuy) focus on recommendations and upsells. Compare like with like. <a href='methodology.html#search'>How we calculate</a>.</p>{NEWS}")
+     f"{ssizes_html}{stable(alts)}<p class=muted>Some of these are search & filter apps, and others (Wiser, LimeSpot, Rebuy) focus on recommendations and upsells. Compare like with like. <a href='methodology.html#search'>How we calculate</a>.</p>{NEWS}",
+     head=ld(webpage(f"{x}-alternatives.html", _t, _d, S["updated"]), crumbs(("Stillprice", "index.html"), ("Search & recommendations", SLAND), (f"{na} alternatives", f"{x}-alternatives.html"))))
 
 # ---- change log
 CL = D.get("changelog") or []
@@ -364,7 +383,7 @@ PRIN = """<p class=eyebrow>( Principles )</p><h1>What we believe: <em>the real b
 <div class='box verdict'><h2 style="margin-top:0">The public rule</h2><p><b>Affiliate status never changes a verdict.</b> We earn a commission from some apps (listed on our <a href="disclosure.html">affiliate disclosure</a>). That never changes the prices we show, the math, the sort order or what we say about value. If an app that pays us is poor value at your size, we will tell you.</p></div>
 <p>Think we got something wrong? <a href="mailto:%s?subject=Stillprice%%20correction">Email a correction</a> and we will check it against the public pricing page. See also <a href="methodology.html">how we calculate</a>.</p>""" % S["contact"]
 page("principles.html", "Our Principles: How Stillprice Shows the Real Cost of Shopify AI Apps | Stillprice", "What Stillprice believes, what we will never do, and our public rule: affiliate status never changes a verdict.", PRIN)
-(O / "about.html").write_text('<!doctype html><html lang="en"><head><meta charset="utf-8"><title>About Stillprice</title><link rel="canonical" href="' + S["base_url"] + '/principles.html"><meta http-equiv="refresh" content="0; url=principles.html"><meta name="robots" content="noindex"></head><body><p><a href="principles.html">Our principles</a></p></body></html>')
+(O / "about.html").write_text('<!doctype html><html lang="en"><head><meta charset="utf-8"><title>About Stillprice</title><link rel="canonical" href="' + S["base_url"] + '/principles"><meta http-equiv="refresh" content="0; url=/principles"><meta name="robots" content="noindex"></head><body><p><a href="/principles">Our principles</a></p></body></html>')
 
 # ---- price moves (real changes and vendor replies, from the changelog in data/apps.json)
 MOVES = [

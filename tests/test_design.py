@@ -44,7 +44,7 @@ class DesignTests(unittest.TestCase):
         self.assertNotIn('class=cmp', home)
         nav = re.search(r'<nav class="main"[^>]*>(.*?)</nav>', home).group(1)
         self.assertEqual(re.findall(r'href="([^"]+)"', nav), [
-            'shopify-ai-support-apps.html', 'shopify-ai-search-apps.html', 'essays.html', '/stack-audit'])
+            '/shopify-ai-support-apps', '/shopify-ai-search-apps', '/essays', '/stack-audit'])
         self.assertIn('>Subscribe</a>', home)
         self.assertNotIn("href='#support'", home)
         self.assertIn('shopify-ai-support-apps', self.read('sitemap.xml'))
@@ -82,7 +82,7 @@ class DesignTests(unittest.TestCase):
         data = json.loads((ROOT / 'data/apps.json').read_text())
         support = self.read('shopify-ai-support-apps.html')
         for app in data['apps']:
-            self.assertIn(f"href='{app['slug']}-pricing.html'", support)
+            self.assertIn(f"href='/{app['slug']}-pricing'", support)
 
     def test_shared_assets_and_metadata(self):
         for path in (ROOT / 'site').glob('*.html'):
@@ -108,6 +108,21 @@ class DesignTests(unittest.TestCase):
         form = re.search(r'<form.*?</form>', source, re.S).group(0)
         self.assertIn(form, text)
         self.assertIn('border-radius:var(--r)', self.read('stack-audit.css'))
+
+    def test_clean_links_jsonld_and_placeholders(self):
+        for path in (ROOT / 'site').glob('*.html'):
+            text = path.read_text()
+            self.assertIsNone(re.search(r"""href=['"](?!https?:)[^'"]*\.html""", text), path.name)
+            self.assertNotIn('github.io', text)
+            self.assertIsNone(re.search(r'<td[^>]*>\u2014</td>', text), path.name)
+            for block in re.findall(r'<script type="application/ld\+json">(.*?)</script>', text, re.S):
+                json.loads(block)
+        for name in ('shopify-ai-support-apps.html', 'shopify-ai-search-apps.html'):
+            self.assertIn('"@type": "ItemList"', self.read(name))
+        for name in ('gorgias-vs-tidio-pricing.html', 'doofinder-vs-algolia-pricing.html', 'gorgias-alternatives.html', 'klevu-alternatives.html'):
+            self.assertIn('"@type": "BreadcrumbList"', self.read(name))
+            self.assertIn('"dateModified"', self.read(name))
+        self.assertNotIn('.html', self.read('sitemap.xml'))
 
 
 if __name__ == '__main__':
