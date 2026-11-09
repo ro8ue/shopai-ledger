@@ -65,8 +65,8 @@ VERDICTS = {
   gotchas=["Every AI interaction also counts as a helpdesk ticket, so automation eats into your ticket allowance too.","Past the included allowance the plan cards charge $1.50 per automated interaction. The FAQ rates of $1.00 monthly and $0.90 annual are the price of the included AI Agent block, not the overage.","Annual cards with AI Agent are Basic $77, Pro $471 and Advanced $1,227. Get your quote in writing.","Advanced ($1,430 a month with AI Agent) is sold through a demo. You cannot just click to buy it."],
   bottom="Good product, often poor value at or below about 1,000 conversations a month. We earn a commission if you sign up through our link. That does not change this verdict."),
  "gorgias-alternatives.html": dict(app="Gorgias alternatives", aff=False,
-  suits="If you need a real helpdesk, Re:amaze, HubSpot and Intercom Fin land between $420 and $575 a month for our medium store, below Gorgias at $1,015. If you only need chat with AI, Chatty ($199) and Zipchat ($300) cost far less.",
-  over="Anyone paying for a full helpdesk when Shopify Inbox would do. Inbox is free and now has an AI agent. Zendesk is the priciest on our numbers at about $1,118 for a medium store and $4,295 for a large one.",
+  suits="If you need a real helpdesk, Re:amaze, HubSpot and Intercom Fin land between $420 and $573 a month for our medium store, below Gorgias at $1,015. If you only need chat with AI, Chatty ($199) and Zipchat ($300) cost far less.",
+  over="Anyone paying for a full helpdesk when Shopify Inbox would do. Inbox is free and now has an AI agent. On our numbers Siena AI is the priciest at medium ($1,200); Zendesk is about $1,118 medium and $4,295 for a large one.",
   gotchas=["Seat based tools (Intercom, Zendesk, HubSpot, Re:amaze, Freshdesk, Richpanel) get expensive fast as your team grows.","Chat only tools (Zipchat, Chatty, Shopify Inbox) do not handle email tickets, so they are not a like for like swap.","Tidio's prices above the small store tier are not public, so we cannot rank it there."],
   bottom="Price the job you actually have. Most small stores are buying more helpdesk than they use."),
  "searchanise-pricing.html": dict(app="Searchanise", aff=True,
@@ -204,7 +204,7 @@ page("index.html", "Stillprice: What Shopify AI Apps Really Cost (Support, Searc
 page(SUPPORT, "Shopify AI Support Apps: Real Monthly Cost Compared (2026) | Stillprice",
  f"Compare {len(A)} Shopify AI support apps at three store sizes, with estimated monthly costs, dated sources and the math.",
  f"<h1>What Shopify AI support apps <em>really cost</em></h1><p class=lead>Compare the monthly bill for the same store, using official pricing and the assumptions below.</p>{HERO_END}"
- f"{sizes_html}<p class=muted>Prices checked {S['updated']}. Monthly-billing prices unless noted. Sorted by medium-store cost. Click an app to see the full plan list and math.</p>{table(ordered)}"
+ f"{sizes_html}<p class=muted>Prices checked {hd(S['updated'])}. Monthly billing unless noted. Sorted by medium-store cost. Click an app to see the full plan list and math.</p>{table(ordered)}"
  f"<div class=callout><b>The free option first.</b> <a href='shopify-inbox-pricing.html'>Shopify Inbox</a> is free and now includes an AI agent trained on your catalog and policies. If you only need storefront chat, start there. Paid apps make sense when you need email/social ticketing, order actions, or higher automation.</div>"
  f"<h2>Support pricing comparisons</h2><ul>{comp_links}<li><a href='gorgias-alternatives.html'>Gorgias alternatives by real cost</a></li></ul>"
  f"<h2>Why the support bill surprises people</h2><div class=grid><div class=card><b>Per-resolution billing</b><p class=muted>Gorgias, Zendesk, Intercom Fin, HubSpot, Re:amaze and Siena charge for each conversation the AI closes. Better automation means a bigger AI line on the bill.</p></div><div class=card><b>Per-conversation or per-reply billing</b><p class=muted>Tidio Lyro, Chatty, Richpanel, Freshdesk and Zipchat count conversations (or messages) the AI touches, resolved or not.</p></div><div class=card><b>Seats still matter</b><p class=muted>Intercom, Zendesk, HubSpot, Re:amaze, Freshdesk and Richpanel also charge per human agent seat, and HubSpot Professional adds a one-time onboarding fee.</p></div></div>"
@@ -213,7 +213,11 @@ page(SUPPORT, "Shopify AI Support Apps: Real Monthly Cost Compared (2026) | Stil
 
 # ---- app pages
 def plans_table(a):
-    rows = "".join(f"<tr><td><b>{e(p['name'])}</b></td><td class=n data-l='Monthly'>{m(p['monthly']) if p['monthly'] is not None else 'n/a'}</td><td class=n data-l='Annual /mo'>{m(p['annual']) if p['annual'] is not None else 'n/a'}</td><td>{e(p['includes'])}</td></tr>" for p in a["plans"])
+    def _ann(p):
+        if p["annual"] is not None: return m(p["annual"])
+        if p.get("monthly") is not None and "monthly billing only" in (p.get("includes") or "").lower(): return "Monthly only"
+        return "n/a"
+    rows = "".join(f"<tr><td><b>{e(p['name'])}</b></td><td class=n data-l='Monthly'>{m(p['monthly']) if p['monthly'] is not None else 'n/a'}</td><td class=n data-l='Annual /mo'>{_ann(p)}</td><td>{e(p['includes'])}</td></tr>" for p in a["plans"])
     return f"<div class=tw><table class=plans><thead><tr><th>Plan</th><th>Monthly billing</th><th>Annual (per mo)</th><th>What's included</th></tr></thead><tbody>{rows}</tbody></table></div>"
 def est_block(a):
     out = ""
@@ -227,7 +231,7 @@ for a in A:
     unc = ("<div class=callout><b>Not confirmed / not public:</b><ul>" + "".join(f"<li>{e(u)}</li>" for u in a["unconfirmed"]) + "</ul>Check the vendor's site for these.</div>") if a["unconfirmed"] else ""
     srcs = "".join(f"<li><a href='{e(u)}' rel='nofollow noopener' target='_blank'>{e(l)}</a> (checked {hd(a['checked'])})</li>" for l, u in a["sources"])
     fa = f"<div class=box><b>Free Shopify alternative:</b> {e(a['free_alt'])} {'<a href=\"shopify-inbox-pricing.html\">See Shopify Inbox pricing</a>.' if a['model']!='free' else ''}</div>" if a.get("free_alt") else ""
-    faq = [(f"How much does {nm} cost per month?", f"On our assumptions, about {money(a['est'][0])} for a small store ({SIZES[0]['conv']} conversations), {money(a['est'][1])} for a medium store and {money(a['est'][2])} for a large store. Prices checked {a['checked']}."),
+    faq = [(f"How much does {nm} cost per month?", f"On our assumptions, about {money(a['est'][0])} for a small store ({SIZES[0]['conv']} conversations), {money(a['est'][1])} for a medium store and {money(a['est'][2])} for a large store. Prices checked {hd(a['checked'])}."),
            (f"How does {nm} charge for AI?", a["ai_billing"])]
     _cheap = [o for o in ordered if o is not a and o["model"] != "free" and o["est"][1]["total"] is not None][:1]
     _mm = lambda o: money(o) if o["total"] is not None else "a quote (price not public)"
@@ -239,7 +243,7 @@ for a in A:
     faq.append((f"Is {nm} worth it?", f"It depends on volume. At {_mm(a['est'][1])} a month for a medium store on our assumptions, compare it with the other {len(A)-1} support apps we track and check what your own conversation count would cost."))
     page(f"{a['slug']}-pricing.html", f"{nm} Pricing 2026: Real Monthly Cost, Plans & Is It Worth It | Stillprice",
      f"{nm} pricing for Shopify: " + (f"about {money(a['est'][1])}/mo for a medium store on our assumptions." if a["est"][1]["total"] is not None else f"about {_mm(a['est'][0])}/mo for a small store on our assumptions.") + f" Plans, how AI is billed, cheaper alternatives and the math. Checked {a['checked']}.",
-     f"<h1>{e(nm)} pricing: what it really costs a Shopify store</h1><p class=lead>{e(a['summary'])}</p><p class=metaline>{conf(a)}{flag(a)}<span class=muted>Price checked {hd(a['checked'])} from the official source.</span></p>{HERO_END}{qa}"
+     f"<h1>{e(nm)} pricing: what it really costs a Shopify store</h1><p class=lead>{e(a['summary'])}</p><p class=metaline>{conf(a)}{flag(a)}<span class=muted>Price checked {hd(a['checked'])} on {e(nm)}'s official pricing page.</span></p>{HERO_END}{qa}"
      f"<h2>Plans</h2>{plans_table(a)}<h2>How AI usage is billed</h2><p>{e(a['ai_billing'])}</p>"
      f"<h2>Estimated monthly cost by store size</h2>{est_block(a)}<p class=muted>Assumptions: AI resolves {int(RATE*100)}% of conversations. Monthly billing unless noted. Excludes taxes, add-ons, SMS/voice and phone fees. <a href='methodology.html'>How we calculate</a>.</p>"
      f"{unc}{fa}" + (f"<p class=muted>Note: {e(a['notes'])}</p>" if a["notes"] else "")
@@ -251,22 +255,25 @@ for a in A:
 # ---- comparison pages
 for x, y in COMPS:
     a, b = BY[x], BY[y]; na, nb = short(a), short(b)
+    def _aan(n):
+        s = str(int(n)); return "an" if s[:1] == "8" or (len(s) <= 2 and s in ("11", "18")) else "a"
     lines = []
     for s, oa, ob in zip(SIZES, a["est"], b["est"]):
-        if oa["total"] is None or ob["total"] is None: lines.append(f"<li><b>{s['label']}:</b> can't compare, because one price isn't public at this volume.</li>")
+        if oa["total"] is None or ob["total"] is None: lines.append(f"<li><b>{s['label']}:</b> We cannot compare these: one price is not public at this volume.</li>")
         elif oa["total"] == ob["total"]: lines.append(f"<li><b>{s['label']}:</b> same estimated cost ({money(oa)}).</li>")
         else:
             lo, hi, ol, oh = (na, nb, oa, ob) if oa["total"] < ob["total"] else (nb, na, ob, oa)
-            lines.append(f"<li><b>{s['label']}:</b> {e(lo)} is lower on our assumptions ({money(ol)} vs {money(oh)}, a {m(oh['total']-ol['total'])}/mo difference).</li>")
+            diff = oh["total"] - ol["total"]
+            lines.append(f"<li><b>{s['label']}:</b> {e(lo)} is lower on our assumptions ({money(ol)} vs {money(oh)}, {_aan(diff)} {m(diff)}/mo difference).</li>")
     rows = "".join(f"<tr><th>{lab}</th><td>{fa_}</td><td>{fb}</td></tr>" for lab, fa_, fb in [
-        ("Type", e(a["type"]), e(b["type"])), ("How AI is billed", e(a["ai_billing"]), e(b["ai_billing"])),
+        ("Type", e(a["type"]), e(b["type"])), ("How AI is billed", e(a.get("ai_short") or a["ai_billing"]), e(b.get("ai_short") or b["ai_billing"])),
         *[(f"{s['label']} ({s['conv']:,} conv)", f"<b>{money(oa)}</b><br><span class=muted>{e(oa['plan'])}</span>", f"<b>{money(ob)}</b><br><span class=muted>{e(ob['plan'])}</span>") for s, oa, ob in zip(SIZES, a["est"], b["est"])],
         ("Free Shopify alternative", e(a.get("free_alt") or "n/a"), e(b.get("free_alt") or "n/a")), ("Checked", a["checked"], b["checked"]),
         ("Details", f"<a href='{x}-pricing.html'>{e(na)} pricing & math</a>", f"<a href='{y}-pricing.html'>{e(nb)} pricing & math</a>")])
     _t = f"{na} vs {nb} Pricing 2026: Which Costs Less for a Shopify Store? | Stillprice"
     _d = f"{na} vs {nb}: how each bills for AI, and the estimated monthly cost for small, medium and large Shopify stores side by side. Prices checked {S['updated']}."
     page(cslug(x, y), _t, _d,
-     f"<h1>{e(na)} vs {e(nb)} pricing</h1><p class=lead>How {e(na)} and {e(nb)} bill for AI, and what each would cost the same Shopify store, using official prices checked {S['updated']}.</p>{HERO_END}<div class=box><b>Short answer:</b><ul>{''.join(lines)}</ul>Try your own numbers in the <a href='free-calculator.html'>free calculator</a>, or see <a href='gorgias-alternatives.html'>every support app by real cost</a>.</div>{sizes_html}"
+     f"<h1>{e(na)} vs {e(nb)} pricing</h1><p class=lead>How {e(na)} and {e(nb)} bill for AI, and what each would cost the same Shopify store, using official prices checked {hd(S['updated'])}.</p>{HERO_END}<div class=box><b>Short answer:</b><ul>{''.join(lines)}</ul>Try your own numbers in the <a href='free-calculator.html'>free calculator</a>, or <a href='gorgias-alternatives.html'>compare Gorgias alternatives by real cost</a>.</div>{sizes_html}"
      f"<div class=tw><table class=vs><thead><tr><th></th><th>{e(na)}</th><th>{e(nb)}</th></tr></thead><tbody>{rows}</tbody></table></div><h2>Bottom line on cost</h2><ul>{''.join(lines)}</ul>" + vs_btns({**a, "_n": na}, {**b, "_n": nb}) +
      "<p class=muted>Cost is only one factor. Features, channels, integrations and AI quality differ, and your real volume and resolution rate will move these numbers. See the full math on each app's page.</p>" + NEWS,
      head=ld(webpage(cslug(x, y), _t, _d, S["updated"]), crumbs(("Stillprice", "index.html"), ("Support apps", SUPPORT), (f"{na} vs {nb} pricing", cslug(x, y)))))
@@ -276,7 +283,7 @@ alts = [o for o in ordered if o["slug"] != "gorgias"]
 _t = "Gorgias Alternatives 2026: Real Monthly Cost of 12 AI Support Apps for Shopify | Stillprice"
 _d = "Gorgias alternatives for Shopify compared on real monthly cost at three store sizes: Tidio, Intercom Fin, Zendesk, HubSpot, Richpanel, Re:amaze, Freshdesk, Zipchat, Chatty and Shopify Inbox."
 page("gorgias-alternatives.html", _t, _d,
- f"<h1>Gorgias alternatives, compared on real cost</h1><p class=lead>For reference, Gorgias comes out at about <b>{money(BY['gorgias']['est'][0])}</b> (small), <b>{money(BY['gorgias']['est'][1])}</b> (medium) and <b>{money(BY['gorgias']['est'][2])}</b> (large) a month on our assumptions (<a href='gorgias-pricing.html'>see the math</a>). Here's how the alternatives price out for the same store.</p>{HERO_END}"
+ f"<h1>Gorgias alternatives, compared on real cost</h1><p class=lead>On our assumptions, Gorgias costs about <b>{money(BY['gorgias']['est'][0])}</b> a month for a small store, <b>{money(BY['gorgias']['est'][1])}</b> for a medium store and <b>{money(BY['gorgias']['est'][2])}</b> for a large one (<a href='gorgias-pricing.html'>see the math</a>). Here is how the alternatives compare for the same store.</p>{HERO_END}"
  f"{sizes_html}{table(alts)}<p class=muted>Some of these are full helpdesks, and others (Zipchat, Chatty, Shopify Inbox) are chat/AI layers only. Compare like with like. <a href='methodology.html'>How we calculate</a>.</p>{NEWS}",
  head=ld(webpage("gorgias-alternatives.html", _t, _d, S["updated"]), crumbs(("Stillprice", "index.html"), ("Support apps", SUPPORT), ("Gorgias alternatives", "gorgias-alternatives.html"))))
 
