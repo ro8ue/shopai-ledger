@@ -4,6 +4,14 @@ R = pathlib.Path(__file__).parent
 O = R / "site"; O.mkdir(exist_ok=True)
 D = json.load(open(R / "data/apps.json")); S = D["site"]; A = D["apps"]; e = html.escape
 SIZES = S["sizes"]; RATE = S["ai_rate"]; BY = {a["slug"]: a for a in A}
+def hd(iso):
+    try:
+        y, mth, d = iso.split("-")
+        return f"{int(d)} {['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][int(mth)-1]} {y}"
+    except Exception:
+        return iso
+def faq_html(items):
+    return "<h2>FAQ</h2><div class=faq>" + "".join(f"<details><summary>{e(q)}</summary><p>{e(a)}</p></details>" for q, a in items) + "</div>"
 for a in A:
     a["est"] = [MODELS[a["model"]](a["params"], s["conv"], s["seats"], int(s["conv"] * RATE)) for s in SIZES]
 # Search & recommendations category (data/search_apps.json, calc_search.py)
@@ -52,20 +60,21 @@ ANALYTICS = "" if not UMAMI_ID else (
 # ---- Honest verdicts (human written opinion; every number comes from data/*.json). Affiliate status never changes these.
 VERDICTS = {
  "gorgias-pricing.html": dict(app="Gorgias", aff=True,
-  suits="Stores that live in email and social tickets every day and want orders, returns and refunds handled inside one helpdesk. It is priced by tickets, not seats, so a big team on modest volume does fine.",
-  over="Small and medium stores that mostly need chat. On our numbers a medium store pays about $670 a month on Pro, against $199 for Chatty or $300 for Zipchat at the same volume. Nearly half of that, $310, is the AI line: 500 AI interactions minus the 190 included, at $1.00 each.",
-  gotchas=["Every AI interaction also counts as a helpdesk ticket, so automation eats your ticket allowance too.","The pricing page lists $1.50 per interaction above a plan's included allowance, and its markup carries a second, higher price set (Basic $77, Pro $471, Advanced $1,227). Get your quote in writing.","Advanced ($900 a month) is sold through a demo, so you cannot just click to buy it."],
-  bottom="Good product, often poor value below about 1,000 conversations a month. We earn a commission if you sign up through our link. That does not change this verdict."),
+  suits="Stores that live in email and social tickets and want orders, returns and refunds handled in one helpdesk. Gorgias bills by tickets, not seats, so a big team on modest volume does fine.",
+  over="Small and medium stores that mostly need chat. On our numbers a medium store pays about $670 a month on Pro. Chatty costs $199 and Zipchat $300 at the same volume. Nearly half the Gorgias bill, $310, is AI: 500 AI interactions, minus the 190 included, at $1.00 each.",
+  gotchas=["Every AI interaction also counts as a helpdesk ticket, so automation eats into your ticket allowance too.","The pricing page lists $1.50 per interaction above a plan's included allowance.","The code behind that page carries a second, higher price set (Basic $77, Pro $471, Advanced $1,227). Get your quote in writing.","Advanced ($900 a month) is sold through a demo. You cannot just click to buy it."],
+  bottom="Good product, often poor value at or below about 1,000 conversations a month. We earn a commission if you sign up through our link. That does not change this verdict."),
  "gorgias-alternatives.html": dict(app="Gorgias alternatives", aff=False,
   suits="If you need a real helpdesk, Re:amaze, HubSpot and Intercom Fin land between $420 and $575 a month for our medium store, below Gorgias at $670. If you only need chat with AI, Chatty ($199) and Zipchat ($300) cost far less.",
   over="Anyone paying for a full helpdesk when Shopify Inbox would do. Inbox is free and now has an AI agent. Zendesk is the priciest on our numbers at about $1,118 for a medium store and $4,295 for a large one.",
   gotchas=["Seat based tools (Intercom, Zendesk, HubSpot, Re:amaze, Freshdesk, Richpanel) get expensive fast as your team grows.","Chat only tools (Zipchat, Chatty, Shopify Inbox) do not handle email tickets, so they are not a like for like swap.","Tidio's prices above the small store tier are not public, so we cannot rank it there."],
   bottom="Price the job you actually have. Most small stores are buying more helpdesk than they use."),
  "searchanise-pricing.html": dict(app="Searchanise", aff=True,
-  suits="Most small and mid catalogs. You pay by product count only, with unlimited searches, so a traffic spike or Black Friday does not raise the bill. On our numbers that is $19 small, $39 medium and $139 large.",
-  over="Stores under 25 products, which get it free anyway, and stores that only need filters, synonyms and boosts, which Shopify Search & Discovery does for $0.",
-  gotchas=["The tiers jump with catalog size: 7,501 products moves you from $39 to $89.","Bigger plans add support hours and a dedicated server, not better core search, so do not upgrade for features.","Annual billing saves up to 17%, so the monthly figures here are the higher ones."],
-  bottom="Fair value and the most predictable bill in the search category. We earn a commission if you sign up through our link. That does not change this verdict."),
+  suits="Most small and medium catalogs. You pay by product count only, and searches are unlimited, so a traffic spike or Black Friday does not raise the bill. On our numbers that is $19 for a small store, $39 for a medium store and $139 for a large one.",
+  over_label="Who doesn't need to pay.",
+  over="Stores with up to 25 products, which fit the free plan. Also stores that only need filters, synonyms and boosts, which Shopify Search & Discovery does for $0.",
+  gotchas=["Tiers jump with catalog size: at 7,501 products you move from $39 to $89.","Bigger plans add support hours and a dedicated server, not better core search. Do not upgrade for features.","Annual billing saves up to 17%. The monthly figures on this page are the higher ones."],
+  bottom="Fair value and the most predictable paid bill in the search category. We earn a commission if you sign up through our link. That does not change this verdict."),
  "rebuy-vs-limespot-pricing.html": dict(app="Rebuy vs LimeSpot", aff=False,
   suits="LimeSpot publishes every tier, so you can know your bill before you install: about $19.99 small, $149.99 medium and $525 large on our numbers. Rebuy suits teams happy to go through sales for a custom package.",
   over="Anyone signing up for Rebuy without a written quote. Its order based tiers are not public, and the $534 a month Platform One figure does not say what order volume it covers.",
@@ -81,8 +90,9 @@ def verdict(fn):
     v = VERDICTS.get(fn)
     if not v: return ""
     g = "".join(f"<li>{e(x)}</li>" for x in v["gotchas"])
+    over_lab = v.get("over_label", "Who overpays, and why.")
     return (f"<div class='box verdict'><p class=eyebrow style='color:inherit;opacity:.6;margin:0 0 6px'>( Our verdict )</p><h2 style='margin-top:0'>Honest take: {e(v['app'])}</h2>"
-            f"<p><b>Who it suits.</b> {e(v['suits'])}</p><p><b>Who overpays, and why.</b> {e(v['over'])}</p><p><b>Gotchas.</b></p><ul>{g}</ul><p><b>Bottom line.</b> {e(v['bottom'])}</p>"
+            f"<p><b>Who it suits.</b> {e(v['suits'])}</p><p><b>{e(over_lab)}</b> {e(v['over'])}</p><p><b>Gotchas.</b></p><ul>{g}</ul><p><b>Bottom line.</b> {e(v['bottom'])}</p>"
             "<p class=muted style='font-size:14px'>Opinion, written by a person. Numbers come from the estimates on this site. <a href='principles.html'>Affiliate status never changes a verdict.</a></p></div>")
 def page(fn, title, desc, body, head=""):
     PAGES.append(fn)
@@ -113,14 +123,14 @@ def page(fn, title, desc, body, head=""):
 {FONTS}<link rel="stylesheet" href="style.css">{head}<script defer src="table-sizes.js"></script>{ANALYTICS}</head><body>
 <header class="top"><div class="wrap"><a class="logo" href="index.html" aria-label="Stillprice home"><span>Stillprice</span></a><nav class="main" aria-label="Main">{nav}</nav><a class="btn light sm" href="{'#newsletter' if news else 'index.html#newsletter'}">Subscribe</a></div></header>
 {hero}<main class="wrap">{rest}</main>{_eb(NEWS) if news else ""}
-<footer class="site"><div class="wrap"><div><a class="logo" href="index.html"><span>Stillprice</span></a><p>Stillprice is independent and not affiliated with Shopify or any app listed. Prices are in USD, checked by hand on the date shown, and can change at any time. Always confirm on the vendor's site.</p></div>
+<footer class="site"><div class="wrap"><div><a class="logo" href="index.html"><span>Stillprice</span></a><p>Stillprice is independent and not owned by Shopify or any app listed. Some links are affiliate links, and they never change a verdict. Prices are in USD, checked by hand on the date shown, and can change at any time. Always confirm on the vendor's site.</p></div>
 <div class="links"><a href="gorgias-alternatives.html">Gorgias alternatives</a><a href="principles.html">Our principles</a><a href="price-moves.html">Price moves</a><a href="methodology.html">How we calculate</a><a href="disclosure.html">Affiliate disclosure</a><a href="changelog.html">Change log</a><a href="free-calculator.html">Free cost calculator</a><a href="https://stillprice.substack.com/subscribe">Weekly email signup</a><a href="advertise.html">Advertise / get listed</a><a href="mailto:{S['contact']}?subject=Stillprice%20correction">Report a wrong price</a></div>
-<div class="base"><span>Prices checked {S['updated']}</span><a href="#">Back to top ↑</a></div></div></footer></body></html>"""))
+<div class="base"><span>Prices checked {hd(S['updated'])}</span><a href="#">Back to top ↑</a></div></div></footer></body></html>"""))
 
 # Newsletter: Substack signup (stillprice.substack.com) inside the cream .news .embed card.
-NEWS = """<section class="news" id="newsletter"><div class="wrap"><div><p class="eyebrow">( The Ledger )</p><h2>The Ledger, every Monday</h2>
-<p>The Ledger, every Monday: what AI apps really cost Shopify stores, plus a Thursday deep-dive.</p><div class="perks"><span>Free</span><span>Mondays + Thursdays</span><span>Unsubscribe anytime</span></div></div>
-<div class="embed" id="newsletter-embed"><p class="eyebrow" style="margin:0 0 14px">Free · Every Monday</p><p style="margin:0 0 22px;color:#ECEAE5;font-size:17px">Price changes, new fees and the real monthly bill for Shopify AI apps. One short email a week.</p><p style="margin:0"><a class="btn light" href="https://stillprice.substack.com/subscribe">Subscribe on Substack <span class=arr>→</span></a><a class="btn ghost" href="https://stillprice.substack.com">Read past issues</a></p></div></div></section>"""
+NEWS = """<section class="news" id="newsletter"><div class="wrap"><div><p class="eyebrow">( The Ledger )</p><h2>The Ledger, Mondays and Thursdays</h2>
+<p>What AI apps really cost Shopify stores: the ledger on Mondays and an essay on Thursdays.</p><div class="perks"><span>Free</span><span>Mondays + Thursdays</span><span>Unsubscribe anytime</span></div></div>
+<div class="embed" id="newsletter-embed"><p class="eyebrow" style="margin:0 0 14px">Free · Mondays and Thursdays</p><p style="margin:0 0 22px;color:#ECEAE5;font-size:17px">Price changes, new fees and the real monthly bill for Shopify AI apps. The ledger every Monday, the essay every Thursday.</p><p style="margin:0"><a class="btn light" href="https://stillprice.substack.com/subscribe">Subscribe on Substack <span class=arr>→</span></a><a class="btn ghost" href="https://stillprice.substack.com">Read past issues</a></p></div></div></section>"""
 
 sizes_html = '<div class="sizes">' + "".join(f"<span><b>{s['label']}</b>: {s['conv']:,} support conversations/mo, {s['seats']} agent seat{'s' if s['seats']>1 else ''}</span>" for s in SIZES) + f"<span>AI resolves {int(RATE*100)}% of conversations</span></div>"
 def flag(a): return f'<span class="tag free">Free option overlaps</span>' if a.get("free_alt") and a["model"] != "free" else ('<span class="tag free">Free</span>' if a["model"] == "free" else "")
@@ -215,25 +225,28 @@ for a in A:
     rel_html = " · ".join(f"<a href='{cslug(x,y)}'>{e(short(BY[x]))} vs {e(short(BY[y]))}</a>" for x, y in rel)
     others = " · ".join(f"<a href='{o['slug']}-pricing.html'>{e(short(o))}</a>" for o in A if o is not a)
     unc = ("<div class=callout><b>Not confirmed / not public:</b><ul>" + "".join(f"<li>{e(u)}</li>" for u in a["unconfirmed"]) + "</ul>Check the vendor's site for these.</div>") if a["unconfirmed"] else ""
-    srcs = "".join(f"<li><a href='{e(u)}' rel='nofollow noopener' target='_blank'>{e(l)}</a> (checked {a['checked']})</li>" for l, u in a["sources"])
-    fa = f"<div class=box><b>Free Shopify alternative:</b> {e(a['free_alt'])} {'<a href=\"shopify-inbox-pricing.html\">See Shopify Inbox</a>.' if a['model']!='free' else ''}</div>" if a.get("free_alt") else ""
+    srcs = "".join(f"<li><a href='{e(u)}' rel='nofollow noopener' target='_blank'>{e(l)}</a> (checked {hd(a['checked'])})</li>" for l, u in a["sources"])
+    fa = f"<div class=box><b>Free Shopify alternative:</b> {e(a['free_alt'])} {'<a href=\"shopify-inbox-pricing.html\">See Shopify Inbox pricing</a>.' if a['model']!='free' else ''}</div>" if a.get("free_alt") else ""
     faq = [(f"How much does {nm} cost per month?", f"On our assumptions, about {money(a['est'][0])} for a small store ({SIZES[0]['conv']} conversations), {money(a['est'][1])} for a medium store and {money(a['est'][2])} for a large store. Prices checked {a['checked']}."),
            (f"How does {nm} charge for AI?", a["ai_billing"])]
     _cheap = [o for o in ordered if o is not a and o["model"] != "free" and o["est"][1]["total"] is not None][:1]
     _mm = lambda o: money(o) if o["total"] is not None else "a quote (price not public)"
-    qa = (f"<div class=box><b>Short answer:</b> on our assumptions {e(nm)} comes to {_mm(a['est'][0])} a month for a small store, {_mm(a['est'][1])} for a medium store and {_mm(a['est'][2])} for a large store. "
-          + (f"The lowest priced paid support app we track for a medium store is <a href='{_cheap[0]['slug']}-pricing.html'>{e(short(_cheap[0]))}</a> at {money(_cheap[0]['est'][1])}. " if _cheap else "")
-          + f"Put in your own volume with the <a href='free-calculator.html'>free calculator</a>, or see <a href='gorgias-alternatives.html'>all support apps by real cost</a>.</div>")
+    _alts = ("<a href='gorgias-alternatives.html'>compare Gorgias alternatives by real cost</a>" if a["slug"] == "gorgias"
+             else "see <a href='gorgias-alternatives.html'>all support apps by real cost</a>")
+    qa = (f"<div class=box><b>Short answer:</b> on our assumptions, {e(nm)} costs {_mm(a['est'][0])} a month for a small store, {_mm(a['est'][1])} for a medium store and {_mm(a['est'][2])} for a large store. "
+          + (f"For a medium store, the lowest priced paid support app we track is <a href='{_cheap[0]['slug']}-pricing.html'>{e(short(_cheap[0]))}</a> at {money(_cheap[0]['est'][1])}. " if _cheap else "")
+          + f"Run your own volume through the <a href='free-calculator.html'>free calculator</a>, or {_alts}.</div>")
     faq.append((f"Is {nm} worth it?", f"It depends on volume. At {_mm(a['est'][1])} a month for a medium store on our assumptions, compare it with the other {len(A)-1} support apps we track and check what your own conversation count would cost."))
     page(f"{a['slug']}-pricing.html", f"{nm} Pricing 2026: Real Monthly Cost, Plans & Is It Worth It | Stillprice",
      f"{nm} pricing for Shopify: " + (f"about {money(a['est'][1])}/mo for a medium store on our assumptions." if a["est"][1]["total"] is not None else f"about {_mm(a['est'][0])}/mo for a small store on our assumptions.") + f" Plans, how AI is billed, cheaper alternatives and the math. Checked {a['checked']}.",
-     f"<h1>{e(nm)} pricing: what it really costs a Shopify store</h1><p class=lead>{e(a['summary'])}</p><p class=metaline>{conf(a)}{flag(a)}<span class=muted>Price checked on {a['checked']} from the official source.</span></p>{HERO_END}{qa}"
+     f"<h1>{e(nm)} pricing: what it really costs a Shopify store</h1><p class=lead>{e(a['summary'])}</p><p class=metaline>{conf(a)}{flag(a)}<span class=muted>Price checked {hd(a['checked'])} from the official source.</span></p>{HERO_END}{qa}"
      f"<h2>Plans</h2>{plans_table(a)}<h2>How AI usage is billed</h2><p>{e(a['ai_billing'])}</p>"
-     f"<h2>Estimated monthly cost by store size</h2>{est_block(a)}<p class=muted>Assumptions: AI resolves {int(RATE*100)}% of conversations; monthly billing unless noted; taxes, add-ons, SMS/voice and phone fees excluded. <a href='methodology.html'>How we calculate</a>.</p>"
+     f"<h2>Estimated monthly cost by store size</h2>{est_block(a)}<p class=muted>Assumptions: AI resolves {int(RATE*100)}% of conversations. Monthly billing unless noted. Excludes taxes, add-ons, SMS/voice and phone fees. <a href='methodology.html'>How we calculate</a>.</p>"
      f"{unc}{fa}" + (f"<p class=muted>Note: {e(a['notes'])}</p>" if a["notes"] else "")
      + f"<p><a class=btn href='{e(link(a))}' rel='nofollow noopener' target='_blank'>See {e(nm)}'s official pricing</a>" + (f"<a class='btn alt' href='{e(a['affiliate_url'])}' rel='sponsored noopener' target='_blank'>Try {e(nm)} (affiliate link)</a>" if a.get("affiliate_url") else "") + (f"<a class='btn alt' href='{e(a['shopify_url'])}' rel='nofollow noopener' target='_blank'>Shopify App Store listing</a>" if a.get("shopify_url") and a["shopify_url"] != link(a) else "") + "</p>"
-     f"<h2>Sources</h2><ul class=muted>{srcs}</ul>" + (f"<p>Compare: {rel_html}</p>" if rel else "") + f"<p class=muted>Other apps: {others}</p>{NEWS}",
-     head=ld({"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": t}} for q, t in faq]}))
+     + faq_html(faq)
+     + f"<h2>Sources</h2><ul class=muted>{srcs}</ul>" + (f"<p>Compare: {rel_html}</p>" if rel else "") + f"<p class=muted>Other apps: {others}</p>{NEWS}",
+     head=ld({"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": ans}} for q, ans in faq]}))
 
 # ---- comparison pages
 for x, y in COMPS:
@@ -293,19 +306,30 @@ for a in SA:
     rel_html = " · ".join(f"<a href='{cslug(x,y)}'>{e(sshort(SBY[x]))} vs {e(sshort(SBY[y]))}</a>" for x, y in rel) + "".join(f" · <a href='{x}-alternatives.html'>{e(sshort(SBY[x]))} alternatives</a>" for x in SALTS if x == a["slug"])
     others = " · ".join(f"<a href='{o['slug']}-pricing.html'>{e(sshort(o))}</a>" for o in SA if o is not a)
     unc = ("<div class=callout><b>Not confirmed / not public:</b><ul>" + "".join(f"<li>{e(u)}</li>" for u in a["unconfirmed"]) + "</ul>Check the vendor's site for these.</div>") if a["unconfirmed"] else ""
-    srcs = "".join(f"<li><a href='{e(u)}' rel='nofollow noopener' target='_blank'>{e(l)}</a> (checked {a['checked']})</li>" for l, u in a["sources"])
-    fa = (f"<div class=box><b>Free Shopify alternative:</b> {e(a['free_alt'])} <a href='shopify-search-discovery-pricing.html'>See Shopify Search & Discovery</a>.</div>" if a["model"] != "free" else "")
+    srcs = "".join(f"<li><a href='{e(u)}' rel='nofollow noopener' target='_blank'>{e(l)}</a> (checked {hd(a['checked'])})</li>" for l, u in a["sources"])
+    fa = (f"<div class=box><b>Free Shopify alternative:</b> {e(a['free_alt'])} <a href='shopify-search-discovery-pricing.html'>See Shopify Search & Discovery pricing</a>.</div>" if a["model"] != "free" else "")
     faq = [(f"How much does {nm} cost per month?", f"On our assumptions: {smoney(a['est'][0])} for a small store, {smoney(a['est'][1])} for a medium store and {smoney(a['est'][2])} for a large store. Prices checked {a['checked']}."),
            (f"How does {nm} charge?", a["ai_billing"])]
+    if a["slug"] == "searchanise":
+        qa = ("<div class=box><b>Short answer:</b> on our assumptions, Searchanise costs $19 a month for a small store, $39 for a medium store and $139 for a large store. "
+              "You pay by product count only, so search traffic does not change the bill. Compare it with the free "
+              "<a href='shopify-search-discovery-pricing.html'>Shopify Search & Discovery</a>, or see "
+              "<a href='searchanise-alternatives.html'>Searchanise alternatives</a>.</div>")
+        plus_note = "<p>Shopify Plus stores pay $49/mo for Basic ($492/year), not $19. These estimates use standard-store prices.</p>"
+    else:
+        qa = (f"<div class=box><b>Short answer:</b> on our assumptions, {e(nm)} costs {smoney(a['est'][0])} a month for a small store, {smoney(a['est'][1])} for a medium store and {smoney(a['est'][2])} for a large store. "
+              f"It bills on {e(a['unit'].lower())}. Compare it with the free <a href='shopify-search-discovery-pricing.html'>Shopify Search & Discovery</a>.</div>")
+        plus_note = ""
     page(f"{a['slug']}-pricing.html", f"{nm} Pricing 2026: Plans & Real Monthly Cost for Shopify Stores | Stillprice",
      f"{nm} pricing explained: plans, what it bills on ({a['unit'].lower()}), and the estimated monthly cost for small, medium and large Shopify stores, with the math. Checked {a['checked']}.",
-     f"<p class=crumb><a href='{SLAND}'>Search & recommendations</a> › {e(nm)}</p><h1>{e(nm)} pricing: what it really costs a Shopify store</h1><p class=lead>{e(a['summary'])}</p><p class=metaline>{sconf(a)}{sflag(a)}<span class=muted>Price checked on {a['checked']} from the official source.</span></p>{HERO_END}"
+     f"<p class=crumb><a href='{SLAND}'>Search & recommendations</a> › {e(nm)}</p><h1>{e(nm)} pricing: what it really costs a Shopify store</h1><p class=lead>{e(a['summary'])}</p><p class=metaline>{sconf(a)}{sflag(a)}<span class=muted>Price checked {hd(a['checked'])} from the official source.</span></p>{HERO_END}{qa}"
      f"<h2>Plans</h2>{splans_table(a)}<h2>How it's billed</h2><p>{e(a['ai_billing'])}</p>"
-     f"<h2>Estimated monthly cost by store size</h2>{sest_block(a)}<p class=muted>Monthly billing unless noted; taxes, add-ons, setup/developer work and negotiated discounts excluded. <a href='methodology.html#search'>How we calculate</a>.</p>"
+     f"<h2>Estimated monthly cost by store size</h2>{sest_block(a)}{plus_note}<p class=muted>Assumptions: monthly billing unless noted. Excludes taxes, add-ons, setup or developer work and negotiated discounts. <a href='methodology.html#search'>How we calculate</a>.</p>"
      f"{unc}{fa}" + (f"<p class=muted>Note: {e(a['notes'])}</p>" if a["notes"] else "")
      + f"<p><a class=btn href='{e(a['pricing_url'])}' rel='nofollow noopener' target='_blank'>See {e(nm)}'s official pricing</a>" + (f"<a class='btn alt' href='{e(a['affiliate_url'])}' rel='sponsored noopener' target='_blank'>Try {e(nm)} (affiliate link)</a>" if a.get("affiliate_url") else "") + (f"<a class='btn alt' href='{e(a['shopify_url'])}' rel='nofollow noopener' target='_blank'>Shopify App Store listing</a>" if a.get("shopify_url") and a["shopify_url"] != a["pricing_url"] else "") + "</p>"
-     f"<h2>Sources</h2><ul class=muted>{srcs}</ul>" + (f"<p>Compare: {rel_html.lstrip(' ·')}</p>" if rel_html else "") + f"<p class=muted>Other search & recommendation apps: {others}</p>{NEWS}",
-     head=ld({"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": t}} for q, t in faq]}))
+     + faq_html(faq)
+     + f"<h2>Sources</h2><ul class=muted>{srcs}</ul>" + (f"<p>Compare: {rel_html.lstrip(' ·')}</p>" if rel_html else "") + f"<p class=muted>Other search & recommendation apps: {others}</p>{NEWS}",
+     head=ld({"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": ans}} for q, ans in faq]}))
 
 # ---- search comparison pages
 for x, y in SCOMPS:

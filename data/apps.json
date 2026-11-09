@@ -32,8 +32,8 @@
       "name": "Gorgias",
       "type": "Helpdesk + AI agent",
       "model": "gorgias",
-      "summary": "Ecommerce helpdesk priced by ticket volume (not seats), with a usage-priced AI Agent on every plan.",
-      "ai_billing": "Per automated interaction: $1.00 on monthly contracts, $0.90 on annual. Each AI interaction also counts as a helpdesk ticket. Gorgias's page also lists $1.50 per interaction for overage above a plan's included allowance.",
+      "summary": "An ecommerce helpdesk billed by ticket volume, not seats. Every plan includes an AI Agent that bills per use.",
+      "ai_billing": "Each automated interaction costs $1.00 on a monthly contract or $0.90 on annual. It also counts as a helpdesk ticket. Gorgias's page also lists $1.50 per interaction for overage above a plan's included allowance.",
       "plans": [
         {
           "name": "Starter",
@@ -100,12 +100,12 @@
         "ai_unit": 1.0,
         "ai_overage_note": 1.5
       },
-      "free_alt": "Shopify Inbox covers storefront chat and a basic AI agent for free, but not email ticketing.",
+      "free_alt": "Shopify Inbox covers storefront chat and a basic AI agent for free. It does not do email ticketing.",
       "pricing_url": "https://www.gorgias.com/pricing",
       "site_url": "https://www.gorgias.com/",
       "shopify_url": "https://apps.shopify.com/helpdesk",
       "unconfirmed": [],
-      "notes": "Gorgias's pricing page markup also contains a second, higher price set (Basic $77, Pro $471, Advanced $1,227). We used the detailed plan data (tickets, overage, AI allowance) on the same page. Check your quote on gorgias.com.",
+      "notes": "The code behind Gorgias's pricing page also contains a second, higher price set (Basic $77, Pro $471, Advanced $1,227). We used the detailed plan data on the same page (tickets, overage, AI allowance). Check your quote on gorgias.com.",
       "sources": [
         [
           "Gorgias pricing page",
@@ -445,7 +445,7 @@
       ],
       "checked": "2026-11-09",
       "affiliate_url": null,
-      "ai_short": "Token meter, ~$0.20–0.24 per AI conversation, $200/mo minimum, plus seats"
+      "ai_short": "Token meter, ~$0.20\u20130.24 per AI conversation, $200/mo minimum, plus seats"
     },
     {
       "slug": "reamaze",
@@ -943,7 +943,7 @@
       "title": "Aide paid plans bill extra replies instead of pausing at the allowance",
       "items": [
         "Aide's public pricing page now describes paid overages: Starter $0.15 per extra reply up to $110 a month, Pro $0.10 up to $350, Scale $0.07 up to $1,000. Free still pauses at 150 AI replies.",
-        "The calculator no longer jumps to the next plan as soon as the included replies run out. A store using 1,400 AI replies on Starter is $39 plus 400 × $0.15 = $99, not Pro at $149.",
+        "The calculator no longer jumps to the next plan as soon as the included replies run out. A store using 1,400 AI replies on Starter is $39 plus 400 \u00d7 $0.15 = $99, not Pro at $149.",
         "Sample store estimates, assuming one AI reply per conversation: small $39, medium $39, large $149. Checked on aide.app/pricing."
       ]
     },

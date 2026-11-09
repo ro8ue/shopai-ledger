@@ -10,7 +10,7 @@ def tiered(p, s, i):
     k = p["metric"]; v = s[k]
     for name, price, cap in p["plans"]:
         if v <= cap:
-            return dict(total=price, plan=name, math=[f"Your store: {fmt(k, v)} {LAB[k]}", f"Cheapest plan that covers it: {name} (up to {fmt(k, cap)} {LAB[k]}) = {m(price)}/mo, monthly billing"])
+            return dict(total=price, plan=name, math=[f"Your store: {fmt(k, v)} {LAB[k]}", f"Cheapest plan that covers it: {name} (up to {fmt(k, cap)} {LAB[k]}), {m(price)}/mo on monthly billing."])
     top = p["plans"][-1]
     return dict(total=None, plan="Above published plans", math=[f"Your store: {fmt(k, v)} {LAB[k]}", f"The largest published plan, {top[0]}, stops at {fmt(k, top[2])} {LAB[k]} ({m(top[1])}/mo). Above that it's a custom quote. Not public, check site."])
 

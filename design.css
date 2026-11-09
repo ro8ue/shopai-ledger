@@ -315,6 +315,7 @@ main p,main li{color:#BDB9B2}main p b,main li b,main a{color:var(--tx)}
 .cform{display:flex;gap:10px;flex-wrap:wrap}.cform input{flex:1 1 220px}
 #c-full{display:none}.sp-unlocked #c-full{display:block}.sp-unlocked #c-gate{display:none}
 .crow{border-bottom:1px solid rgba(0,0,0,.12);padding:12px 0}.crow summary{display:grid;grid-template-columns:1fr auto;gap:2px 14px;cursor:pointer;list-style:none}
+.faq{margin:20px 0}.faq details{border-bottom:1px solid var(--line,rgba(0,0,0,.12));padding:12px 0}.faq summary{cursor:pointer;font-weight:600;list-style:none}.faq details p{margin:8px 0 0;color:inherit}
 .crow .cn{font-weight:600}.crow .cp{grid-row:2;font-size:14px;opacity:.7}.crow .ct{grid-row:1/3;grid-column:2;align-self:center;font-family:var(--sans)}
 .crow ul{margin:10px 0 0;padding-left:18px;font-size:15px}
 @media(max-width:600px){.crange{grid-template-columns:1fr 90px}.cpair{grid-template-columns:1fr}.chead .big{font-size:28px}}

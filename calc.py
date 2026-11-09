@@ -17,7 +17,7 @@ def gorgias(p, conv, seats, ai):
                  f"Tickets: {conv:,} (AI-handled ones count as tickets too) → {extra_t:,} over × {m(over)} = {m(extra_t*over)}",
                  f"AI interactions: {ai:,} − {incl_ai} included = {extra_ai:,} × {m(p['ai_unit'])} = {m(extra_ai*p['ai_unit'])}"]
         opts.append(dict(total=t, plan=name, math=lines))
-    o = cheapest(opts); o["math"].append(f"Cheapest plan at this size: {o['plan']} = {m(o['total'])}/mo. If AI goes over your committed allowance, Gorgias lists {m(p['ai_overage_note'])} per interaction.")
+    o = cheapest(opts); o["math"].append(f"Cheapest plan at this size: {o['plan']}, for {m(o['total'])}/mo in total. Above your included AI allowance, Gorgias lists {m(p['ai_overage_note'])} per interaction.")
     return o
 
 def tidio(p, conv, seats, ai):
@@ -84,14 +84,14 @@ def chatty(p, conv, seats, ai):
     for name, price, cap in p["plans"]:
         ex = max(0, conv - cap); t = price + ex * p["unit"]
         opts.append(dict(total=t, plan=name, math=[f"{name} {m(price)} includes {cap:,} AI conversations; {ex:,} extra × {m(p['unit'])} = {m(ex*p['unit'])} → {m(t)}"]))
-    o = cheapest(opts); o["math"].append(f"Cheapest plan at this size: {o['plan']} = {m(o['total'])}/mo"); return o
+    o = cheapest(opts); o["math"].append(f"Cheapest plan at this size: {o['plan']}, for {m(o['total'])}/mo in total"); return o
 
 def helpcenter(p, conv, seats, ai):
     opts = []
     for name, price, cap, over in p["plans"]:
         ex = max(0, conv - cap); t = price + ex * over
         opts.append(dict(total=t, plan=name, math=[f"{name} {m(price)} includes {cap:,} tickets; {ex:,} extra × {m(over)} = {m(ex*over)} → {m(t)}"]))
-    o = cheapest(opts); o["math"].append(f"Cheapest plan at this size: {o['plan']} = {m(o['total'])}/mo (no AI agent, AI FAQs only)"); return o
+    o = cheapest(opts); o["math"].append(f"Cheapest plan at this size: {o['plan']}, for {m(o['total'])}/mo in total (no AI agent, AI FAQs only)"); return o
 
 MODELS = dict(gorgias=gorgias, tidio=tidio, intercom=intercom, zendesk=zendesk, hubspot=hubspot, free=free, richpanel=richpanel,
               reamaze=reamaze, freshdesk=freshdesk, zipchat=zipchat, siena=siena, chatty=chatty, helpcenter=helpcenter)
@@ -120,6 +120,6 @@ def aide(p, conv, seats, ai):
         return dict(total=None, plan="Above published paid caps", math=["This many AI replies is above the published paid plans and their extra reply caps."])
     o = cheapest(opts)
     if len(opts) > 1:
-        o["math"] = list(o["math"]) + [f"Cheapest plan at this size: {o['plan']} = {m(o['total'])}/mo"]
+        o["math"] = list(o["math"]) + [f"Cheapest plan at this size: {o['plan']}, for {m(o['total'])}/mo in total"]
     return o
 MODELS["aide"] = aide
