@@ -2,7 +2,7 @@
   "site": {
     "name": "Stillprice",
     "base_url": "https://stillprice.com",
-    "updated": "2026-11-08",
+    "updated": "2026-11-09",
     "contact": "alinkewu@gmail.com",
     "sizes": [
       {
@@ -112,7 +112,7 @@
           "https://www.gorgias.com/pricing"
         ]
       ],
-      "checked": "2026-11-08",
+      "checked": "2026-11-09",
       "affiliate_url": "https://partner.gorgias.com/7bk6ikez45x3",
       "ai_short": "$1.00 per automated interaction (monthly), plus ticket fees"
     },
@@ -190,7 +190,7 @@
           "https://apps.shopify.com/tidio-chat"
         ]
       ],
-      "checked": "2026-11-08",
+      "checked": "2026-11-09",
       "affiliate_url": null,
       "ai_short": "Per Lyro conversation ($39 for 200), human chats billed separately"
     },
@@ -247,7 +247,7 @@
           "https://apps.shopify.com/intercom"
         ]
       ],
-      "checked": "2026-11-08",
+      "checked": "2026-11-09",
       "affiliate_url": null,
       "ai_short": "$0.99 per Fin outcome, plus per-seat fee"
     },
@@ -302,7 +302,7 @@
           "https://www.zendesk.com/pricing/"
         ]
       ],
-      "checked": "2026-10-26",
+      "checked": "2026-11-09",
       "affiliate_url": null,
       "ai_short": "$2.00 per automated resolution PAYG ($1.50 committed), plus seats"
     },
@@ -393,7 +393,7 @@
           "https://apps.shopify.com/inbox"
         ]
       ],
-      "checked": "2026-11-08",
+      "checked": "2026-11-09",
       "affiliate_url": null,
       "ai_short": "Free"
     },
@@ -443,7 +443,7 @@
           "https://www.richpanel.com/pricing"
         ]
       ],
-      "checked": "2026-11-08",
+      "checked": "2026-11-09",
       "affiliate_url": null,
       "ai_short": "Token meter, ~$0.20–0.24 per AI conversation, $200/mo minimum, plus seats"
     },
@@ -505,7 +505,7 @@
           "https://www.reamaze.com/pricing"
         ]
       ],
-      "checked": "2026-11-08",
+      "checked": "2026-11-09",
       "affiliate_url": null,
       "ai_short": "$0.85 per resolution after small per-user allowance, plus seats"
     },
@@ -555,7 +555,7 @@
           "https://www.freshworks.com/freshdesk/pricing/"
         ]
       ],
-      "checked": "2026-10-26",
+      "checked": "2026-11-09",
       "affiliate_url": null,
       "ai_short": "$49 per 100 AI sessions, plus seats"
     },
@@ -642,7 +642,7 @@
           "https://apps.shopify.com/zipchat"
         ]
       ],
-      "checked": "2026-11-08",
+      "checked": "2026-11-09",
       "affiliate_url": null,
       "ai_short": "Per AI reply (plan allowances; $49 per 250 extra)"
     },
@@ -686,7 +686,7 @@
           "https://www.siena.cx/pricing"
         ]
       ],
-      "checked": "2026-11-08",
+      "checked": "2026-11-09",
       "affiliate_url": null,
       "ai_short": "$0.90 per automated ticket + $750/mo platform fee"
     },
@@ -755,7 +755,7 @@
           "https://apps.shopify.com/chatty"
         ]
       ],
-      "checked": "2026-11-08",
+      "checked": "2026-11-09",
       "affiliate_url": null,
       "ai_short": "Per AI conversation (plan allowances; $0.40 extra)"
     },
@@ -826,7 +826,7 @@
           "https://apps.shopify.com/helpcenter"
         ]
       ],
-      "checked": "2026-11-08",
+      "checked": "2026-11-09",
       "affiliate_url": null,
       "ai_short": "No AI agent fee; priced per ticket (AI FAQs)"
     },
@@ -913,12 +913,21 @@
           "https://aide.app/pricing"
         ]
       ],
-      "checked": "2026-11-08",
+      "checked": "2026-11-09",
       "affiliate_url": null,
       "ai_short": "Per AI reply (allowances, then paid extras up to a cap)"
     }
   ],
   "changelog": [
+    {
+      "date": "2026-11-09",
+      "title": "Weekly re-check: no price changes",
+      "items": [
+        "Re-read the official pricing pages and Shopify App Store listings for every support and search app we track. No plan prices, usage rates or sample-store estimates changed since 8 Nov.",
+        "Zendesk, Freshdesk, Athos (Klevu/Searchspring) and Nosto loaded this week and still match what we list: Zendesk and Freshdesk prices unchanged, Athos and Nosto still quote only. Richpanel (monthly $119 per seat, $0.60 per credit) and LimeSpot (Turbo and Max slider tiers) were re-read and unchanged.",
+        "HubSpot's pricing page would not load its price table again, so its seat prices keep the 26 Oct check date. HubSpot's own Customer Agent page still says $0.50 per resolution."
+      ]
+    },
     {
       "date": "2026-11-08",
       "title": "Weekly re-check: Rebuy changed prices",
