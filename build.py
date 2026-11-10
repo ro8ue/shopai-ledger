@@ -47,15 +47,18 @@ def itemlist(name, apps, fn_of):
 PAGES = []
 LOGO = """<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="0.5" y="0.5" width="23" height="23" rx="4" fill="none" stroke="currentColor" stroke-opacity=".35"/><rect x="5" y="6" width="14" height="2" rx="1" fill="currentColor"/><rect x="5" y="11" width="9" height="2" rx="1" fill="currentColor"/><rect x="5" y="16" width="11.5" height="2" rx="1" fill="currentColor" fill-opacity=".55"/></svg>"""
 FONTS = '<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap">'
-# ---- Analytics: Umami Cloud (cookieless, no banner). Paste the Website ID from cloud.umami.is after sign-up.
-# Empty = no analytics snippet is emitted, so the build output is unchanged.
+# ---- Analytics: Vercel Web Analytics (Hobby free tier, 50k events/month, no overage billing)
+# plus Umami Cloud (cookieless, no banner). Empty UMAMI_ID skips only the Umami snippet.
+VERCEL_ANALYTICS = (
+    '<script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>'
+    '<script defer src="/_vercel/insights/script.js"></script>')
 UMAMI_ID = "ef83573c-dc05-416b-8ade-a59229995cc7"
-ANALYTICS = "" if not UMAMI_ID else (
+ANALYTICS = VERCEL_ANALYTICS + ("" if not UMAMI_ID else (
     f'<script defer src="https://cloud.umami.is/script.js" data-website-id="{UMAMI_ID}" data-domains="stillprice.com" data-exclude-search="true"></script>'
     # Outbound clicks: rel=sponsored links count as "affiliate-click", every other external link as "outbound-click".
     '<script>document.addEventListener("click",function(ev){var a=ev.target.closest&&ev.target.closest("a[href]");if(!a||a.host===location.host||!/^https?:/.test(a.href))return;'
     'var r=(a.getAttribute("rel")||"").indexOf("sponsored")>-1;var d={dest:a.host,url:a.href.slice(0,300),page:location.pathname,label:(a.textContent||"").trim().slice(0,80)};'
-    'if(window.umami&&umami.track)umami.track(r?"affiliate-click":"outbound-click",d);},true);</script>')
+    'if(window.umami&&umami.track)umami.track(r?"affiliate-click":"outbound-click",d);},true);</script>'))
 
 # ---- Honest verdicts (human written opinion; every number comes from data/*.json). Affiliate status never changes these.
 VERDICTS = {
@@ -499,7 +502,7 @@ _audit_path.write_text(_audit)
 
 (O / "style.css").write_text(CSS)
 (O / "favicon.svg").write_text('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" rx="7" fill="#0c0c0c"/><rect x="7" y="9" width="18" height="2.6" rx="1.3" fill="#f3efe6"/><rect x="7" y="14.7" width="11.5" height="2.6" rx="1.3" fill="#f3efe6"/><rect x="7" y="20.4" width="14.5" height="2.6" rx="1.3" fill="#f3efe6" fill-opacity=".55"/></svg>')
-(O / "404.html").write_text(f'<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Not found | Stillprice</title><meta name="robots" content="noindex"><link rel="icon" href="/favicon.svg" type="image/svg+xml">{FONTS}<link rel="stylesheet" href="/style.css"></head><body><section class="hero"><div class="wrap"><p class="eyebrow">( 404 )</p><h1>Page not <em>found</em></h1><p style="margin:0"><a class="btn light" href="/">Go to the Stillprice comparison</a></p></div></section></body></html>')
+(O / "404.html").write_text(f'<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Not found | Stillprice</title><meta name="robots" content="noindex"><link rel="icon" href="/favicon.svg" type="image/svg+xml">{FONTS}<link rel="stylesheet" href="/style.css">{ANALYTICS}</head><body><section class="hero"><div class="wrap"><p class="eyebrow">( 404 )</p><h1>Page not <em>found</em></h1><p style="margin:0"><a class="btn light" href="/">Go to the Stillprice comparison</a></p></div></section></body></html>')
 (O / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "".join(f"  <url><loc>{S['base_url']}/{'' if p=='index.html' else p[:-5]}</loc><lastmod>{S['updated']}</lastmod></url>\n" for p in PAGES) + "</urlset>\n")
 (O / "sitemap.txt").write_text("".join(f"{S['base_url']}/{'' if p=='index.html' else p[:-5]}\n" for p in PAGES))
 (O / "robots.txt").write_text(f"User-agent: *\nAllow: /\nSitemap: {S['base_url']}/sitemap.xml\nSitemap: {S['base_url']}/sitemap.txt\n")
