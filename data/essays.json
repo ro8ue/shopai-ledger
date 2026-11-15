@@ -95,45 +95,46 @@
       "kind": "Thursday deep-dive",
       "title": "AI support under $50 a month?",
       "thesis": "Price the support app at the size you will be in a year, not the size you are today.",
-      "dek": "At 200 chats a month nothing paid with a real AI agent comes in under $50. At 1,000 chats most bills grow 3x to 5x, and the ranking reshuffles.",
+      "dek": "At 200 chats a month, Aide's Starter plan comes in at $39, so a paid AI agent can sit under $50. At 1,000 chats most bills grow 3x to 5x, and the ranking reshuffles.",
       "substack": "https://stillprice.substack.com/p/the-ledger-deep-dive-ai-support-under",
-      "checked": "26 Oct 2026",
+      "checked": "15 Nov 2026",
       "sections": [
         [
           "The question",
           [
-            "A store owner on Reddit asked for the cheapest AI chatbot that actually works for a small Shopify store, on a budget under $50 a month. Our small store gets 200 support conversations a month, has one person answering, and the AI handles half. Here is the cheapest plan that covers it, from official pricing pages checked 26 Oct 2026."
+            "A store owner on Reddit asked for the cheapest AI chatbot that actually works for a small Shopify store, on a budget under $50 a month. Our small store gets 200 support conversations a month, with one person answering and the AI handling half. Here is the cheapest plan that covers it, from official pricing pages checked 15 Nov 2026."
           ]
         ],
         [
-          "Under $50, only the free one fits",
+          "Under $50, Inbox is free and Aide fits",
           [
             "<b><a href='shopify-inbox-pricing.html'>Shopify Inbox</a>: $0.</b> Free, with an AI sales associate trained on your catalog, policies and store content.",
+            "<b><a href='aide-pricing.html'>Aide</a>: $39.</b> Starter is $39 for 1,000 AI resolutions, which covers both the small and the medium store on our assumptions.",
             "<b><a href='helpcenter-pricing.html'>Helpcenter</a>: $40.</b> Cheap, but it gives you AI-written FAQs, not an AI agent.",
             "<b><a href='chatty-pricing.html'>Chatty</a>: $59.99.</b> Basic is $19.99 for 100 AI conversations. The other 100 cost $0.40 each.",
             "<b><a href='tidio-pricing.html'>Tidio</a>: $68.</b> Lyro costs $39 for up to 200 conversations, plus Tidio's $29 plan for the chats a person answers.",
             "<b><a href='zipchat-pricing.html'>Zipchat</a>: $80.</b> Starter gives you 750 AI replies, which Zipchat says is about 300 conversations.",
-            "After that come the full helpdesks in a tight $109.75 to $138 band: Re:amaze, Freshdesk, HubSpot, Gorgias and Intercom Fin. Start with Shopify Inbox, and pay for an AI agent only when you need one inbox for email, social and returns."
+            "After that come the full helpdesks. Re:amaze at $109.75, Freshdesk at $117, HubSpot at $120 and Intercom Fin at $138 sit in a tight band. Gorgias, at $195, has moved out of it. Start with Shopify Inbox, or Aide if you want a paid agent under $50, and move to a full helpdesk only when you need one inbox for email, social and returns."
           ]
         ],
         [
           "What 5x the chats does to each bill",
           [
-            "Move the same store to 1,000 conversations a month and two seats. Gorgias goes from $130 to $670 (5.2x), Re:amaze from $109.75 to $474.50 (4.3x), Zendesk from $259 to $1,118 (4.3x), HubSpot from $120 to $420 (3.5x) and Chatty from $59.99 to $199 (3.3x).",
-            "Two apps barely move. Richpanel goes from $319 to $478 (1.5x), because a small store already pays its $200 AI minimum, so it climbs from 10th to 5th among paid AI apps. Siena AI goes from $840 to $1,200 (1.4x), because most of its bill is the $750 platform fee.",
+            "Move the same store to 1,000 conversations a month and two seats. Gorgias goes from $195 to $1,015 (5.2x), Re:amaze from $109.75 to $474.50 (4.3x), Zendesk from $259 to $1,118 (4.3x), HubSpot from $120 to $420 (3.5x) and Chatty from $59.99 to $199 (3.3x).",
+            "Aide stays at $39 (1.0x), because Starter already includes 1,000 AI resolutions. Two other apps barely move. Richpanel goes from $289 to $378 (1.3x), because a small store already pays its $200 AI minimum. That lifts it from 11th to 4th among paid AI apps. Siena AI goes from $840 to $1,200 (1.4x), because most of its bill is the $750 platform fee.",
             "The one that is cheapest now may not be cheapest then."
           ]
         ],
         [
           "What counts as \"one\"",
           [
-            "Chatty bills per AI conversation. Tidio counts a conversation once Lyro sends a reply, whether or not it solves anything. Zipchat counts every AI reply, and a back and forth uses about 2.5 of them. Re:amaze, HubSpot and Zendesk bill only when the AI resolves the conversation. Two stores with the same number of chats can get very different bills."
+            "Chatty bills per AI conversation. Tidio counts a conversation once Lyro sends a reply, whether or not it solves anything. Zipchat counts every AI reply, and a back-and-forth uses about 2.5 of them. Re:amaze, HubSpot and Zendesk bill only when the AI resolves the conversation. Two stores with the same number of chats can get very different bills."
           ]
         ]
       ],
       "related": [
         [
-          "index.html#support",
+          "shopify-ai-support-apps.html",
           "All AI support apps by real cost"
         ],
         [
@@ -147,9 +148,16 @@
         [
           "free-calculator.html",
           "Free cost calculator"
+        ],
+        [
+          "aide-pricing.html",
+          "Aide pricing math"
         ]
       ],
-      "conflict": "Gorgias is an affiliate app for us and appears in the comparisons here, but it is not the lead. Affiliate status never changes a verdict."
+      "conflict": "Gorgias is an affiliate app for us and appears in the comparisons here, but it is not the lead. Affiliate status never changes a verdict.",
+      "correction": "Correction, 15 Nov 2026. We first published this essay before Aide was on the ledger, and we later corrected the Gorgias math to match the official plan cards. The figures below are from official pricing pages checked 15 Nov 2026. Aide Starter is $39 at both our small and medium stores, so a paid AI agent can come in under $50 at those sizes.",
+      "hero": "essays-ai-support-under-50-a-month-1456x816.png",
+      "og": "essays-ai-support-under-50-a-month-og-1200x630.png"
     }
   ],
   "issues": [

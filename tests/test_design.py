@@ -169,9 +169,17 @@ class DesignTests(unittest.TestCase):
         self.assertIn('essay-hero-media', text)
         self.assertTrue((ROOT / 'site' / 'essays-free-search-first-then-pay-by-product-1456x816.png').exists())
         under = self.read('essays-ai-support-under-50-a-month.html')
-        self.assertNotIn('essays-ai-support-under-50-a-month-1456x816.png', under)
-        self.assertNotIn('essays-ai-support-under-50-a-month-og-1200x630.png', under)
-        self.assertIn('https://stillprice.com/og-default.jpg', under)
+        self.assertIn("src='essays-ai-support-under-50-a-month-1456x816.png'", under)
+        self.assertIn('https://stillprice.com/essays-ai-support-under-50-a-month-og-1200x630.png', under)
+        self.assertIn('essay-hero-media', under)
+        self.assertTrue((ROOT / 'site' / 'essays-ai-support-under-50-a-month-1456x816.png').exists())
+        self.assertIn('a paid AI agent can sit under $50', under)
+        self.assertIn('Aide Starter is $39', under)
+        self.assertIn('Correction, 15 Nov 2026', under)
+        self.assertIn('a paid AI agent can come in under $50', under)
+        self.assertNotIn('DRAFT ONLY', under)
+        self.assertNotIn('nothing paid with a real AI agent comes in under $50', under)
+        self.assertIn('Prices checked 15 Nov 2026', under)
 
 
 if __name__ == '__main__':

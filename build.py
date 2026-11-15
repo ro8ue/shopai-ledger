@@ -406,9 +406,17 @@ for x in ES:
     wrap_open = "<div class=wrap>" if x.get("hero") else ""
     wrap_close = "</div>" if x.get("hero") else ""
     essay_og = (S["base_url"] + "/" + x["og"]) if x.get("og") else None
+    corr = x.get("correction") or ""
+    if corr.startswith("Correction, ") and ". " in corr:
+        label, rest = corr.split(". ", 1)
+        corr_html = f"<div class=callout><b>{e(label)}.</b> {e(rest)}</div>"
+    elif corr:
+        corr_html = f"<div class=callout>{e(corr)}</div>"
+    else:
+        corr_html = ""
     page(efn(x), f"{x['title']} | Stillprice Essays", x["dek"],
       f"{hero_img}{wrap_open}<p class=eyebrow>( {e(x['kind'])} · {e(x['date'])} )</p><h1{h1_class}>{e(x['title'])}</h1><p class=lead>{e(x['thesis'])}</p><p class=muted>{e(x['dek'])}</p>{wrap_close}{HERO_END}"
-      f"<p class=crumb><a href='essays.html'>Essays</a> / {e(x['title'])}</p>{secs}"
+      f"<p class=crumb><a href='essays.html'>Essays</a> / {e(x['title'])}</p>{corr_html}{secs}"
       f"<h2>The numbers behind this essay</h2><ul>{rel}</ul>"
       f"<div class=callout><b>Prices checked {e(x['checked'])}</b> on official pricing pages, monthly billing. Prices change, so check the linked pages for the latest date. <b>Conflict:</b> {e(x['conflict'])} See our <a href='principles.html'>principles</a> and <a href='disclosure.html'>disclosure</a>.</div>"
       f"<p class=muted>First sent as an email. <a href='{x['substack']}' rel='noopener'>Read it on Substack</a>.</p>{NEWS}",
