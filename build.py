@@ -82,7 +82,7 @@ VERDICTS = {
   suits="LimeSpot publishes every tier, so you see your bill before you install: about $19.99 small, $149.99 medium and $525 large on our numbers. Rebuy now publishes order-volume prices too: about $35 small, $69 medium and $264 large for Search & Collections (checked 15 Nov 2026).",
   over="Anyone still comparing Rebuy on the old $534 a month Platform One figure. We did not find that package on Rebuy's public page. Its Search & Collections order tiers are public: $35 small, $69 medium and $264 large on our numbers (checked 15 Nov 2026). At 10,000 or more orders a month, Rebuy still says to talk to sales.",
   gotchas=["LimeSpot Turbo is not available on Shopify Plus, so Plus stores land on Max, which is priced by revenue.","LimeSpot's 50% off for life offer for new sign ups is not in our figures. We show list prices.","When we checked, Rebuy's Shopify App Store page showed 'not currently available' from our location."],
-  bottom="On price transparency LimeSpot wins clearly. Neither app pays us."),
+  bottom="Both apps now publish their prices. On our numbers, LimeSpot is cheaper for a small store ($19.99 vs $35). Rebuy is cheaper at medium ($69 vs $149.99) and large ($264 vs $525). Neither app pays us."),
  "klevu-alternatives.html": dict(app="Klevu alternatives", aff=False,
   suits="Klevu and Searchspring (Athos Commerce) are quote only annual plans, built for enterprise merchandising teams. If you want a known bill, Searchanise ($39), Algolia (about $87.50) and Doofinder ($186) all publish prices for our medium store.",
   over="Small and mid stores signing an annual Athos contract for search they could get from a published plan, or from the free Shopify Search & Discovery.",
