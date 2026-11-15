@@ -97,9 +97,10 @@ def verdict(fn):
     return (f"<div class='box verdict'><p class=eyebrow style='color:inherit;opacity:.6;margin:0 0 6px'>( Our verdict )</p><h2 style='margin-top:0'>Honest take: {e(v['app'])}</h2>"
             f"<p><b>Who it suits.</b> {e(v['suits'])}</p><p><b>{e(over_lab)}</b> {e(v['over'])}</p><p><b>Gotchas.</b></p><ul>{g}</ul><p><b>Bottom line.</b> {e(v['bottom'])}</p>"
             "<p class=muted style='font-size:14px'>Opinion, written by a person. Numbers come from the estimates on this site. <a href='principles.html'>Affiliate status never changes a verdict.</a></p></div>")
-def page(fn, title, desc, body, head=""):
+def page(fn, title, desc, body, head="", footer_checked=None, og_image=None):
     PAGES.append(fn)
     url = curl(fn)
+    og = og_image or (S["base_url"] + "/og-default.jpg")
     nav = "".join(f'<a href="{h}"' + (' aria-current="page"' if h == fn else "") + f'>{t}</a>' for h, t in NAV)
     news = NEWS in body; body = body.replace(NEWS, "")
     hero, sep, rest = body.partition(HERO_END)
@@ -107,7 +108,10 @@ def page(fn, title, desc, body, head=""):
     rest = verdict(fn) + rest
     if fn != "index.html":
         hero = re.sub(r"<h1>(.*?): (.*?)</h1>", r"<h1>\1: <em>\2</em></h1>", hero, count=1)
-        hero = f'<section class="hero"><div class="wrap">{hero}</div></section>' if hero else ""
+        if "essay-hero-media" in hero:
+            hero = f'<section class="hero essay-has-image">{hero}</section>' if hero else ""
+        else:
+            hero = f'<section class="hero"><div class="wrap">{hero}</div></section>' if hero else ""
     def _sec(m):
         t=re.sub(r"<[^>]+>","",m.group(2)).replace("&amp;","&")
         ws=[x.strip(":,.?") for x in t.split()]
@@ -121,14 +125,14 @@ def page(fn, title, desc, body, head=""):
     hero, rest = _eb(hero), _eb(rest)
     (O / fn).write_text(clean_links(f"""<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="google-site-verification" content="JHZv0niTmEJr6Eywzr3X6kB2OFSl9WHrn6igGEJn2Qw" />
 <title>{e(title)}</title><meta name="description" content="{e(desc)}"><link rel="canonical" href="{url}">
-<meta property="og:type" content="website"><meta property="og:site_name" content="Stillprice"><meta property="og:title" content="{e(title)}"><meta property="og:description" content="{e(desc)}"><meta property="og:url" content="{url}"><meta property="og:image" content="https://stillprice.com/og-default.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="What Shopify AI apps really cost. Stillprice."><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://stillprice.com/og-default.jpg">
+<meta property="og:type" content="website"><meta property="og:site_name" content="Stillprice"><meta property="og:title" content="{e(title)}"><meta property="og:description" content="{e(desc)}"><meta property="og:url" content="{url}"><meta property="og:image" content="{og}"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="What Shopify AI apps really cost. Stillprice."><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="{og}">
 <meta name="theme-color" content="#0A0A0A"><link rel="icon" href="favicon.svg" type="image/svg+xml">
 {FONTS}<link rel="stylesheet" href="style.css">{head}<script defer src="table-sizes.js"></script>{ANALYTICS}</head><body>
 <header class="top"><div class="wrap"><a class="logo" href="index.html" aria-label="Stillprice home"><span>Stillprice</span></a><nav class="main" aria-label="Main">{nav}</nav><a class="btn light sm" href="{'#newsletter' if news else 'index.html#newsletter'}">Subscribe</a></div></header>
 {hero}<main class="wrap">{rest}</main>{_eb(NEWS) if news else ""}
 <footer class="site"><div class="wrap"><div><a class="logo" href="index.html"><span>Stillprice</span></a><p>Stillprice is independent and not owned by Shopify or any app listed. Some links are affiliate links, and they never change a verdict. Prices are in USD, checked by hand on the date shown, and can change at any time. Always confirm on the vendor's site.</p></div>
 <div class="links"><a href="gorgias-alternatives.html">Gorgias alternatives</a><a href="principles.html">Our principles</a><a href="price-moves.html">Price moves</a><a href="methodology.html">How we calculate</a><a href="disclosure.html">Affiliate disclosure</a><a href="changelog.html">Change log</a><a href="free-calculator.html">Free cost calculator</a><a href="https://stillprice.substack.com/subscribe">Weekly email signup</a><a href="advertise.html">Advertise / get listed</a><a href="mailto:{S['contact']}?subject=Stillprice%20correction">Report a wrong price</a></div>
-<div class="base"><span>Prices checked {hd(S['updated'])}</span><a href="#">Back to top ↑</a></div></div></footer></body></html>"""))
+<div class="base"><span>Prices checked {hd(footer_checked or S['updated'])}</span><a href="#">Back to top ↑</a></div></div></footer></body></html>"""))
 
 # Newsletter: Substack signup (stillprice.substack.com) inside the cream .news .embed card.
 NEWS = """<section class="news" id="newsletter"><div class="wrap"><div><p class="eyebrow">( The Ledger )</p><h2>The Ledger, Mondays and Thursdays</h2>
@@ -188,16 +192,16 @@ featured_html = (f"<div class=box style='margin-top:0'><p class=eyebrow>( Essay 
   f"<p class=lead style='margin:.4em 0'>{e(FE['thesis'])}</p><p class=muted>{e(FE['dek'])}</p>"
   f"<p style='margin:0'><a class='btn' href='{efn(FE)}'>Read the essay <span class=arr>→</span></a> <a href='essays.html'>All essays</a></p></div>")
 # ---- home
-HL = sorted([BY[k] for k in ["shopify-inbox", "aide", "helpcenter", "chatty", "zipchat", "gorgias", "zendesk"] if k in BY and BY[k]["est"][1]["total"] is not None], key=sortkey)
+HL = sorted([a for a in A if a["est"][1]["total"] is not None], key=sortkey)[:7]
 _hmx = max(x["est"][1]["total"] for x in HL) or 1
-hero_ledger = (f"<aside class=ledger aria-label='Sample: medium store monthly cost'><header><span>{SIZES[1]['label']} · {SIZES[1]['conv']:,} conversations/mo</span><span>Est. / mo</span></header><ol>"
+hero_ledger = (f"<aside class=ledger aria-label='Cheapest seven support apps by medium-store cost'><header><span>{SIZES[1]['label']} · {SIZES[1]['conv']:,} conversations/mo</span><span>Est. / mo</span></header><ol>"
   + "".join(f"<li><span>{i+1:02d}</span>{e(short(x))}<b>{money(x['est'][1])}</b><i style='--w:{max(2, round(x['est'][1]['total'] / _hmx * 100))}%'></i></li>" for i, x in enumerate(HL))
   + f"</ol><footer>AI resolves {int(RATE*100)}% of conversations. <a href='{SUPPORT}'>See all {len(A)} support apps →</a></footer></aside>")
 comp_links = "".join(f"<li><a href='{cslug(x,y)}'>{e(short(BY[x]))} vs {e(short(BY[y]))} pricing</a></li>" for x, y in COMPS)
 page("index.html", "Stillprice: What Shopify AI Apps Really Cost (Support, Search & Recommendations, 2026)",
  f"Real monthly cost of {len(A)} AI support apps (Gorgias, Tidio Lyro, Intercom Fin, Zendesk…) and {len(SA)} AI search & recommendation apps (Searchanise, Boost, Doofinder, Rebuy, LimeSpot…) for Shopify at three store sizes, with the math and dated sources.",
  f"<section class='hero home'><div class=wrap><div><p class=eyebrow>( Shopify AI app pricing · checked {S['updated']} )</p><h1>What Shopify AI apps <em>really cost</em></h1><p class=lead>AI apps bill per resolution, per conversation, per search, per order or by your revenue, so the sticker price rarely matches the invoice. We read every official pricing page by hand and show the estimated monthly bill at three store sizes, with the math.</p>"
- f"<p style='margin:0'><a class='btn light' href='{SUPPORT}'>Compare support apps <span class=arr>→</span></a><a class='btn ghost' href='{SLAND}'>Search & recommendation apps</a></p></div>{hero_ledger}</div>"
+ f"<p style='margin:0'><a class='btn light' href='{SUPPORT}'>Compare support apps <span class=arr>→</span></a><a class='btn ghost' href='{SLAND}'>Search & recommendation apps</a></p><p class=hero-sub><a href='https://stillprice.substack.com/subscribe'>The Ledger, Mondays and Thursdays. Subscribe on Substack <span class=arr>→</span></a></p></div>{hero_ledger}</div>"
  f"<div class=wrap><div class=stats><div><b>{len(A)+len(SA)}</b><span>Apps tracked</span></div><div><b>2</b><span>Categories</span></div><div><b>3</b><span>Store sizes</span></div><div><b>{S['updated']}</b><span>Last checked</span></div></div></div>"
  f"<div class=ticker><div class=wrap><span>Official pricing pages only</span><span>Read by hand</span><span>Every price dated</span><span>Math shown</span><span>Not public = we don't guess</span></div></div></section>{HERO_END}{featured_html}{cats_html}"
  f"{NEWS}",
@@ -253,7 +257,8 @@ for a in A:
      + f"<p><a class=btn href='{e(link(a))}' rel='nofollow noopener' target='_blank'>See {e(nm)}'s official pricing</a>" + (f"<a class='btn alt' href='{e(a['affiliate_url'])}' rel='sponsored noopener' target='_blank'>Try {e(nm)} (affiliate link)</a>" if a.get("affiliate_url") else "") + (f"<a class='btn alt' href='{e(a['shopify_url'])}' rel='nofollow noopener' target='_blank'>Shopify App Store listing</a>" if a.get("shopify_url") and a["shopify_url"] != link(a) else "") + "</p>"
      + faq_html(faq)
      + f"<h2>Sources</h2><ul class=muted>{srcs}</ul>" + (f"<p>Compare: {rel_html}</p>" if rel else "") + f"<p class=muted>Other apps: {others}</p>{NEWS}",
-     head=ld({"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": ans}} for q, ans in faq]}))
+     head=ld({"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": ans}} for q, ans in faq]}),
+     footer_checked=a["checked"])
 
 # ---- comparison pages
 for x, y in COMPS:
@@ -287,7 +292,10 @@ _t = "Gorgias Alternatives 2026: Real Monthly Cost of 12 AI Support Apps for Sho
 _d = "Gorgias alternatives for Shopify compared on real monthly cost at three store sizes: Tidio, Intercom Fin, Zendesk, HubSpot, Richpanel, Re:amaze, Freshdesk, Zipchat, Chatty and Shopify Inbox."
 page("gorgias-alternatives.html", _t, _d,
  f"<h1>Gorgias alternatives, compared on real cost</h1><p class=lead>On our assumptions, Gorgias costs about <b>{money(BY['gorgias']['est'][0])}</b> a month for a small store, <b>{money(BY['gorgias']['est'][1])}</b> for a medium store and <b>{money(BY['gorgias']['est'][2])}</b> for a large one (<a href='gorgias-pricing.html'>see the math</a>). Here is how the alternatives compare for the same store.</p>{HERO_END}"
- f"{sizes_html}{table(alts)}<p class=muted>Some of these are full helpdesks, and others (Zipchat, Chatty, Shopify Inbox) are chat/AI layers only. Compare like with like. <a href='methodology.html'>How we calculate</a>.</p>{NEWS}",
+ f"{sizes_html}{table(alts)}<p class=muted>Some of these are full helpdesks, and others (Zipchat, Chatty, Shopify Inbox) are chat/AI layers only. Compare like with like. <a href='methodology.html'>How we calculate</a>.</p>"
+ + vs_btns({**BY["gorgias"], "_n": "Gorgias"})
+ + "<p class=muted>Gorgias is an affiliate app for us. Official pricing links go straight to the vendor. The labelled affiliate link is separate, and affiliate status never changes a verdict or the sort order.</p>"
+ + NEWS,
  head=ld(webpage("gorgias-alternatives.html", _t, _d, S["updated"]), crumbs(("Stillprice", "index.html"), ("Support apps", SUPPORT), ("Gorgias alternatives", "gorgias-alternatives.html"))))
 
 # ---- search & recommendations: category landing
@@ -339,7 +347,8 @@ for a in SA:
      + f"<p><a class=btn href='{e(a['pricing_url'])}' rel='nofollow noopener' target='_blank'>See {e(nm)}'s official pricing</a>" + (f"<a class='btn alt' href='{e(a['affiliate_url'])}' rel='sponsored noopener' target='_blank'>Try {e(nm)} (affiliate link)</a>" if a.get("affiliate_url") else "") + (f"<a class='btn alt' href='{e(a['shopify_url'])}' rel='nofollow noopener' target='_blank'>Shopify App Store listing</a>" if a.get("shopify_url") and a["shopify_url"] != a["pricing_url"] else "") + "</p>"
      + faq_html(faq)
      + f"<h2>Sources</h2><ul class=muted>{srcs}</ul>" + (f"<p>Compare: {rel_html.lstrip(' ·')}</p>" if rel_html else "") + f"<p class=muted>Other search & recommendation apps: {others}</p>{NEWS}",
-     head=ld({"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": ans}} for q, ans in faq]}))
+     head=ld({"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": ans}} for q, ans in faq]}),
+     footer_checked=a["checked"])
 
 # ---- search comparison pages
 for x, y in SCOMPS:
@@ -372,7 +381,9 @@ for x in SALTS:
     _d = f"{na} alternatives for Shopify compared on real monthly cost at three store sizes: Searchanise, Fast Simon, Doofinder, Algolia, Wiser, LimeSpot, Rebuy, Nosto and the free Shopify Search & Discovery."
     page(f"{x}-alternatives.html", _t, _d,
      f"<p class=crumb><a href='{SLAND}'>Search & recommendations</a> › Alternatives</p><h1>{e(na)} alternatives, compared on real cost</h1><p class=lead>For reference, {e(na)} comes out at {ref} on our assumptions (<a href='{x}-pricing.html'>see the math</a>). Here's how the alternatives price out for the same store.</p>{HERO_END}"
-     f"{ssizes_html}{stable(alts)}<p class=muted>Some of these are search & filter apps, and others (Wiser, LimeSpot, Rebuy) focus on recommendations and upsells. Compare like with like. <a href='methodology.html#search'>How we calculate</a>.</p>{NEWS}",
+     f"{ssizes_html}{stable(alts)}<p class=muted>Some of these are search & filter apps, and others (Wiser, LimeSpot, Rebuy) focus on recommendations and upsells. Compare like with like. <a href='methodology.html#search'>How we calculate</a>.</p>"
+     + (vs_btns({**a, "_n": na}) + f"<p class=muted>{e(na)} is an affiliate app for us. Official pricing links go straight to the vendor. The labelled affiliate link is separate, and affiliate status never changes a verdict or the sort order.</p>" if a.get("affiliate_url") else "")
+     + NEWS,
      head=ld(webpage(f"{x}-alternatives.html", _t, _d, S["updated"]), crumbs(("Stillprice", "index.html"), ("Search & recommendations", SLAND), (f"{na} alternatives", f"{x}-alternatives.html"))))
 
 # ---- change log
@@ -383,16 +394,26 @@ page("changelog.html", "Shopify AI App Price Change Log | Stillprice", "A dated 
 
 
 # ---- essays pages
+# Optional per-essay hero and og keys in data/essays.json (filenames in assets/essays/).
+# To wire a held header later: copy the pngs into assets/essays/ and add "hero" and "og"
+# on that essay, then rebuild. The image already carries the title and wordmark, so
+# a typographic h1 is visually hidden when a hero is present.
 for x in ES:
     secs = "".join(f"<h2>{e(h)}</h2>" + "".join(f"<p>{t}</p>" for t in ps) for h, ps in x["sections"])
     rel = "".join(f"<li><a href='{u}'>{e(t)}</a></li>" for u, t in x["related"])
+    hero_img = f"<div class=essay-hero-media><img src='{e(x['hero'])}' alt='{e(x['title'])}' width='1456' height='816'></div>" if x.get("hero") else ""
+    h1_class = " class=sr-only" if x.get("hero") else ""
+    wrap_open = "<div class=wrap>" if x.get("hero") else ""
+    wrap_close = "</div>" if x.get("hero") else ""
+    essay_og = (S["base_url"] + "/" + x["og"]) if x.get("og") else None
     page(efn(x), f"{x['title']} | Stillprice Essays", x["dek"],
-      f"<p class=eyebrow>( {e(x['kind'])} · {e(x['date'])} )</p><h1>{e(x['title'])}</h1><p class=lead>{e(x['thesis'])}</p><p class=muted>{e(x['dek'])}</p>{HERO_END}"
+      f"{hero_img}{wrap_open}<p class=eyebrow>( {e(x['kind'])} · {e(x['date'])} )</p><h1{h1_class}>{e(x['title'])}</h1><p class=lead>{e(x['thesis'])}</p><p class=muted>{e(x['dek'])}</p>{wrap_close}{HERO_END}"
       f"<p class=crumb><a href='essays.html'>Essays</a> / {e(x['title'])}</p>{secs}"
       f"<h2>The numbers behind this essay</h2><ul>{rel}</ul>"
       f"<div class=callout><b>Prices checked {e(x['checked'])}</b> on official pricing pages, monthly billing. Prices change, so check the linked pages for the latest date. <b>Conflict:</b> {e(x['conflict'])} See our <a href='principles.html'>principles</a> and <a href='disclosure.html'>disclosure</a>.</div>"
       f"<p class=muted>First sent as an email. <a href='{x['substack']}' rel='noopener'>Read it on Substack</a>.</p>{NEWS}",
-      head=ld({"@context": "https://schema.org", "@type": "Article", "headline": x["title"], "datePublished": x["iso"], "publisher": {"@type": "Organization", "name": "Stillprice"}, "url": S["base_url"] + "/" + efn(x)[:-5]}))
+      head=ld({"@context": "https://schema.org", "@type": "Article", "headline": x["title"], "datePublished": x["iso"], "publisher": {"@type": "Organization", "name": "Stillprice"}, "url": S["base_url"] + "/" + efn(x)[:-5]}),
+      og_image=essay_og)
 ess_list = "".join(f"<a class=card href='{efn(x)}'><span class=idx>{e(x['kind'])} · {e(x['date'])}</span><span class=go>→</span><b>{e(x['title'])}</b><p class=muted>{e(x["thesis"])}</p></a>" for x in ES)
 iss_list = "".join(f"<li><b>{e(i['date'])}:</b> <a href='{i['substack']}' rel='noopener'>{e(i['title'])}</a>. {e(i['dek'])} On the site: <a href='{i['site'][0]}'>{e(i['site'][1])}</a>.</li>" for i in ESS["issues"])
 page("essays.html", "Essays: What Shopify AI Apps Really Cost, Argued From the Data | Stillprice",
@@ -421,6 +442,8 @@ page("principles.html", "Our Principles: How Stillprice Shows the Real Cost of S
 
 # ---- price moves (real changes and vendor replies, from the changelog in data/apps.json)
 MOVES = [
+ dict(date="2026-11-15", app="Richpanel", kind="Price change", src=("Richpanel pricing page", "https://www.richpanel.com/pricing"), cl="2026-11-15", title="Weekly re-check: Richpanel", items=None),
+ dict(date="2026-11-15", app="HubSpot Service Hub", kind="Price change", src=("HubSpot pricing page (monthly)", "https://www.hubspot.com/pricing/?term=monthly"), cl="2026-11-15", title="Weekly re-check: HubSpot", items=None),
  dict(date="2026-11-09", app="Gorgias", kind="Methodology correction", src=("Gorgias pricing page", "https://www.gorgias.com/pricing"), cl="2026-11-09", title="Methodology correction", items=None),
  dict(date="2026-11-08", app="Rebuy", kind="Price change", src=("Rebuy pricing page", "https://www.rebuyengine.com/pricing"), cl="2026-11-08", items=[0, 1, 2]),
  dict(date="2026-10-26", app="Helpcenter (SB Helpdesk)", kind="Price change", src=("Shopify App Store listing", "https://apps.shopify.com/helpcenter"), cl="2026-10-26", items=[0, 1]),
@@ -454,12 +477,6 @@ page("methodology.html", "How We Calculate Shopify AI App Costs | Stillprice", "
 <li>We pick the <b>cheapest published plan that covers the store</b> on the app's billing unit, at monthly-billing prices. If the store is above the largest published plan, or the vendor only quotes, we show <b>"Not public / check site"</b>.</li>
 <li>Algolia is pay-as-you-go: we price search requests on Grow Plus (its AI tier) and leave out recommendation requests, developer time and connectors.</li>
 <li>Excluded: taxes, setup/developer work, optional add-ons (e.g. premium support) and negotiated or annual discounts.</li></ul></div>
-<div class=box id=emailsms><h2 style="margin-top:0">Email and SMS apps: store sizes</h2><div class="sizes"><span><b>Small store</b>: 2,500 contacts, 25,000 emails/mo, 500 SMS subscribers, 3,000 US SMS/mo</span><span><b>Medium store</b>: 15,000 contacts, 150,000 emails/mo, 3,000 SMS subscribers, 18,000 US SMS/mo</span><span><b>Large store</b>: 75,000 contacts, 750,000 emails/mo, 15,000 SMS subscribers, 90,000 US SMS/mo</span></div>
-<p>Email and SMS apps count two things: <b>contacts</b> (or active profiles) and <b>sends</b>. The three sizes use the same order and revenue anchors as our search and recommendation stores (200 / 1,000 / 4,000 orders a month, $15,000 / $75,000 / $300,000 a month). The contact, email and SMS numbers are our assumptions, not vendor figures.</p>
-<ul><li>About <b>10 emails per contact per month</b>, across campaigns and automations. That fits inside Klaviyo's included send capacity (10 emails per profile) and under Omnisend Standard's credit cap (12 emails per contact).</li>
-<li>SMS subscribers are about <b>20% of the contact list</b>. Each one gets about <b>6 US texts per month</b>, single-segment SMS, no MMS.</li>
-<li>We use monthly list prices in USD and pick the cheapest published plan that covers the contact and send assumptions. We leave out taxes, optional short codes, optional AI add-ons and negotiated discounts. Where a vendor publishes average US carrier fees separately, we add them.</li>
-<li><b>Postscript</b> is priced as SMS only. It does not publish email rates (checked 11 Nov 2026), so we show email as "not published" and do not estimate it.</li></ul></div>
 <p>Spotted an error? <a href="mailto:{S['contact']}?subject=Stillprice%20correction">Email a correction</a>. App makers are welcome to send corrections too, and we'll verify them against your public pricing page.</p>""")
 
 # ---- disclosure
@@ -519,3 +536,8 @@ print("built", len(PAGES), "pages")
 import shutil
 for asset in ("table-sizes.js", "og-default.jpg", "hero-statue.jpg"):
     shutil.copyfile(R / "assets" / asset, O / asset)
+ess_dir = R / "assets" / "essays"
+if ess_dir.is_dir():
+    for img in sorted(ess_dir.iterdir()):
+        if img.suffix.lower() in {".png", ".jpg", ".jpeg", ".webp"}:
+            shutil.copyfile(img, O / img.name)

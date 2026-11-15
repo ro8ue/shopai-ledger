@@ -2,7 +2,7 @@
   "site": {
     "name": "Stillprice",
     "base_url": "https://stillprice.com",
-    "updated": "2026-11-09",
+    "updated": "2026-11-15",
     "contact": "alinkewu@gmail.com",
     "sizes": [
       {
@@ -112,7 +112,7 @@
           "https://www.gorgias.com/pricing"
         ]
       ],
-      "checked": "2026-11-09",
+      "checked": "2026-11-15",
       "affiliate_url": "https://partner.gorgias.com/7bk6ikez45x3",
       "ai_short": "$1.50 per automated interaction past the plan's included AI Agent block. The block is priced at $1.00 each on monthly contracts ($0.90 annual). Each interaction also counts as a ticket."
     },
@@ -190,7 +190,7 @@
           "https://apps.shopify.com/tidio-chat"
         ]
       ],
-      "checked": "2026-11-09",
+      "checked": "2026-11-15",
       "affiliate_url": null,
       "ai_short": "Per Lyro conversation ($39 for 200), human chats billed separately"
     },
@@ -247,7 +247,7 @@
           "https://apps.shopify.com/intercom"
         ]
       ],
-      "checked": "2026-11-09",
+      "checked": "2026-11-15",
       "affiliate_url": null,
       "ai_short": "$0.99 per Fin outcome, plus per-seat fee"
     },
@@ -302,7 +302,7 @@
           "https://www.zendesk.com/pricing/"
         ]
       ],
-      "checked": "2026-11-09",
+      "checked": "2026-11-15",
       "affiliate_url": null,
       "ai_short": "$2.00 per automated resolution PAYG ($1.50 committed), plus seats"
     },
@@ -322,7 +322,7 @@
         },
         {
           "name": "Starter",
-          "monthly": 15,
+          "monthly": 10,
           "annual": 7,
           "includes": "Per seat. 500 credits. No Customer Agent"
         },
@@ -350,8 +350,12 @@
       "site_url": "https://www.hubspot.com/products/service",
       "shopify_url": null,
       "unconfirmed": [],
-      "notes": "HubSpot's own pricing page didn't load its price data for us on the check date. Prices come from HubSpot's official Customer Agent page and its Service Hub pricing guide (updated 28 Aug 2026).",
+      "notes": "HubSpot's /pricing/service URL now redirects to the unified HubSpot pricing page (Sales, Marketing and Service together). On that page, 15 Nov 2026, monthly billing showed Starter $10/mo/seat, Professional $100/mo/seat and Enterprise $175/mo/seat; annual billing showed Starter $7, Professional $90 and Enterprise $175. Customer Agent is $0.50 per resolution on HubSpot's Customer Agent page. Professional includes 3,000 HubSpot Credits and a $1,500 one-time onboarding fee, from HubSpot's Service Hub pricing guide. We still estimate on Professional, so sample-store totals are unchanged. The Service Hub pricing guide still lists Enterprise as starting at $150 per seat/month, which does not match the $175 on the unified pricing page, so we have not changed the Enterprise list price.",
       "sources": [
+        [
+          "HubSpot pricing page (monthly)",
+          "https://www.hubspot.com/pricing/?term=monthly"
+        ],
         [
           "HubSpot Customer Agent pricing",
           "https://www.hubspot.com/products/artificial-intelligence/ai-customer-service-agent"
@@ -361,7 +365,7 @@
           "https://blog.hubspot.com/service/hubspot-service-hub-pricing"
         ]
       ],
-      "checked": "2026-10-26",
+      "checked": "2026-11-15",
       "affiliate_url": null,
       "ai_short": "$0.50 per resolution via credits; Professional seats required"
     },
@@ -393,7 +397,7 @@
           "https://apps.shopify.com/inbox"
         ]
       ],
-      "checked": "2026-11-09",
+      "checked": "2026-11-15",
       "affiliate_url": null,
       "ai_short": "Free"
     },
@@ -403,49 +407,55 @@
       "type": "Helpdesk + AI agent",
       "model": "richpanel",
       "summary": "Ecommerce helpdesk sold per seat, with AI billed on a token meter rather than per resolution.",
-      "ai_billing": "Token-based credits: $0.60/credit monthly or $0.50 annual. Richpanel says about $0.20 covers a whole AI-handled conversation at the annual rate. AI minimum is $200/mo.",
+      "ai_billing": "Customer Service AI is billed at $0.20 per AI-handled conversation. The official pricing page's calculator script still applies a $200/mo minimum. Helpdesk seats are priced separately; we use Pro, the cheapest published seat plan, at $89/mo ($69/mo billed annually).",
       "plans": [
         {
-          "name": "Helpdesk seat",
+          "name": "Pro",
+          "monthly": 89,
+          "annual": 69,
+          "includes": "Per agent. Cheapest published helpdesk plan. Yearly contracts also offered at $69/mo ($828/yr)"
+        },
+        {
+          "name": "Pro Max",
           "monthly": 119,
           "annual": 99,
-          "includes": "Per seat. No per-ticket fees"
+          "includes": "Per agent. Multiple brands, advanced analytics and more channels. Annual $99/mo ($1,188/yr)"
         },
         {
-          "name": "AI usage",
+          "name": "Enterprise",
           "monthly": null,
           "annual": null,
-          "includes": "$200/mo minimum, top-ups in $100 blocks"
+          "includes": "Custom. For teams with more than 50 agents; 10-seat minimum"
         },
         {
-          "name": "Returns & Exchanges add-on",
+          "name": "Customer Service AI",
           "monthly": null,
           "annual": null,
-          "includes": "From $99/mo"
+          "includes": "$0.20 per AI-handled conversation. The official page's calculator script still uses a $200/mo minimum"
         }
       ],
       "params": {
-        "seat": 119,
+        "seat": 89,
         "ai_min": 200,
-        "per_conv": 0.24
+        "per_conv": 0.2
       },
       "free_alt": null,
       "pricing_url": "https://www.richpanel.com/pricing",
       "site_url": "https://www.richpanel.com/",
       "shopify_url": null,
       "unconfirmed": [
-        "Exact AI cost per conversation (varies with model and token use; ~$0.20 is Richpanel's own estimate)"
+        "The $200/mo AI minimum is in the official page's calculator script, not on the Customer Service AI add-on card itself."
       ],
-      "notes": "Our ~$0.24 per conversation at monthly rates scales Richpanel's ~$0.20 estimate by $0.60/$0.50. It's an approximation.",
+      "notes": "We use Pro at $89/mo, the cheapest published helpdesk seat. Pro Max is $119/mo, which was the only seat price we listed before this check. The add-on card says $0.20 per AI-handled conversation. The page's own calculator script still has a $200 floor and a 1.2 monthly multiplier; we keep the $200 minimum and use the published $0.20 rate. We did not see the old $0.60-per-credit token meter, or a public Returns & Exchanges price of $99/mo, on this check.",
       "sources": [
         [
           "Richpanel pricing page",
           "https://www.richpanel.com/pricing"
         ]
       ],
-      "checked": "2026-11-09",
+      "checked": "2026-11-15",
       "affiliate_url": null,
-      "ai_short": "Token meter, about $0.20 to $0.24 per AI conversation, $200/mo minimum, plus seats"
+      "ai_short": "$0.20 per AI-handled conversation, $200/mo minimum in the official calculator, plus seats"
     },
     {
       "slug": "reamaze",
@@ -505,7 +515,7 @@
           "https://www.reamaze.com/pricing"
         ]
       ],
-      "checked": "2026-11-09",
+      "checked": "2026-11-15",
       "affiliate_url": null,
       "ai_short": "$0.85 per resolution after small per-user allowance, plus seats"
     },
@@ -555,7 +565,7 @@
           "https://www.freshworks.com/freshdesk/pricing/"
         ]
       ],
-      "checked": "2026-11-09",
+      "checked": "2026-11-15",
       "affiliate_url": null,
       "ai_short": "$49 per 100 AI sessions, plus seats"
     },
@@ -642,7 +652,7 @@
           "https://apps.shopify.com/zipchat"
         ]
       ],
-      "checked": "2026-11-09",
+      "checked": "2026-11-15",
       "affiliate_url": null,
       "ai_short": "Per AI reply (plan allowances; $49 per 250 extra)"
     },
@@ -686,7 +696,7 @@
           "https://www.siena.cx/pricing"
         ]
       ],
-      "checked": "2026-11-09",
+      "checked": "2026-11-15",
       "affiliate_url": null,
       "ai_short": "$0.90 per automated ticket + $750/mo platform fee"
     },
@@ -755,7 +765,7 @@
           "https://apps.shopify.com/chatty"
         ]
       ],
-      "checked": "2026-11-09",
+      "checked": "2026-11-15",
       "affiliate_url": null,
       "ai_short": "Per AI conversation (plan allowances; $0.40 extra)"
     },
@@ -826,7 +836,7 @@
           "https://apps.shopify.com/helpcenter"
         ]
       ],
-      "checked": "2026-11-09",
+      "checked": "2026-11-15",
       "affiliate_url": null,
       "ai_short": "No AI agent fee; priced per ticket (AI FAQs)"
     },
@@ -913,12 +923,30 @@
           "https://aide.app/pricing"
         ]
       ],
-      "checked": "2026-11-09",
+      "checked": "2026-11-15",
       "affiliate_url": null,
       "ai_short": "Per AI reply (allowances, then paid extras up to a cap)"
     }
   ],
   "changelog": [
+    {
+      "date": "2026-11-15",
+      "title": "Weekly re-check: Richpanel changed prices",
+      "items": [
+        "Richpanel's official pricing page now publishes two helpdesk seat plans. Pro is $89 per agent per month ($69/mo, $828/yr, on annual billing). Pro Max is $119 per agent per month ($99/mo, $1,188/yr, on annual billing). We previously listed a single helpdesk seat at $119 monthly / $99 annual, which now matches Pro Max. Our estimates use Pro, the cheapest published seat plan.",
+        "Customer Service AI is published at $0.20 per AI-handled conversation. We no longer describe a $0.60-per-credit token meter; that figure was not on the page we read. The official page's calculator script still uses a $200/mo minimum, so we keep that minimum in the estimates. We did not see a public Returns & Exchanges price of $99/mo on this check.",
+        "New sample-store estimates (monthly): small store $289 (was $319), medium $378 (was $478), large $1,245 (was $1,555). A medium store at twice the volume is $578 (was $718). Source: https://www.richpanel.com/pricing, 15 Nov 2026."
+      ]
+    },
+    {
+      "date": "2026-11-15",
+      "title": "Weekly re-check: HubSpot Starter monthly seat price changed; other apps unchanged",
+      "items": [
+        "HubSpot's /pricing/service URL now redirects to the unified HubSpot pricing page. On monthly billing, Starter is $10 per seat (we had $15). Professional is still $100 per seat monthly and $90 annually, and Customer Agent is still $0.50 per resolution, so our sample-store estimates are unchanged. The Service Hub pricing guide still lists a $1,500 Professional onboarding fee and 3,000 included HubSpot Credits.",
+        "The same unified pricing page showed Enterprise at $175 per seat on both the monthly and annual toggles. HubSpot's Service Hub pricing guide still says Enterprise starts at $150 per seat/month, so we have not changed the Enterprise list price.",
+        "We re-read the official pricing pages and Shopify App Store listings for every other support and search app we track. No other plan prices or usage rates changed since 9 Nov. LimeSpot's Turbo and Max sliders still match the tiers we list. Algolia's Grow Plus rates are still $1.75 per 1,000 search requests and $0.40 per 1,000 records. Aide, Gorgias, Searchanise, Rebuy and the rest matched what we already show."
+      ]
+    },
     {
       "date": "2026-11-09",
       "title": "Methodology correction: Gorgias estimates now match the plan cards",
@@ -952,7 +980,7 @@
       "title": "Aide paid plans bill extra replies instead of pausing at the allowance",
       "items": [
         "Aide's public pricing page now describes paid overages: Starter $0.15 per extra reply up to $110 a month, Pro $0.10 up to $350, Scale $0.07 up to $1,000. Free still pauses at 150 AI replies.",
-        "The calculator no longer jumps to the next plan as soon as the included replies run out. A store using 1,400 AI replies on Starter is $39 plus 400 \u00d7 $0.15 = $99, not Pro at $149.",
+        "The calculator no longer jumps to the next plan as soon as the included replies run out. A store using 1,400 AI replies on Starter is $39 plus 400 × $0.15 = $99, not Pro at $149.",
         "Sample store estimates, assuming one AI reply per conversation: small $39, medium $39, large $149. Checked on aide.app/pricing."
       ]
     },

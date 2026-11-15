@@ -1,5 +1,7 @@
 __pycache__/
 *.png
+!assets/essays/*.png
+!site/essays-*.png
 STATE.md
 outreach/
 .vercel/

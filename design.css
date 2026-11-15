@@ -362,3 +362,11 @@ a:focus-visible,button:focus-visible,.calc input:focus-visible,.cform input:focu
     background-position:center,center,right -140px;
   }
 }
+
+.hero-sub{margin:18px 0 0;font-size:16px;line-height:1.45}
+.hero-sub a{color:#ECEAE5;text-decoration:underline;text-underline-offset:3px}
+.hero-sub a:hover{color:var(--ac)}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.hero.essay-has-image{padding:0;background:#0A0A0A}
+.essay-hero-media img{display:block;width:100%;height:auto;background:#0A0A0A}
+.hero.essay-has-image .wrap{padding-top:28px;padding-bottom:40px}

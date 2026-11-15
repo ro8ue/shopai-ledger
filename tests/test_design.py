@@ -54,16 +54,19 @@ class DesignTests(unittest.TestCase):
         data = json.loads((ROOT / 'data/apps.json').read_text())
         size = data['site']['sizes'][1]
         rate = data['site']['ai_rate']
-        wanted = {'shopify-inbox', 'aide', 'helpcenter', 'chatty', 'zipchat', 'gorgias', 'zendesk'}
         estimates = []
         for app in data['apps']:
-            if app['slug'] in wanted:
-                total = MODELS[app['model']](app['params'], size['conv'], size['seats'], int(size['conv'] * rate))['total']
+            total = MODELS[app['model']](app['params'], size['conv'], size['seats'], int(size['conv'] * rate))['total']
+            if total is not None:
                 estimates.append((total, app['name'].split(' (')[0]))
-        ledger = re.search(r'<aside class=ledger.*?<ol>(.*?)</ol>', self.read('index.html')).group(1)
+        estimates.sort(key=lambda row: (row[0], row[1]))
+        cheapest = estimates[:7]
+        home = self.read('index.html')
+        ledger = re.search(r'<aside class=ledger.*?<ol>(.*?)</ol>', home).group(1)
         rows = re.findall(r'<li>.*?</li>', ledger)
-        self.assertEqual(len(rows), len(wanted))
-        for row, (total, name) in zip(rows, sorted(estimates)):
+        self.assertEqual(len(rows), 7)
+        self.assertIn('Cheapest seven support apps by medium-store cost', home)
+        for row, (total, name) in zip(rows, cheapest):
             self.assertIn(html.escape(name), row)
             self.assertIn(f'<b>{m(total)}</b>', row)
 
@@ -91,7 +94,16 @@ class DesignTests(unittest.TestCase):
                 continue
             self.assertIn('Instrument+Sans', text)
             self.assertIn('Instrument+Serif:ital@0;1', text)
-            self.assertIn('https://stillprice.com/og-default.jpg', text)
+            og = re.search(r'<meta property="og:image" content="([^"]+)"', text)
+            self.assertIsNotNone(og, path.name)
+            self.assertTrue(
+                og.group(1) == 'https://stillprice.com/og-default.jpg'
+                or og.group(1).startswith('https://stillprice.com/essays-'),
+                path.name)
+            if og.group(1) == 'https://stillprice.com/og-default.jpg':
+                self.assertIn('https://stillprice.com/og-default.jpg', text)
+            else:
+                self.assertIn(og.group(1), text)
             self.assertIn('summary_large_image', text)
             self.assertIn('src="table-sizes.js"', text)
         for asset in ('og-default.jpg', 'table-sizes.js'):
@@ -123,6 +135,43 @@ class DesignTests(unittest.TestCase):
             self.assertIn('"@type": "BreadcrumbList"', self.read(name))
             self.assertIn('"dateModified"', self.read(name))
         self.assertNotIn('.html', self.read('sitemap.xml'))
+
+    def test_homepage_subscribe_line(self):
+        home = self.read('index.html')
+        self.assertIn('hero-sub', home)
+        self.assertIn('https://stillprice.substack.com/subscribe', home)
+        self.assertIn('The Ledger, Mondays and Thursdays. Subscribe on Substack', home)
+
+    def test_alternatives_affiliate_ctas(self):
+        gorgias = self.read('gorgias-alternatives.html')
+        self.assertIn("rel='sponsored noopener'", gorgias)
+        self.assertIn('Try Gorgias (affiliate link)', gorgias)
+        self.assertIn('affiliate status never changes a verdict', gorgias)
+        searchanise = self.read('searchanise-alternatives.html')
+        self.assertIn("rel='sponsored noopener'", searchanise)
+        self.assertIn('Try Searchanise (affiliate link)', searchanise)
+        self.assertIn('affiliate status never changes a verdict', searchanise)
+        klevu = self.read('klevu-alternatives.html')
+        self.assertNotIn('Try Klevu (affiliate link)', klevu)
+        self.assertNotIn("rel='sponsored noopener'", klevu)
+
+    def test_methodology_holds_email_sms(self):
+        text = self.read('methodology.html')
+        self.assertNotIn('id=emailsms', text)
+        self.assertNotIn('Postscript', text)
+        self.assertNotIn('2,500 contacts', text)
+        self.assertTrue((ROOT / 'held' / 'methodology-email-sms-section.html').exists())
+
+    def test_search_essay_uses_brent_header(self):
+        text = self.read('essays-free-search-first-then-pay-by-product.html')
+        self.assertIn("src='essays-free-search-first-then-pay-by-product-1456x816.png'", text)
+        self.assertIn('https://stillprice.com/essays-free-search-first-then-pay-by-product-og-1200x630.png', text)
+        self.assertIn('essay-hero-media', text)
+        self.assertTrue((ROOT / 'site' / 'essays-free-search-first-then-pay-by-product-1456x816.png').exists())
+        under = self.read('essays-ai-support-under-50-a-month.html')
+        self.assertNotIn('essays-ai-support-under-50-a-month-1456x816.png', under)
+        self.assertNotIn('essays-ai-support-under-50-a-month-og-1200x630.png', under)
+        self.assertIn('https://stillprice.com/og-default.jpg', under)
 
 
 if __name__ == '__main__':
