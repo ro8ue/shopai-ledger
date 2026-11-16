@@ -112,7 +112,7 @@
           "https://www.gorgias.com/pricing"
         ]
       ],
-      "checked": "2026-11-15",
+      "checked": "2026-11-16",
       "affiliate_url": "https://partner.gorgias.com/7bk6ikez45x3",
       "ai_short": "$1.50 per automated interaction past the plan's included AI Agent block. The block is priced at $1.00 each on monthly contracts ($0.90 annual). Each interaction also counts as a ticket."
     },
@@ -190,7 +190,7 @@
           "https://apps.shopify.com/tidio-chat"
         ]
       ],
-      "checked": "2026-11-15",
+      "checked": "2026-11-16",
       "affiliate_url": null,
       "ai_short": "Per Lyro conversation ($39 for 200), human chats billed separately"
     },
@@ -247,7 +247,7 @@
           "https://apps.shopify.com/intercom"
         ]
       ],
-      "checked": "2026-11-15",
+      "checked": "2026-11-16",
       "affiliate_url": null,
       "ai_short": "$0.99 per Fin outcome, plus per-seat fee"
     },
@@ -302,7 +302,7 @@
           "https://www.zendesk.com/pricing/"
         ]
       ],
-      "checked": "2026-11-15",
+      "checked": "2026-11-16",
       "affiliate_url": null,
       "ai_short": "$2.00 per automated resolution PAYG ($1.50 committed), plus seats"
     },
@@ -397,7 +397,7 @@
           "https://apps.shopify.com/inbox"
         ]
       ],
-      "checked": "2026-11-15",
+      "checked": "2026-11-16",
       "affiliate_url": null,
       "ai_short": "Free"
     },
@@ -515,7 +515,7 @@
           "https://www.reamaze.com/pricing"
         ]
       ],
-      "checked": "2026-11-15",
+      "checked": "2026-11-16",
       "affiliate_url": null,
       "ai_short": "$0.85 per resolution after small per-user allowance, plus seats"
     },
@@ -565,7 +565,7 @@
           "https://www.freshworks.com/freshdesk/pricing/"
         ]
       ],
-      "checked": "2026-11-15",
+      "checked": "2026-11-16",
       "affiliate_url": null,
       "ai_short": "$49 per 100 AI sessions, plus seats"
     },
@@ -652,7 +652,7 @@
           "https://apps.shopify.com/zipchat"
         ]
       ],
-      "checked": "2026-11-15",
+      "checked": "2026-11-16",
       "affiliate_url": null,
       "ai_short": "Per AI reply (plan allowances; $49 per 250 extra)"
     },
@@ -696,7 +696,7 @@
           "https://www.siena.cx/pricing"
         ]
       ],
-      "checked": "2026-11-15",
+      "checked": "2026-11-16",
       "affiliate_url": null,
       "ai_short": "$0.90 per automated ticket + $750/mo platform fee"
     },
@@ -765,7 +765,7 @@
           "https://apps.shopify.com/chatty"
         ]
       ],
-      "checked": "2026-11-15",
+      "checked": "2026-11-16",
       "affiliate_url": null,
       "ai_short": "Per AI conversation (plan allowances; $0.40 extra)"
     },
@@ -836,7 +836,7 @@
           "https://apps.shopify.com/helpcenter"
         ]
       ],
-      "checked": "2026-11-15",
+      "checked": "2026-11-16",
       "affiliate_url": null,
       "ai_short": "No AI agent fee; priced per ticket (AI FAQs)"
     },
@@ -923,12 +923,20 @@
           "https://aide.app/pricing"
         ]
       ],
-      "checked": "2026-11-15",
+      "checked": "2026-11-16",
       "affiliate_url": null,
       "ai_short": "Per AI reply (allowances, then paid extras up to a cap)"
     }
   ],
   "changelog": [
+    {
+      "date": "2026-11-16",
+      "title": "Weekly re-check: no price changes since 15 Nov",
+      "items": [
+        "We re-read the official pricing pages and Shopify App Store listings for the support and search apps we track. No plan prices or usage rates changed since the 15 Nov check. Gorgias, Aide (Shopify listing), Searchanise, Rebuy, Boost, Fast Simon, Doofinder, Algolia, Wiser, LimeSpot, Helpcenter, Chatty, Re:amaze, Freshdesk, Intercom, Zendesk, Tidio, Zipchat and Siena matched what we show.",
+        "Richpanel's and HubSpot's pricing pages only render their current prices in a browser, and our 16 Nov fetch returned an older cached page, so their check dates stay at 15 Nov (Richpanel Pro $89 per agent with $0.20 per AI conversation; HubSpot Professional $100 per seat with Customer Agent at $0.50 per resolution)."
+      ]
+    },
     {
       "date": "2026-11-15",
       "title": "Weekly re-check: Richpanel changed prices",
