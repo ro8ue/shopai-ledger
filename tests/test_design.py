@@ -181,6 +181,35 @@ class DesignTests(unittest.TestCase):
         self.assertNotIn('nothing paid with a real AI agent comes in under $50', under)
         self.assertIn('Prices checked 15 Nov 2026', under)
 
+    def test_black_friday_essay_is_featured_with_header(self):
+        page = self.read('essays-black-friday-ai-app-bill.html')
+        self.assertIn('<title>Black Friday Bill: Which Shopify AI Apps Cost More</title>', page)
+        self.assertIn('The cheapest app in October may not be the cheapest in November', page)
+        self.assertIn("src='essays-black-friday-ai-app-bill-1456x816.png'", page)
+        self.assertIn('https://stillprice.com/essays-black-friday-ai-app-bill-og-1200x630.png', page)
+        self.assertIn('essay-hero-media', page)
+        self.assertTrue((ROOT / 'site' / 'essays-black-friday-ai-app-bill-1456x816.png').exists())
+        self.assertTrue((ROOT / 'site' / 'essays-black-friday-ai-app-bill-chart.png').exists())
+        self.assertIn('essays-black-friday-ai-app-bill-chart.png', page)
+        self.assertIn('$0.075', page)
+        self.assertIn('$1,765', page)
+        self.assertIn("The comparison table lists $0.90 on Pro, but we use the card's rate.", page)
+        self.assertIn('Two grow faster than the traffic', page)
+        self.assertIn('Searchanise and Gorgias are affiliate apps for us', page)
+        self.assertIn('Affiliate status never changes a verdict', page)
+        self.assertNotIn('ro8ue.github.io', page)
+        self.assertNotIn('$599', page)
+        self.assertNotIn('$0.40', page)
+        home = self.read('index.html')
+        self.assertIn("href='/essays-black-friday-ai-app-bill'", home)
+        self.assertIn('The cheapest app in October may not be the cheapest in November', home)
+        essays = self.read('essays.html')
+        self.assertIn("href='/essays-black-friday-ai-app-bill'", essays)
+        self.assertIn('The cheapest app in October may not be the cheapest in November', essays)
+        sitemap = self.read('sitemap.xml')
+        self.assertIn('https://stillprice.com/essays-black-friday-ai-app-bill', sitemap)
+
+
 
 if __name__ == '__main__':
     unittest.main()

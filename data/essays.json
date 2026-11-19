@@ -1,6 +1,153 @@
 {
   "essays": [
     {
+      "slug": "black-friday-ai-app-bill",
+      "date": "19 Nov 2026",
+      "iso": "2026-11-19",
+      "kind": "Thursday deep-dive",
+      "title": "The cheapest app in October may not be the cheapest in November",
+      "html_title": "Black Friday Bill: Which Shopify AI Apps Cost More",
+      "description": "We put a 2x Black Friday month through the published prices of Shopify AI support and search apps. Some bills stay flat. A few grow faster than the traffic.",
+      "thesis": "We put a 2x Black Friday month through the published prices of Shopify AI support and search apps. Some bills stay flat. A few grow faster than the traffic.",
+      "dek": "Your AI apps do not charge you for AI. They charge you for whatever they count.",
+      "checked": "9 Nov 2026",
+      "sections": [
+        [
+          "_intro",
+          [
+            "Double a medium store's traffic and its search bill can stay at $39. Its support bill can go from $39 to $149, or from $1,118 to $2,118. Same store, same month. The difference is the meter.",
+            "For this essay we assume a Black Friday month is twice a normal month: twice the support chats, sessions, search requests, orders and revenue. That makes the math visible. It is not a forecast, and your multiple could be lower or much higher. Seats and catalog size stay the same, and the AI still resolves half of all chats, as on the rest of the site.",
+            "On those numbers, a few bills stay the same. Most land between 1.4x and 2x. Two grow faster than the traffic."
+          ]
+        ],
+        [
+          "The question",
+          [
+            "Will your apps cost more in a Black Friday month? Eight days out, there is no time to switch anything big. There is time to read the meter.",
+            "The answer is on the pricing page, not in the feature list. Find the unit the app counts. If it counts chats, searches, sessions, orders or revenue, a busy month raises the bill. If it counts seats or products, it does not.",
+            "Our medium store normally has 1,000 support chats, 2 seats, 5,000 products, 1,000 orders, $75,000 in revenue, 40,000 sessions and 60,000 search requests a month. The busy month doubles everything except seats and products.",
+            "<figure><img src=\"essays-black-friday-ai-app-bill-chart.png\" alt=\"Twice the traffic: what happens to each bill\" width=\"1024\" height=\"720\"><figcaption class=muted>Twice the traffic: what happens to each bill</figcaption></figure>"
+          ]
+        ],
+        [
+          "Flat on Black Friday",
+          [
+            "Shopify Inbox: $0 in both months. Free, no usage fee listed.",
+            "Shopify Search &amp; Discovery: $0 in both months. Free.",
+            "Searchanise (affiliate link, see disclosure): $39 in both months. It counts products, and the store still has 5,000. Essential covers up to 7,500, with unlimited searches.",
+            "Doofinder: $186 in both months. It counts search requests, but in plan steps. Pro covers up to 150,000 requests and the busy month uses 120,000. The headroom runs out at 2.5x this store's normal month. Above that, Advanced is $436.",
+            "What they count either did not change or did not cross a line."
+          ]
+        ],
+        [
+          "Bills that grow with the month",
+          [
+            "Most support apps count something a customer does. Double the customers and you roughly double the bill. Re:amaze counts resolutions and goes from $474.50 to $899.50. Intercom Fin counts outcomes: $573 to $1,068. Freshdesk counts AI sessions: $528 to $1,018. Zendesk counts automated resolutions: $1,118 to $2,118. Wiser counts every store order: $99 to $199. The math for each is in the tables below.",
+            "Seats and platform fees soften the jump, because they do not double. Siena AI goes from $1,200 to $1,650 (1.4x), since $750 of it is a platform fee. Richpanel goes from $378 to $578 (1.5x), with $178 of seats. HubSpot goes from $420 to $670 (1.6x), with $200 of seats.",
+            "Resolution billing has a twist: the bill grows when your AI does its job. A better month for the bot is a bigger month for the invoice."
+          ]
+        ],
+        [
+          "Bills that grow faster than the month",
+          [
+            "An allowance is a fixed number. When volume doubles and the allowance does not, the paid part more than doubles.",
+            "Algolia includes 10,000 search requests. Normal month: 50,000 extra, so 50 × $1.75 per 1,000 = $87.50. Busy month: 110,000 extra, so $192.50. Twice the searches, 2.2x the bill. Developer time is not included.",
+            "Chatty Plus is $199 for 1,000 AI conversations. Its busy-month bill is not public. Each AI reply over the plan costs $0.075, up to a monthly cap you set, so the bill depends on how many replies a conversation takes. Chatty does not publish that.",
+            "Aide Starter is $39 for 1,000 AI replies, which covered the normal month exactly. In the busy month, Starter bills extra replies at $0.15 each, up to $110 a month. Then the AI stops. Aide's page says it plainly: \"At the cap AI pauses and no customer message is dropped.\" On Starter that happens after about 1,733 replies. Your bill tops out just under $149 ($39 plus up to $110), and your team answers the rest. Pro is also $149 and includes 4,000 replies. The cost is about the same, but only one of them is still answering at the end of the month. Aide's own page says that past about 1,730 replies a month, Pro costs less than Starter plus extras.",
+            "Last week we wrote that a $39 plan is not 1,000 solved tickets (<a href=\"https://stillprice.substack.com/p/a-39-ai-plan-is-not-1000-solved-tickets\">read it</a>). This is the other half: on Black Friday, a capped plan goes quiet.",
+            "Gorgias (affiliate link, see disclosure) is the one to read slowly. On monthly billing, its Pro card with AI Agent added is $550: $360 for the helpdesk with 2,000 tickets and $190 for 190 automated interactions. Past those, the plan card tooltip says: \"Then a $1.50 per automated interaction fee past your limit.\" The comparison table lists $0.90 on Pro, but we use the card's rate. The $1.00 in Gorgias's FAQ is the price of the 190 included interactions, not the overage. Every interaction also counts as a ticket. Busy month: 1,000 interactions, 810 past the limit × $1.50 = $1,215. Total: $1,765, up from $1,015 (1.7x). And watch the tickets: the busy month uses all 2,000, and ticket 2,001 costs $0.36."
+          ]
+        ],
+        [
+          "The bill that arrives in January",
+          [
+            "Some apps do not bill you in the month you were busy.",
+            "Rebuy bills on the previous 30 days. Its page says: \"Each bill is determined by the previous 30-day metrics and covers the upcoming 30 days.\" Search &amp; Collections is $69 at 1,000 orders and $136 at 2,000, a row Rebuy now publishes. So the November spike shows up on the next cycle, not this one. The 9 Nov 2026 Ledger has the detail (<a href=\"https://stillprice.substack.com/p/the-ledger-rebuy-now-publishes-its\">Rebuy now publishes its prices</a>).",
+            "Boost sets your plan from Base GMV, your average gross sales over the last 3 months. It adds $2 for every $1,000 of GMV above your plan's limit, up to a cap. One big month gets diluted in the average, but the overage can still land: every $10,000 over the limit adds $20.",
+            "Aide bills extra replies \"on your next invoice.\" The cap still holds, but the charge comes later.",
+            "Check your December and January invoices, not just November's."
+          ]
+        ],
+        [
+          "Where the price goes dark",
+          [
+            "Tidio: Not public. The prices we could confirm stop at 200 Lyro conversations and 250 human conversations. The busy month needs about 2,000 and 1,000.",
+            "Boost: Not public at this size. Its pricing page and help center show different Convert prices ($239 and $299), so we do not put a number on it.",
+            "Fast Simon: Not public. The medium store's 40,000 sessions are already above the top published plan (30,000), before Black Friday doubles them.",
+            "Wiser: $199 covers up to 2,000 orders, and the busy month lands exactly on it. Order 2,001 is an Enterprise quote, so not public.",
+            "Klevu and Nosto: Not public at any size. Both work on quotes.",
+            "If a vendor makes you ask, ask now. Get the busy-month price in writing."
+          ]
+        ],
+        [
+          "What to do before 27 Nov 2026",
+          [
+            "<ol>\n<li>Find your meter. Each app's Stillprice pricing page names what it counts.</li>\n<li>Find out what happens at the limit. Aide pauses at the cap. Chatty bills $0.075 per extra AI reply, up to a cap you set. Re:amaze and Gorgias keep billing past the limit.</li>\n<li>Move up a plan for the month if the math says so, and set a reminder to move back. HelpCenter Enterprise is $120 for 2,000 tickets, while staying on Advanced costs $70 + 1,000 × $0.12 = $190.</li>\n<li>Put the December and January invoices on your calendar.</li>\n</ol>"
+          ]
+        ],
+        [
+          "Table A: AI support, medium store",
+          [
+            "Sorted by the busy-month bill. Monthly billing unless noted.",
+            "<div class=tw><table>\n<thead><tr><th>App</th><th>What it counts</th><th>Normal month (1,000 chats)</th><th>2x month (2,000 chats)</th><th>Change</th><th>The math (2x month)</th></tr></thead>\n<tbody>\n<tr><td><a href=\"shopify-inbox-pricing.html\">Shopify Inbox</a></td><td>Nothing</td><td>$0</td><td>$0</td><td>flat</td><td>Free app, no usage fee listed</td></tr>\n<tr><td><a href=\"helpcenter-pricing.html\">HelpCenter</a></td><td>Tickets (no AI agent)</td><td>$70</td><td>$120</td><td>1.7x</td><td>Enterprise $120 includes 2,000 tickets. Staying on Advanced: $70 + 1,000 × $0.12 = $190 (2.7x)</td></tr>\n<tr><td><a href=\"aide-pricing.html\">Aide</a></td><td>AI replies</td><td>$39</td><td>$149</td><td>3.8x</td><td>Pro $149 includes 4,000 replies. Staying on Starter: $39 + extra replies at $0.15, capped at $110, then AI pauses after about 1,733 replies</td></tr>\n<tr><td><a href=\"zipchat-pricing.html\">Zipchat</a></td><td>AI replies</td><td>$300</td><td>$600</td><td>2.0x</td><td>Scale $600, about 2,500 conversations by Zipchat's estimate (Pro covers about 1,250)</td></tr>\n<tr><td><a href=\"hubspot-service-hub-pricing.html\">HubSpot Service Hub</a></td><td>Resolutions + seats</td><td>$420</td><td>$670</td><td>1.6x</td><td>2 seats × $100 = $200; 1,000 resolutions, about 60 covered by included credits, 940 × $0.50 = $470. Plus $1,500 one-time onboarding</td></tr>\n<tr><td><a href=\"richpanel-pricing.html\">Richpanel</a></td><td>AI conversations + seats</td><td>$378</td><td>$578</td><td>1.5x</td><td>2 Pro seats × $89 = $178; 2,000 × $0.20 = $400 (above the $200 minimum). Price checked 15 Nov 2026</td></tr>\n<tr><td><a href=\"reamaze-pricing.html\">Re:amaze</a></td><td>Resolutions + users</td><td>$474.50</td><td>$899.50</td><td>1.9x</td><td>2 users × $29 = $58; 990 × $0.85 = $841.50</td></tr>\n<tr><td><a href=\"freshdesk-pricing.html\">Freshdesk</a></td><td>AI sessions + seats</td><td>$528</td><td>$1,018</td><td>1.9x</td><td>2 seats × $19 (annual billing) = $38; 20 packs × $49 = $980</td></tr>\n<tr><td><a href=\"intercom-fin-pricing.html\">Intercom Fin</a></td><td>Outcomes + seats</td><td>$573</td><td>$1,068</td><td>1.9x</td><td>2 seats × $39 = $78; 1,000 × $0.99 = $990</td></tr>\n<tr><td><a href=\"siena-ai-pricing.html\">Siena AI</a></td><td>Automated tickets + platform fee</td><td>$1,200</td><td>$1,650</td><td>1.4x</td><td>$750 platform fee + 1,000 × $0.90 = $900. Support and implementation not public</td></tr>\n<tr><td><a href=\"gorgias-pricing.html\">Gorgias</a> (affiliate)</td><td>AI interactions + tickets</td><td>$1,015</td><td>$1,765</td><td>1.7x</td><td>Pro with AI Agent $550 (2,000 tickets, 190 interactions); 810 × $1.50 = $1,215</td></tr>\n<tr><td><a href=\"zendesk-pricing.html\">Zendesk</a></td><td>Automated resolutions + seats</td><td>$1,118</td><td>$2,118</td><td>1.9x</td><td>2 seats × $69 = $138; 990 × $2.00 = $1,980. At the $1.50 committed rate: $1,623</td></tr>\n<tr><td><a href=\"chatty-pricing.html\">Chatty</a></td><td>AI replies</td><td>Not public</td><td>Not public</td><td>n/a</td><td>Plus is $199 with 1,000 AI conversations. Extra AI replies are $0.075 each, up to a monthly cap you set. The bill depends on replies per conversation, which Chatty does not publish.</td></tr>\n<tr><td><a href=\"tidio-pricing.html\">Tidio</a></td><td>Lyro + human conversations</td><td>Not public</td><td>Not public</td><td>n/a</td><td>Confirmed prices stop at 200 Lyro and 250 human conversations</td></tr>\n</tbody></table></div>"
+          ]
+        ],
+        [
+          "Table B: AI search and recommendations, medium store",
+          [
+            "<div class=tw><table>\n<thead><tr><th>App</th><th>What it counts</th><th>Normal month</th><th>2x month</th><th>Change</th><th>The math (2x month)</th><th>When the bill sees it</th></tr></thead>\n<tbody>\n<tr><td><a href=\"shopify-search-discovery-pricing.html\">Shopify Search &amp; Discovery</a></td><td>Nothing</td><td>$0</td><td>$0</td><td>flat</td><td>Free app</td><td>n/a</td></tr>\n<tr><td><a href=\"searchanise-pricing.html\">Searchanise</a> (affiliate)</td><td>Products</td><td>$39</td><td>$39</td><td>flat</td><td>5,000 products, Essential up to 7,500. Unlimited searches</td><td>n/a</td></tr>\n<tr><td><a href=\"rebuy-pricing.html\">Rebuy</a> Search &amp; Collections</td><td>Orders, previous 30 days</td><td>$69</td><td>$136</td><td>2.0x</td><td>2,000 orders row on Rebuy's table = $136</td><td>Next 30-day cycle</td></tr>\n<tr><td><a href=\"doofinder-pricing.html\">Doofinder</a></td><td>Search requests, in plan steps</td><td>$186</td><td>$186</td><td>flat</td><td>120,000 requests fits Pro (up to 150,000)</td><td>Same month</td></tr>\n<tr><td><a href=\"algolia-pricing.html\">Algolia</a></td><td>Search requests</td><td>$87.50</td><td>$192.50</td><td>2.2x</td><td>120,000 minus 10,000 included = 110,000; 110 × $1.75 per 1,000</td><td>Same month</td></tr>\n<tr><td><a href=\"wiser-pricing.html\">Wiser</a></td><td>All store orders</td><td>$99</td><td>$199</td><td>2.0x</td><td>1,001 to 2,000 orders tier. Above 2,000: Enterprise quote</td><td>Same month</td></tr>\n<tr><td><a href=\"limespot-pricing.html\">LimeSpot</a></td><td>Orders (Turbo) or revenue (Max)</td><td>$149.99</td><td>$299.99</td><td>2.0x</td><td>Turbo up to 2,000 orders. Max at $150,000 revenue would be $375</td><td>Per 30 days</td></tr>\n<tr><td><a href=\"boost-ai-search-pricing.html\">Boost</a></td><td>GMV, 3-month average, plus overage</td><td>Not public</td><td>Not public</td><td>n/a</td><td>$2 per $1,000 of GMV above the plan limit, capped</td><td>3-month average</td></tr>\n<tr><td><a href=\"fast-simon-pricing.html\">Fast Simon</a></td><td>Sessions</td><td>Not public</td><td>Not public</td><td>n/a</td><td>40,000 sessions is above the top published plan (30,000)</td><td>Same month</td></tr>\n<tr><td><a href=\"klevu-pricing.html\">Klevu</a></td><td>Custom quote</td><td>Not public</td><td>Not public</td><td>n/a</td><td>Quote only</td><td>Annual contract</td></tr>\n<tr><td><a href=\"nosto-pricing.html\">Nosto</a></td><td>Custom quote</td><td>Not public</td><td>Not public</td><td>n/a</td><td>Quote only</td><td>Quote</td></tr>\n</tbody></table></div>"
+          ]
+        ],
+        [
+          "Small store sidebar: where the steps bite",
+          [
+            "Small store: 200 chats, 500 products, 10,000 sessions and 15,000 search requests in a normal month, and twice that in the busy one.",
+            "<div class=tw><table>\n<thead><tr><th>App</th><th>Normal</th><th>2x month</th><th>The math</th></tr></thead>\n<tbody>\n<tr><td>Fast Simon</td><td>$114.99</td><td>$299.99 (2.6x)</td><td>20,000 sessions is above Essential (10,000), so Top Pro (up to 30,000)</td></tr>\n<tr><td>Algolia</td><td>$8.75</td><td>$35 (4.0x)</td><td>30,000 minus 10,000 included = 20,000; 20 × $1.75</td></tr>\n<tr><td>Chatty</td><td>Not public</td><td>Not public</td><td>Basic is $19.99 with 100 AI conversations. Pro is $68.99 with 500. Extra AI replies are $0.075 each, up to a monthly cap you set. The bill depends on replies per conversation, which Chatty does not publish.</td></tr>\n<tr><td>Richpanel</td><td>$289</td><td>$289 (flat)</td><td>400 × $0.20 = $80, still under the $200 AI minimum; 1 Pro seat $89</td></tr>\n<tr><td>Searchanise (affiliate)</td><td>$19</td><td>$19 (flat)</td><td>500 products, Basic up to 1,500</td></tr>\n</tbody></table></div>"
+          ]
+        ],
+        [
+          "The verdict",
+          [
+            "Opinion, written by a person. Numbers come from the estimates on this site.",
+            "Medium store: the support app is where the money moves. On Aide Starter the busy month costs about the same as Pro, so decide now whether you want the AI answering all month. On Chatty, the busy-month bill is not public. Extra AI replies cost $0.075 each, up to a monthly cap you set, and Chatty does not publish how many replies a conversation takes. If your app bills per resolution, budget close to 2x and be glad when it hits it.",
+            "Small store: watch for plan steps. Fast Simon steps to Top Pro above 10,000 sessions. Chatty's busy-month bill is not public, for the same reason as above.",
+            "Any store: the cheapest app in October may not be the cheapest in November."
+          ]
+        ]
+      ],
+      "related": [
+        [
+          "shopify-ai-support-apps.html",
+          "All AI support apps side by side"
+        ],
+        [
+          "shopify-ai-search-apps.html",
+          "All AI search and recommendation apps side by side"
+        ],
+        [
+          "methodology.html",
+          "How we estimate"
+        ],
+        [
+          "price-moves.html",
+          "Every price change we have logged"
+        ],
+        [
+          "essays-free-search-first-then-pay-by-product.html",
+          "Free search first, then pay by product count"
+        ],
+        [
+          "essays-ai-support-under-50-a-month.html",
+          "AI support under $50 a month?"
+        ]
+      ],
+      "conflict": "Searchanise and Gorgias are affiliate apps for us. If you sign up through our links we earn a commission. Searchanise comes out flat in a Black Friday month here because it bills by product count, and that would be true whether or not we had a link. Gorgias is shown at the prices on its own plan cards, the same figures our Gorgias page uses. The numbers come from the same published prices and the same math as every other app. Affiliate status never changes a verdict.",
+      "hero": "essays-black-friday-ai-app-bill-1456x816.png",
+      "og": "essays-black-friday-ai-app-bill-og-1200x630.png",
+      "footer_html": "<div class=callout><b>Prices checked 9 Nov 2026</b> on official pricing pages, monthly billing unless noted (HubSpot seat prices 26 Oct 2026). Chatty and Gorgias were rechecked on 19 Nov 2026. Rebuy and Aide were reread on 9 Nov 2026 for this essay. The 2x month is our assumption, not a forecast. Prices change, so check the linked pages for current prices. <b>Conflict:</b> Searchanise and Gorgias are affiliate apps for us. If you sign up through our links we earn a commission. Searchanise comes out flat in a Black Friday month here because it bills by product count, and that would be true whether or not we had a link. Gorgias is shown at the prices on its own plan cards, the same figures our Gorgias page uses. The numbers come from the same published prices and the same math as every other app. Affiliate status never changes a verdict. See our <a href=\"principles.html\">principles</a> and <a href=\"disclosure.html\">disclosure</a>.</div>",
+      "afterword": "<p><b>Put your own Black Friday volume into the <a href=\"free-calculator.html\">free calculator</a>.</b> It covers support apps.</p><p>Want a second pair of eyes on your stack before the busy month? See the <a href=\"stack-audit.html\">Stack Audit</a>.</p>"
+    },
+    {
       "slug": "free-search-first-then-pay-by-product",
       "date": "6 Nov 2026",
       "iso": "2026-11-06",

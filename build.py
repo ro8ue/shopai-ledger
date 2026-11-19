@@ -64,11 +64,11 @@ ANALYTICS = VERCEL_ANALYTICS + ("" if not UMAMI_ID else (
 VERDICTS = {
  "gorgias-pricing.html": dict(app="Gorgias", aff=True,
   suits="Stores that live in email and social tickets and want orders, returns and refunds handled in one helpdesk. Gorgias bills by tickets, not seats, so a big team on modest volume does fine.",
-  over="Small and medium stores that mostly need chat. On our numbers a medium store pays about $1,015 a month on Pro. Chatty costs $199 and Zipchat $300 at the same volume. Of the Gorgias bill, $465 is AI overage: 500 AI interactions, minus the 190 included, at $1.50 each. The Pro card itself is $550 (Helpdesk $360 + AI Agent $190).",
+  over="Small and medium stores that mostly need chat. On our numbers a medium store pays about $1,015 a month on Pro. Zipchat costs $300 at the same volume. Chatty's Plus plan is $199 for 1,000 AI conversations, but the sample-store bill is not public because extra usage is $0.075 per AI reply, up to a cap you set. Of the Gorgias bill, $465 is AI overage: 500 AI interactions, minus the 190 included, at $1.50 each. The Pro card itself is $550 (Helpdesk $360 + AI Agent $190).",
   gotchas=["Every AI interaction also counts as a helpdesk ticket, so automation eats into your ticket allowance too.","Past the included allowance the plan cards charge $1.50 per automated interaction. The FAQ rates of $1.00 monthly and $0.90 annual are the price of the included AI Agent block, not the overage.","Annual cards with AI Agent are Basic $77, Pro $471 and Advanced $1,227. Get your quote in writing.","Advanced ($1,430 a month with AI Agent) is sold through a demo. You cannot just click to buy it."],
   bottom="Good product, often poor value at or below about 1,000 conversations a month. We earn a commission if you sign up through our link. That does not change this verdict."),
  "gorgias-alternatives.html": dict(app="Gorgias alternatives", aff=False,
-  suits="If you need a real helpdesk, Richpanel is $378 a month for our medium store. HubSpot, Re:amaze and Intercom Fin land between $420 and $573. All four are below Gorgias at $1,015. If you only need chat with AI, Chatty ($199) and Zipchat ($300) cost far less.",
+  suits="If you need a real helpdesk, Richpanel is $378 a month for our medium store. HubSpot, Re:amaze and Intercom Fin land between $420 and $573. All four are below Gorgias at $1,015. If you only need chat with AI, Zipchat is $300 at the same volume, far less than Gorgias. Chatty's sample-store bill is not public: extra usage is $0.075 per AI reply, up to a cap you set.",
   over="Anyone paying for a full helpdesk when Shopify Inbox would do. Inbox is free and now has an AI agent. On our numbers Siena AI is the priciest at medium ($1,200); Zendesk is about $1,118 medium and $4,295 for a large one.",
   gotchas=["Seat based tools (Intercom, Zendesk, HubSpot, Re:amaze, Freshdesk, Richpanel) get expensive fast as your team grows.","Chat only tools (Zipchat, Chatty, Shopify Inbox) do not handle email tickets, so they are not a like for like swap.","Tidio's prices above the small store tier are not public, so we cannot rank it there."],
   bottom="Price the job you actually have. Most small stores are buying more helpdesk than they use."),
@@ -214,7 +214,7 @@ page(SUPPORT, "Shopify AI Support Apps: Real Monthly Cost Compared (2026) | Stil
  f"{sizes_html}<p class=muted>Prices checked {hd(S['updated'])}. Monthly billing unless noted. Sorted by medium-store cost. Click an app to see the full plan list and math.</p>{table(ordered)}"
  f"<div class=callout><b>The free option first.</b> <a href='shopify-inbox-pricing.html'>Shopify Inbox</a> is free and now includes an AI agent trained on your catalog and policies. If you only need storefront chat, start there. Paid apps make sense when you need email/social ticketing, order actions, or higher automation.</div>"
  f"<h2>Support pricing comparisons</h2><ul>{comp_links}<li><a href='gorgias-alternatives.html'>Gorgias alternatives by real cost</a></li></ul>"
- f"<h2>Why the support bill surprises people</h2><div class=grid><div class=card><b>Per-resolution billing</b><p class=muted>Zendesk, Intercom Fin, HubSpot, Re:amaze and Siena charge for each conversation the AI closes. Better automation means a bigger AI line on the bill.</p></div><div class=card><b>Per-interaction billing</b><p class=muted>Gorgias plans come with a block of automated interactions. Each one past the block costs $1.50.</p></div><div class=card><b>Per-conversation or per-reply billing</b><p class=muted>Tidio Lyro, Chatty, Richpanel, Freshdesk and Zipchat count conversations (or messages) the AI touches, resolved or not.</p></div><div class=card><b>Seats still matter</b><p class=muted>Intercom, Zendesk, HubSpot, Re:amaze, Freshdesk and Richpanel also charge per human agent seat, and HubSpot Professional adds a one-time onboarding fee.</p></div></div>"
+ f"<h2>Why the support bill surprises people</h2><div class=grid><div class=card><b>Per-resolution billing</b><p class=muted>Zendesk, Intercom Fin, HubSpot, Re:amaze and Siena charge for each conversation the AI closes. Better automation means a bigger AI line on the bill.</p></div><div class=card><b>Per-interaction billing</b><p class=muted>Gorgias plans come with a block of automated interactions. Each one past the block costs $1.50.</p></div><div class=card><b>Per-conversation or per-reply billing</b><p class=muted>Tidio Lyro, Richpanel, Freshdesk and Zipchat count conversations (or messages) the AI touches, resolved or not. Chatty plans include an AI conversation allowance, and extra AI replies cost $0.075 each, up to a monthly cap you set. Chatty does not publish replies per conversation, so we do not publish a sample-store bill.</p></div><div class=card><b>Seats still matter</b><p class=muted>Intercom, Zendesk, HubSpot, Re:amaze, Freshdesk and Richpanel also charge per human agent seat, and HubSpot Professional adds a one-time onboarding fee.</p></div></div>"
  f"{NEWS}",
  head=ld(itemlist("Shopify AI customer support apps", ordered, lambda a: f"{a['slug']}-pricing.html"), crumbs(("Stillprice", "index.html"), ("Support apps", SUPPORT))))
 
@@ -398,8 +398,17 @@ page("changelog.html", "Shopify AI App Price Change Log | Stillprice", "A dated 
 # To wire a held header later: copy the pngs into assets/essays/ and add "hero" and "og"
 # on that essay, then rebuild. The image already carries the title and wordmark, so
 # a typographic h1 is visually hidden when a hero is present.
+def essay_blocks(ps):
+    out = []
+    for block in ps:
+        s = block.lstrip()
+        if s.startswith(("<table", "<div", "<figure", "<ul", "<ol", "<img", "<aside")):
+            out.append(block)
+        else:
+            out.append(f"<p>{block}</p>")
+    return "".join(out)
 for x in ES:
-    secs = "".join(f"<h2>{e(h)}</h2>" + "".join(f"<p>{t}</p>" for t in ps) for h, ps in x["sections"])
+    secs = "".join((("" if (not h or h == "_intro") else f"<h2>{e(h)}</h2>") + essay_blocks(ps)) for h, ps in x["sections"])
     rel = "".join(f"<li><a href='{u}'>{e(t)}</a></li>" for u, t in x["related"])
     hero_img = f"<div class=essay-hero-media><img src='{e(x['hero'])}' alt='{e(x['title'])}' width='1456' height='816'></div>" if x.get("hero") else ""
     h1_class = " class=sr-only" if x.get("hero") else ""
@@ -414,12 +423,19 @@ for x in ES:
         corr_html = f"<div class=callout>{e(corr)}</div>"
     else:
         corr_html = ""
-    page(efn(x), f"{x['title']} | Stillprice Essays", x["dek"],
+    page_title = x.get("html_title") or f"{x['title']} | Stillprice Essays"
+    page_desc = x.get("description") or x["dek"]
+    if x.get("footer_html"):
+        footer = x["footer_html"]
+    else:
+        footer = (f"<div class=callout><b>Prices checked {e(x['checked'])}</b> on official pricing pages, monthly billing. Prices change, so check the linked pages for the latest date. <b>Conflict:</b> {e(x['conflict'])} See our <a href='principles.html'>principles</a> and <a href='disclosure.html'>disclosure</a>.</div>")
+    afterword = x.get("afterword") or ""
+    substack_line = f"<p class=muted>First sent as an email. <a href='{x['substack']}' rel='noopener'>Read it on Substack</a>.</p>" if x.get("substack") else ""
+    page(efn(x), page_title, page_desc,
       f"{hero_img}{wrap_open}<p class=eyebrow>( {e(x['kind'])} · {e(x['date'])} )</p><h1{h1_class}>{e(x['title'])}</h1><p class=lead>{e(x['thesis'])}</p><p class=muted>{e(x['dek'])}</p>{wrap_close}{HERO_END}"
       f"<p class=crumb><a href='essays.html'>Essays</a> / {e(x['title'])}</p>{corr_html}{secs}"
       f"<h2>The numbers behind this essay</h2><ul>{rel}</ul>"
-      f"<div class=callout><b>Prices checked {e(x['checked'])}</b> on official pricing pages, monthly billing. Prices change, so check the linked pages for the latest date. <b>Conflict:</b> {e(x['conflict'])} See our <a href='principles.html'>principles</a> and <a href='disclosure.html'>disclosure</a>.</div>"
-      f"<p class=muted>First sent as an email. <a href='{x['substack']}' rel='noopener'>Read it on Substack</a>.</p>{NEWS}",
+      f"{footer}{afterword}{substack_line}{NEWS}",
       head=ld({"@context": "https://schema.org", "@type": "Article", "headline": x["title"], "datePublished": x["iso"], "publisher": {"@type": "Organization", "name": "Stillprice"}, "url": S["base_url"] + "/" + efn(x)[:-5]}),
       og_image=essay_og)
 ess_list = "".join(f"<a class=card href='{efn(x)}'><span class=idx>{e(x['kind'])} · {e(x['date'])}</span><span class=go>→</span><b>{e(x['title'])}</b><p class=muted>{e(x["thesis"])}</p></a>" for x in ES)
@@ -450,6 +466,7 @@ page("principles.html", "Our Principles: How Stillprice Shows the Real Cost of S
 
 # ---- price moves (real changes and vendor replies, from the changelog in data/apps.json)
 MOVES = [
+ dict(date="2026-11-19", app="Chatty", kind="Price change", src=("Chatty on Shopify App Store", "https://apps.shopify.com/chatty"), cl="2026-11-19", title="Chatty changed", items=None),
  dict(date="2026-11-15", app="Richpanel", kind="Price change", src=("Richpanel pricing page", "https://www.richpanel.com/pricing"), cl="2026-11-15", title="Weekly re-check: Richpanel", items=None),
  dict(date="2026-11-15", app="HubSpot Service Hub", kind="Price change", src=("HubSpot pricing page (monthly)", "https://www.hubspot.com/pricing/?term=monthly"), cl="2026-11-15", title="Weekly re-check: HubSpot", items=None),
  dict(date="2026-11-09", app="Gorgias", kind="Methodology correction", src=("Gorgias pricing page", "https://www.gorgias.com/pricing"), cl="2026-11-09", title="Methodology correction", items=None),
@@ -477,7 +494,7 @@ page("methodology.html", "How We Calculate Shopify AI App Costs | Stillprice", "
 <li>Each app shows the date we checked it and links the source. If a number isn't published, we say <b>"Not public / check site"</b> instead of guessing.</li><li>We re-check weekly and log changes on the <a href="changelog.html">change log</a>.</li></ul></div>
 <div class=box><h2 style="margin-top:0">Support apps: store sizes</h2>{sizes_html}<p>For support apps we size stores by <b>support conversations per month</b>, not orders, because conversations are what these apps bill. Seats are the number of human agents paying for a seat.</p></div>
 <div class=box><h2 style="margin-top:0">Assumptions</h2><ul><li><b>AI resolves {int(RATE*100)}% of conversations.</b> Vendors advertise 50–75%+; your rate may be higher or lower, and the cost scales with it.</li>
-<li><b>Per-resolution apps</b> (Zendesk, Intercom Fin, HubSpot, Re:amaze, Siena) are charged for the resolved {int(RATE*100)}%.</li><li><b>Per-interaction apps</b> (Gorgias): Gorgias plans come with a block of automated interactions. Each one past the block costs $1.50. We count the resolved {int(RATE*100)}% as interactions.</li><li><b>Per-conversation, per-session or per-reply apps</b> (Tidio Lyro, Chatty, Richpanel, Freshdesk, Zipchat) are charged for every conversation the AI touches, which we assume is all of them.</li>
+<li><b>Per-resolution apps</b> (Zendesk, Intercom Fin, HubSpot, Re:amaze, Siena) are charged for the resolved {int(RATE*100)}%.</li><li><b>Per-interaction apps</b> (Gorgias): Gorgias plans come with a block of automated interactions. Each one past the block costs $1.50. We count the resolved {int(RATE*100)}% as interactions.</li><li><b>Per-conversation, per-session or per-reply apps</b> (Tidio Lyro, Richpanel, Freshdesk, Zipchat) are charged for every conversation the AI touches, which we assume is all of them.</li><li><b>Chatty</b> plans include an AI conversation allowance. Extra AI replies are $0.075 each, up to a monthly cap you set. Chatty does not publish replies per conversation, so we do not publish a sample-store bill.</li>
 <li>Included allowances (e.g. 5 resolutions per agent, 3,000 HubSpot credits) are subtracted first.</li><li>We use <b>monthly-billing</b> prices where published; where only annual prices are public we say so. We pick the cheapest published plan that fits the size.</li>
 <li>Excluded: taxes, SMS/voice/WhatsApp fees, optional add-ons (Copilot etc.), one-time fees (shown separately) and negotiated discounts.</li></ul></div>
 <div class=box id=search><h2 style="margin-top:0">Search & recommendation apps: store sizes</h2>{ssizes_html}<p>These apps bill on different things, so each store size is described by every unit a vendor bills on: <b>active products</b> (Searchanise), <b>monthly sessions</b>, meaning all store visits (Fast Simon), <b>search requests</b> (Doofinder, Algolia), <b>orders per month</b> (Wiser, LimeSpot Turbo, Rebuy) and <b>monthly online revenue/GMV</b> (Boost, LimeSpot Max, Nosto).</p>

@@ -80,11 +80,12 @@ def siena(p, conv, seats, ai):
         math=[f"Platform fee {m(p['platform'])}", f"Automated tickets: {ai:,} × {m(p['unit'])} = {m(u)}", f"Total {m(p['platform']+u)}/mo + support/implementation (not public)"])
 
 def chatty(p, conv, seats, ai):
-    opts = []
-    for name, price, cap in p["plans"]:
-        ex = max(0, conv - cap); t = price + ex * p["unit"]
-        opts.append(dict(total=t, plan=name, math=[f"{name} {m(price)} includes {cap:,} AI conversations; {ex:,} extra × {m(p['unit'])} = {m(ex*p['unit'])} → {m(t)}"]))
-    o = cheapest(opts); o["math"].append(f"Cheapest plan at this size: {o['plan']}, for {m(o['total'])}/mo in total"); return o
+    return dict(total=None, plan="Not public",
+        math=[
+            "Plans include an AI conversation allowance: Basic 100, Pro 500, Plus 1,000.",
+            "Extra AI replies are $0.075 each, up to a monthly cap you set.",
+            "The bill depends on replies per conversation, which Chatty does not publish. Not public, check site.",
+        ])
 
 def helpcenter(p, conv, seats, ai):
     opts = []

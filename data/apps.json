@@ -2,7 +2,7 @@
   "site": {
     "name": "Stillprice",
     "base_url": "https://stillprice.com",
-    "updated": "2026-11-16",
+    "updated": "2026-11-19",
     "contact": "alinkewu@gmail.com",
     "sizes": [
       {
@@ -105,14 +105,14 @@
       "site_url": "https://www.gorgias.com/",
       "shopify_url": "https://apps.shopify.com/helpdesk",
       "unconfirmed": [],
-      "notes": "Our estimates use Gorgias's monthly plan cards with AI Agent added (Starter $40, Basic $90, Pro $550, Advanced $1,430) and $1.50 per interaction past the included allowance. On annual billing, the same cards are Basic $77, Pro $471 and Advanced $1,227. Check your quote on gorgias.com.",
+      "notes": "Our estimates use Gorgias's monthly plan cards with AI Agent added (Starter $40, Basic $90, Pro $550, Advanced $1,430) and $1.50 per interaction past the included allowance. On annual billing, the same cards are Basic $77, Pro $471 and Advanced $1,227. Check your quote on gorgias.com. The plan card tooltip still says $1.50 per automated interaction past the limit. The comparison table lists $1.00, $0.90, $0.90 and $0.85 on Starter, Basic, Pro and Advanced. We use the card's overage rate.",
       "sources": [
         [
           "Gorgias pricing page",
           "https://www.gorgias.com/pricing"
         ]
       ],
-      "checked": "2026-11-16",
+      "checked": "2026-11-19",
       "affiliate_url": "https://partner.gorgias.com/7bk6ikez45x3",
       "ai_short": "$1.50 per automated interaction past the plan's included AI Agent block. The block is priced at $1.00 each on monthly contracts ($0.90 annual). Each interaction also counts as a ticket."
     },
@@ -705,8 +705,8 @@
       "name": "Chatty AI Chatbot & Live Chat",
       "type": "AI chatbot + live chat",
       "model": "chatty",
-      "summary": "Shopify-native AI chatbot and live chat priced by AI conversations, with unlimited human conversations.",
-      "ai_billing": "Per AI conversation: plans include an allowance, and extra conversations cost $0.40 each.",
+      "summary": "Shopify-native AI chatbot and live chat. Plans include an AI conversation allowance. Extra AI replies are $0.075 each, up to a monthly cap you set.",
+      "ai_billing": "Plans include an AI conversation allowance, and extra AI replies cost $0.075 each, up to a monthly cap you set. Chatty does not publish how many replies a conversation uses, so we cannot turn the meter into a sample-store bill.",
       "plans": [
         {
           "name": "Free",
@@ -751,23 +751,26 @@
             1000
           ]
         ],
-        "unit": 0.4
+        "reply_unit": 0.075
       },
       "free_alt": "Shopify Inbox's free AI agent overlaps for basic product Q&A.",
       "pricing_url": "https://apps.shopify.com/chatty",
       "site_url": "https://apps.shopify.com/chatty",
       "shopify_url": "https://apps.shopify.com/chatty",
-      "unconfirmed": [],
-      "notes": "The annual prices are the yearly price divided by 12 ($203.88, $707.88 and $2,039.88 per year).",
+      "unconfirmed": [
+        "How many AI replies a conversation uses",
+        "The monthly cap you set"
+      ],
+      "notes": "The annual prices are the yearly price divided by 12 ($203.88, $707.88 and $2,039.88 per year). Extra usage is $0.075 per AI reply over the plan, up to a monthly cap you set. Because Chatty does not publish replies per conversation, sample-store estimates are not public.",
       "sources": [
         [
           "Chatty on Shopify App Store",
           "https://apps.shopify.com/chatty"
         ]
       ],
-      "checked": "2026-11-16",
+      "checked": "2026-11-19",
       "affiliate_url": null,
-      "ai_short": "Per AI conversation (plan allowances; $0.40 extra)"
+      "ai_short": "$0.075 per AI reply over the plan, up to a monthly cap you set"
     },
     {
       "slug": "helpcenter",
@@ -929,6 +932,13 @@
     }
   ],
   "changelog": [
+    {
+      "date": "2026-11-19",
+      "title": "Chatty changed its overage meter from conversations to AI replies",
+      "items": [
+        "Chatty's Shopify App Store listing now prices extra usage at $0.075 per AI reply over the plan, up to a monthly cap you set. Plan prices are unchanged: Basic $19.99 with 100 AI conversations a month, Pro $68.99 with 500, and Plus $199 with 1,000. We previously listed extra AI conversations at $0.40 each. Chatty does not publish how many replies a conversation uses, so we no longer publish a sample-store bill. Source: https://apps.shopify.com/chatty, 19 Nov 2026. The new wording was already in our 16 Nov capture; the 16 Nov weekly check missed it."
+      ]
+    },
     {
       "date": "2026-11-16",
       "title": "Weekly re-check: no price changes since 15 Nov",
